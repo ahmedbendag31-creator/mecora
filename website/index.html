@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <meta name="theme-color" content="#0b0f14">
+
     <title>MECORA — AI Assistant</title>
 
     <style>
@@ -12,22 +16,42 @@
             padding: 0;
         }
 
+        html,
         body {
-            font-family: Arial, sans-serif;
-            background: #0b0f14;
-            color: white;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             overflow: hidden;
         }
 
-        .app {
-            display: flex;
-            height: 100vh;
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0b0f14;
+            color: white;
         }
 
-        /* SIDEBAR */
+        button,
+        textarea {
+            font-family: inherit;
+        }
+
+        /* =========================
+           APP
+        ========================= */
+
+        .app {
+            width: 100%;
+            height: 100dvh;
+            display: flex;
+        }
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
         .sidebar {
             width: 250px;
+            height: 100%;
+            flex-shrink: 0;
             background: #11161d;
             border-right: 1px solid #252c35;
             padding: 20px;
@@ -51,6 +75,7 @@
             align-items: center;
             justify-content: center;
             font-size: 23px;
+            flex-shrink: 0;
         }
 
         .logo-text {
@@ -60,8 +85,9 @@
         }
 
         .new-chat {
+            width: 100%;
             border: none;
-            background: #ffffff;
+            background: white;
             color: #111;
             padding: 13px;
             border-radius: 10px;
@@ -71,7 +97,7 @@
         }
 
         .new-chat:hover {
-            background: #dddddd;
+            background: #ddd;
         }
 
         .menu-title {
@@ -104,16 +130,26 @@
             color: #cbd1d8;
         }
 
-        /* MAIN */
+        /* =========================
+           MAIN
+        ========================= */
+
         .main {
             flex: 1;
+            min-width: 0;
+            height: 100%;
             display: flex;
             flex-direction: column;
-            min-width: 0;
+            position: relative;
         }
+
+        /* =========================
+           TOP BAR
+        ========================= */
 
         .topbar {
             height: 65px;
+            min-height: 65px;
             border-bottom: 1px solid #252c35;
             display: flex;
             align-items: center;
@@ -130,29 +166,48 @@
             font-size: 13px;
         }
 
+        /* =========================
+           CHAT
+        ========================= */
+
         .chat {
             flex: 1;
             overflow-y: auto;
-            padding: 40px 20px 120px;
+            overflow-x: hidden;
+            padding: 30px 20px 150px;
+            -webkit-overflow-scrolling: touch;
         }
 
+        .chat::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat::-webkit-scrollbar-thumb {
+            background: #303944;
+            border-radius: 10px;
+        }
+
+        /* =========================
+           WELCOME
+        ========================= */
+
         .welcome {
+            width: 100%;
             max-width: 750px;
-            margin: 60px auto;
+            margin: 50px auto;
             text-align: center;
         }
 
         .welcome-logo {
             width: 80px;
             height: 80px;
-            margin: auto;
+            margin: 0 auto 25px;
             background: #171e27;
             border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 42px;
-            margin-bottom: 25px;
         }
 
         .welcome h1 {
@@ -180,14 +235,20 @@
             text-align: left;
             cursor: pointer;
             color: #dce1e7;
+            transition: 0.2s;
         }
 
         .prompt:hover {
             background: #171e27;
+            transform: translateY(-1px);
         }
 
-        /* MESSAGES */
+        /* =========================
+           MESSAGES
+        ========================= */
+
         .message {
+            width: 100%;
             max-width: 800px;
             margin: 0 auto 25px;
             display: flex;
@@ -197,50 +258,66 @@
         .avatar {
             width: 35px;
             height: 35px;
+            min-width: 35px;
             border-radius: 10px;
             background: #1d2630;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .message-content {
-            line-height: 1.6;
-            white-space: pre-wrap;
-            padding-top: 5px;
         }
 
         .user .avatar {
-            background: #ffffff;
+            background: white;
             color: #111;
         }
 
-        /* COMPOSER */
+        .message-content {
+            min-width: 0;
+            max-width: calc(100% - 50px);
+            line-height: 1.6;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            padding-top: 5px;
+        }
+
+        /* =========================
+           COMPOSER
+        ========================= */
+
         .composer-wrapper {
-            position: fixed;
-            bottom: 0;
-            left: 250px;
+            position: absolute;
+            left: 0;
             right: 0;
+            bottom: 0;
             padding: 20px;
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
             background: linear-gradient(
                 transparent,
-                #0b0f14 30%
+                #0b0f14 35%
             );
+            pointer-events: none;
+        }
+
+        .composer,
+        .typing {
+            pointer-events: auto;
         }
 
         .composer {
+            width: 100%;
             max-width: 800px;
             margin: auto;
             background: #151b23;
             border: 1px solid #303944;
             border-radius: 14px;
             display: flex;
+            align-items: flex-end;
             padding: 8px;
         }
 
         .composer textarea {
             flex: 1;
+            min-width: 0;
             resize: none;
             background: transparent;
             border: none;
@@ -248,49 +325,221 @@
             color: white;
             padding: 12px;
             font-size: 15px;
+            line-height: 20px;
             height: 45px;
+            max-height: 120px;
+        }
+
+        .composer textarea::placeholder {
+            color: #737d89;
         }
 
         .send {
             width: 45px;
+            height: 45px;
+            min-width: 45px;
             border: none;
             border-radius: 10px;
             background: white;
+            color: #111;
             cursor: pointer;
             font-size: 18px;
         }
 
         .send:hover {
-            background: #dddddd;
+            background: #ddd;
         }
 
         .typing {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 10px;
             color: #7e8995;
             font-size: 13px;
-            margin-left: 47px;
-            margin-bottom: 15px;
+            padding-left: 5px;
         }
 
-        /* MOBILE */
+        /* =========================
+           TABLET
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 210px;
+                padding: 15px;
+            }
+
+            .composer-wrapper {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .welcome h1 {
+                font-size: 32px;
+            }
+        }
+
+        /* =========================
+           PHONE
+        ========================= */
+
         @media (max-width: 700px) {
+
+            html,
+            body {
+                height: 100dvh;
+            }
+
+            .app {
+                height: 100dvh;
+            }
+
+            /* Hide desktop sidebar */
             .sidebar {
                 display: none;
             }
 
-            .composer-wrapper {
-                left: 0;
+            .main {
+                width: 100%;
+                height: 100%;
+            }
+
+            .topbar {
+                height: 56px;
+                min-height: 56px;
+                padding: 0 15px;
+            }
+
+            .top-title {
+                font-size: 15px;
+            }
+
+            .status {
+                font-size: 11px;
+            }
+
+            .chat {
+                padding: 20px 14px 135px;
+            }
+
+            .welcome {
+                margin: 25px auto 40px;
+                padding: 0 5px;
+            }
+
+            .welcome-logo {
+                width: 68px;
+                height: 68px;
+                border-radius: 20px;
+                font-size: 35px;
+                margin-bottom: 20px;
+            }
+
+            .welcome h1 {
+                font-size: 27px;
+                line-height: 1.2;
+            }
+
+            .welcome p {
+                font-size: 14px;
+                line-height: 1.5;
             }
 
             .prompts {
                 grid-template-columns: 1fr;
+                gap: 9px;
+                margin-top: 25px;
             }
 
-            .welcome h1 {
-                font-size: 30px;
+            .prompt {
+                padding: 14px;
+                font-size: 14px;
+            }
+
+            .message {
+                gap: 9px;
+                margin-bottom: 20px;
+            }
+
+            .avatar {
+                width: 32px;
+                height: 32px;
+                min-width: 32px;
+                font-size: 14px;
+            }
+
+            .message-content {
+                max-width: calc(100% - 41px);
+                font-size: 14px;
+                line-height: 1.55;
+            }
+
+            .composer-wrapper {
+                padding: 10px 10px;
+                padding-bottom: max(10px, env(safe-area-inset-bottom));
+            }
+
+            .composer {
+                border-radius: 13px;
+                padding: 6px;
+            }
+
+            .composer textarea {
+                font-size: 15px;
+                padding: 11px 9px;
+                height: 43px;
+            }
+
+            .send {
+                width: 42px;
+                height: 42px;
+                min-width: 42px;
+                font-size: 16px;
+            }
+
+            .typing {
+                margin-bottom: 7px;
+                font-size: 12px;
+            }
+        }
+
+        /* =========================
+           SMALL PHONES
+        ========================= */
+
+        @media (max-width: 380px) {
+
+            .topbar {
+                padding: 0 11px;
+            }
+
+            .status {
+                font-size: 10px;
             }
 
             .chat {
-                padding-top: 20px;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .welcome h1 {
+                font-size: 24px;
+            }
+
+            .welcome-logo {
+                width: 60px;
+                height: 60px;
+                font-size: 31px;
+            }
+
+            .prompt {
+                padding: 12px;
+            }
+
+            .composer-wrapper {
+                padding-left: 7px;
+                padding-right: 7px;
             }
         }
     </style>
@@ -334,6 +583,7 @@
 
     </aside>
 
+
     <!-- MAIN -->
     <main class="main">
 
@@ -342,6 +592,8 @@
             <div class="status">● MECORA online</div>
         </header>
 
+
+        <!-- CHAT -->
         <div class="chat" id="chat">
 
             <div class="welcome" id="welcome">
@@ -384,6 +636,8 @@
 
         </div>
 
+
+        <!-- COMPOSER -->
         <div class="composer-wrapper">
 
             <div class="typing" id="typing" style="display:none;">
@@ -395,10 +649,14 @@
                 <textarea
                     id="message"
                     placeholder="Message MECORA..."
+                    rows="1"
                     onkeydown="handleKey(event)"
                 ></textarea>
 
-                <button class="send" onclick="sendMessage()">
+                <button
+                    class="send"
+                    onclick="sendMessage()"
+                    aria-label="Send message">
                     ➤
                 </button>
 
@@ -419,9 +677,16 @@ const typing = document.getElementById("typing");
 const welcome = document.getElementById("welcome");
 
 
+/* ENTER = SEND
+   SHIFT + ENTER = NEW LINE */
+
 function handleKey(event) {
 
-    if (event.key === "Enter" && !event.shiftKey) {
+    if (
+        event.key === "Enter" &&
+        !event.shiftKey &&
+        window.innerWidth > 500
+    ) {
 
         event.preventDefault();
 
@@ -432,14 +697,32 @@ function handleKey(event) {
 }
 
 
+/* MOBILE TEXTAREA */
+
+messageInput.addEventListener("input", function () {
+
+    this.style.height = "auto";
+
+    this.style.height =
+        Math.min(this.scrollHeight, 120) + "px";
+
+});
+
+
+/* PROMPT BUTTON */
+
 function usePrompt(text) {
 
     messageInput.value = text;
+
+    messageInput.dispatchEvent(new Event("input"));
 
     sendMessage();
 
 }
 
+
+/* ADD MESSAGE */
 
 function addMessage(type, text) {
 
@@ -451,11 +734,17 @@ function addMessage(type, text) {
 
     avatar.className = "avatar";
 
-    avatar.textContent = type === "user" ? "👤" : "🤖";
+    avatar.textContent =
+        type === "user" ? "👤" : "🤖";
 
     const content = document.createElement("div");
 
     content.className = "message-content";
+
+    /*
+        textContent is intentional.
+        It prevents HTML/JavaScript injection.
+    */
 
     content.textContent = text;
 
@@ -465,10 +754,16 @@ function addMessage(type, text) {
 
     chat.appendChild(message);
 
-    chat.scrollTop = chat.scrollHeight;
+    setTimeout(() => {
+
+        chat.scrollTop = chat.scrollHeight;
+
+    }, 50);
 
 }
 
+
+/* SEND MESSAGE */
 
 async function sendMessage() {
 
@@ -482,7 +777,12 @@ async function sendMessage() {
 
     messageInput.value = "";
 
+    messageInput.style.height = "45px";
+
     typing.style.display = "block";
+
+    chat.scrollTop = chat.scrollHeight;
+
 
     try {
 
@@ -500,24 +800,33 @@ async function sendMessage() {
 
         });
 
+
         if (!response.ok) {
 
-            throw new Error("Server error");
+            throw new Error(
+                "Server returned " + response.status
+            );
 
         }
 
+
         const data = await response.json();
+
 
         typing.style.display = "none";
 
+
         addMessage(
             "ai",
-            data.answer || "I couldn't generate a response."
+            data.answer ||
+            "I couldn't generate a response."
         );
 
     }
 
     catch (error) {
+
+        console.error(error);
 
         typing.style.display = "none";
 
@@ -526,12 +835,12 @@ async function sendMessage() {
             "Connection error. Please try again."
         );
 
-        console.error(error);
-
     }
 
 }
 
+
+/* NEW CHAT */
 
 function newChat() {
 
@@ -542,6 +851,10 @@ function newChat() {
     welcome.style.display = "block";
 
     typing.style.display = "none";
+
+    messageInput.value = "";
+
+    messageInput.style.height = "45px";
 
 }
 
