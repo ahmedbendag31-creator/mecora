@@ -1,157 +1,541 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>MECORA</title>
+    <title>MECORA — Engineering AI Assistant</title>
 
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
         }
 
         body {
-            background: #0f172a;
-            color: white;
+            font-family: Inter, Arial, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 35%),
+                radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.12), transparent 35%),
+                #070b14;
+            color: #f8fafc;
             min-height: 100vh;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 100vh;
+            margin: auto;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+        }
+
+        /* HEADER */
+
+        header {
+            height: 76px;
+            display: flex;
             align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
         }
 
-        .container {
-            width: 90%;
-            max-width: 700px;
-            background: #1e293b;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 8px;
-            font-size: 40px;
+        .logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #2563eb, #06b6d4);
+            font-size: 21px;
+            box-shadow: 0 0 25px rgba(37,99,235,0.35);
         }
 
-        .subtitle {
-            text-align: center;
+        .brand-text h1 {
+            font-size: 20px;
+            letter-spacing: 1px;
+        }
+
+        .brand-text span {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             color: #94a3b8;
-            margin-bottom: 25px;
+            font-size: 13px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 10px #22c55e;
+        }
+
+        /* MAIN */
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 35px 20px 20px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .hero h2 {
+            font-size: clamp(30px, 6vw, 52px);
+            margin-bottom: 12px;
+            background: linear-gradient(90deg, #ffffff, #93c5fd, #67e8f9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: #94a3b8;
+            font-size: 16px;
+        }
+
+        /* CHAT */
+
+        .chat-container {
+            flex: 1;
+            width: 100%;
+            max-width: 900px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
         }
 
         #chat {
-            height: 400px;
+            flex: 1;
+            min-height: 430px;
+            max-height: 560px;
             overflow-y: auto;
-            background: #0f172a;
-            border-radius: 12px;
-            padding: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            background: rgba(15,23,42,0.65);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        #chat::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #chat::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 10px;
+        }
+
+        .welcome {
+            text-align: center;
+            padding: 55px 20px;
+            color: #64748b;
+        }
+
+        .welcome-icon {
+            font-size: 45px;
             margin-bottom: 15px;
         }
 
+        .welcome h3 {
+            color: #e2e8f0;
+            margin-bottom: 8px;
+        }
+
+        /* MESSAGES */
+
         .message {
-            margin-bottom: 15px;
-            padding: 12px;
-            border-radius: 10px;
-            line-height: 1.5;
+            display: flex;
+            margin-bottom: 18px;
+            animation: appear 0.25s ease;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-content {
+            max-width: 78%;
+            padding: 13px 16px;
+            border-radius: 16px;
+            line-height: 1.6;
+            white-space: pre-wrap;
         }
 
         .user {
-            background: #2563eb;
-            text-align: right;
+            justify-content: flex-end;
+        }
+
+        .user .message-content {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border-bottom-right-radius: 4px;
         }
 
         .ai {
-            background: #334155;
+            justify-content: flex-start;
+        }
+
+        .ai .message-content {
+            background: #172033;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-bottom-left-radius: 4px;
+        }
+
+        /* INPUT */
+
+        .input-wrapper {
+            margin-top: 15px;
+            position: relative;
         }
 
         .input-area {
             display: flex;
             gap: 10px;
+            padding: 8px;
+            border-radius: 16px;
+            background: #111827;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 35px rgba(0,0,0,0.25);
         }
 
         #message {
             flex: 1;
-            padding: 14px;
+            background: transparent;
             border: none;
-            border-radius: 10px;
             outline: none;
-            font-size: 16px;
+            color: white;
+            padding: 12px;
+            font-size: 15px;
         }
 
-        button {
-            padding: 14px 20px;
+        #message::placeholder {
+            color: #64748b;
+        }
+
+        #send {
             border: none;
-            border-radius: 10px;
-            background: #2563eb;
+            border-radius: 11px;
+            padding: 0 20px;
+            background: linear-gradient(135deg, #2563eb, #0891b2);
             color: white;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 16px;
+            transition: 0.2s;
         }
 
-        button:hover {
-            background: #1d4ed8;
+        #send:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(37,99,235,0.3);
         }
 
-        .founder {
+        #send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .tools {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            padding: 0 5px;
+            color: #475569;
+            font-size: 11px;
+        }
+
+        .clear {
+            background: none;
+            border: none;
+            color: #64748b;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .clear:hover {
+            color: #ef4444;
+        }
+
+        /* TYPING */
+
+        .typing {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .typing span {
+            width: 6px;
+            height: 6px;
+            background: #60a5fa;
+            border-radius: 50%;
+            animation: typing 1.2s infinite;
+        }
+
+        .typing span:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+        .typing span:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.4;
+            }
+
+            30% {
+                transform: translateY(-5px);
+                opacity: 1;
+            }
+        }
+
+        /* FOOTER */
+
+        footer {
             text-align: center;
-            margin-top: 25px;
-            color: #94a3b8;
-            font-size: 14px;
-            line-height: 1.6;
+            padding: 20px;
+            color: #475569;
+            font-size: 12px;
         }
 
-        .founder strong {
-            color: white;
+        footer strong {
+            color: #94a3b8;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 650px) {
+
+            header {
+                padding: 0 16px;
+            }
+
+            .status {
+                display: none;
+            }
+
+            main {
+                padding: 25px 12px 15px;
+            }
+
+            .hero h2 {
+                font-size: 32px;
+            }
+
+            #chat {
+                min-height: 430px;
+                border-radius: 15px;
+            }
+
+            .message-content {
+                max-width: 88%;
+            }
+
+            #send {
+                padding: 0 15px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="app">
 
-    <h1>🤖 MECORA</h1>
+    <header>
 
-    <p class="subtitle">
-        Your intelligent engineering assistant
-    </p>
+        <div class="brand">
 
-    <div id="chat"></div>
+            <div class="logo">
+                ⚙
+            </div>
 
-    <div class="input-area">
+            <div class="brand-text">
+                <h1>MECORA</h1>
+                <span>Engineering Intelligence</span>
+            </div>
 
-        <input
-            type="text"
-            id="message"
-            placeholder="Ask MECORA anything..."
-        >
+        </div>
 
-        <button onclick="sendMessage()">
-            Send
-        </button>
+        <div class="status">
+            <div class="status-dot"></div>
+            AI Online
+        </div>
 
-    </div>
+    </header>
 
-    <div class="founder">
-        Founded by <strong>Ahmed Bendag</strong><br>
-        Mechatronics Engineering Student
-    </div>
+
+    <main>
+
+        <div class="hero">
+
+            <h2>Think. Build. Engineer.</h2>
+
+            <p>
+                Your intelligent engineering assistant.
+            </p>
+
+        </div>
+
+
+        <div class="chat-container">
+
+            <div id="chat">
+
+                <div class="welcome">
+
+                    <div class="welcome-icon">
+                        🤖
+                    </div>
+
+                    <h3>Welcome to MECORA</h3>
+
+                    <p>
+                        Ask me about engineering, programming,
+                        mathematics, electronics, robotics and more.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="input-wrapper">
+
+                <div class="input-area">
+
+                    <input
+                        type="text"
+                        id="message"
+                        placeholder="Ask MECORA anything..."
+                        autocomplete="off"
+                    >
+
+                    <button id="send" onclick="sendMessage()">
+                        Send
+                    </button>
+
+                </div>
+
+                <div class="tools">
+
+                    <span>
+                        Enter to send • Shift + Enter for new line
+                    </span>
+
+                    <button class="clear" onclick="clearChat()">
+                        Clear chat
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+
+        MECORA © 2026 · Founded by
+        <strong>Ahmed Bendag</strong>
+        · Mechatronics Engineering Student
+
+    </footer>
 
 </div>
 
 
 <script>
 
-async function sendMessage() {
+const input = document.getElementById("message");
+const chat = document.getElementById("chat");
+const sendButton = document.getElementById("send");
 
-    const input = document.getElementById("message");
-    const chat = document.getElementById("chat");
+
+function addMessage(text, type) {
+
+    const message = document.createElement("div");
+
+    message.className = `message ${type}`;
+
+    const content = document.createElement("div");
+
+    content.className = "message-content";
+
+    content.textContent = text;
+
+    message.appendChild(content);
+
+    chat.appendChild(message);
+
+    chat.scrollTop = chat.scrollHeight;
+
+    return message;
+}
+
+
+function addTyping() {
+
+    const message = document.createElement("div");
+
+    message.className = "message ai";
+
+    const content = document.createElement("div");
+
+    content.className = "message-content";
+
+    content.innerHTML = `
+        <div class="typing">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    `;
+
+    message.appendChild(content);
+
+    chat.appendChild(message);
+
+    chat.scrollTop = chat.scrollHeight;
+
+    return message;
+}
+
+
+async function sendMessage() {
 
     const message = input.value.trim();
 
@@ -159,24 +543,13 @@ async function sendMessage() {
         return;
     }
 
-    // Show user's message
-    chat.innerHTML += `
-        <div class="message user">
-            ${message}
-        </div>
-    `;
+    addMessage(message, "user");
 
     input.value = "";
 
-    // Show loading message
-    const loading = document.createElement("div");
+    sendButton.disabled = true;
 
-    loading.className = "message ai";
-    loading.textContent = "MECORA is thinking...";
-
-    chat.appendChild(loading);
-
-    chat.scrollTop = chat.scrollHeight;
+    const typing = addTyping();
 
     try {
 
@@ -194,34 +567,81 @@ async function sendMessage() {
 
         });
 
+
         const data = await response.json();
 
-        loading.textContent = data.answer;
+        typing.remove();
+
+        if (response.ok) {
+
+            addMessage(
+                data.answer || "MECORA could not generate a response.",
+                "ai"
+            );
+
+        } else {
+
+            addMessage(
+                data.answer || "MECORA encountered an error.",
+                "ai"
+            );
+
+        }
 
     } catch (error) {
 
-        loading.textContent =
-            "Sorry, MECORA encountered an error.";
+        typing.remove();
+
+        addMessage(
+            "Connection error. Please try again.",
+            "ai"
+        );
 
         console.error(error);
 
     }
 
-    chat.scrollTop = chat.scrollHeight;
+    sendButton.disabled = false;
+
+    input.focus();
 }
 
 
-// Press Enter to send
-document.getElementById("message").addEventListener(
-    "keypress",
-    function(event) {
+function clearChat() {
 
-        if (event.key === "Enter") {
-            sendMessage();
-        }
+    chat.innerHTML = `
+        <div class="welcome">
+
+            <div class="welcome-icon">
+                🤖
+            </div>
+
+            <h3>Welcome to MECORA</h3>
+
+            <p>
+                Ask me about engineering, programming,
+                mathematics, electronics, robotics and more.
+            </p>
+
+        </div>
+    `;
+}
+
+
+input.addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter" && !event.shiftKey) {
+
+        event.preventDefault();
+
+        sendMessage();
 
     }
-);
+
+});
+
+
+input.focus();
 
 </script>
 
