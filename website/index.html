@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>MECORA — Engineering Intelligence</title>
+    <title>MECORA — AI Assistant</title>
 
     <style>
         * {
@@ -13,28 +12,13 @@
             padding: 0;
         }
 
-        :root {
-            --bg: #0b0d10;
-            --sidebar: #101318;
-            --panel: #14181e;
-            --panel-light: #191e25;
-            --border: #272d35;
-            --text: #f2f4f7;
-            --muted: #8b939f;
-            --accent: #5b9cff;
-            --accent-soft: rgba(91,156,255,.12);
-        }
-
         body {
-            font-family: Inter, -apple-system, BlinkMacSystemFont,
-                         "Segoe UI", sans-serif;
-            background: var(--bg);
-            color: var(--text);
+            font-family: Arial, sans-serif;
+            background: #0b0f14;
+            color: white;
             height: 100vh;
             overflow: hidden;
         }
-
-        /* APP */
 
         .app {
             display: flex;
@@ -42,426 +26,271 @@
         }
 
         /* SIDEBAR */
-
         .sidebar {
-            width: 260px;
-            background: var(--sidebar);
-            border-right: 1px solid var(--border);
+            width: 250px;
+            background: #11161d;
+            border-right: 1px solid #252c35;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            padding: 18px;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 11px;
-            margin-bottom: 25px;
         }
 
         .logo {
-            width: 38px;
-            height: 38px;
-            border-radius: 11px;
-            background: linear-gradient(135deg, #5b9cff, #7d5cff);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: #1d2630;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 800;
-            font-size: 17px;
-            box-shadow: 0 5px 20px rgba(91,156,255,.18);
+            font-size: 23px;
         }
 
-        .brand-name {
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: -.3px;
-        }
-
-        .brand-sub {
-            font-size: 10px;
-            color: var(--muted);
-            margin-top: 2px;
+        .logo-text {
+            font-size: 21px;
+            font-weight: bold;
+            letter-spacing: 1px;
         }
 
         .new-chat {
-            border: 1px solid var(--border);
-            background: var(--panel);
-            color: var(--text);
-            border-radius: 9px;
-            padding: 11px 13px;
+            border: none;
+            background: #ffffff;
+            color: #111;
+            padding: 13px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 13px;
-            text-align: left;
-            transition: .2s;
+            font-weight: bold;
+            margin-bottom: 25px;
         }
 
         .new-chat:hover {
-            background: var(--panel-light);
-            border-color: #39414c;
+            background: #dddddd;
         }
 
-        .section-title {
-            color: #69727e;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin: 27px 5px 9px;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            border-radius: 8px;
-            color: #aeb5bf;
-            font-size: 13px;
-            cursor: pointer;
-            margin-bottom: 2px;
-        }
-
-        .nav-item:hover,
-        .nav-item.active {
-            background: var(--accent-soft);
-            color: #dce9ff;
-        }
-
-        .history {
-            color: #7e8793;
+        .menu-title {
+            color: #7f8995;
             font-size: 12px;
-            padding: 8px 10px;
-            border-radius: 7px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
         }
 
-        .history:hover {
-            background: #171b21;
-            color: #c8cdd4;
+        .menu-item {
+            padding: 11px;
+            border-radius: 8px;
+            color: #c8ced6;
+            margin-bottom: 5px;
         }
 
-        .sidebar-bottom {
-            margin-top: auto;
-            border-top: 1px solid var(--border);
-            padding-top: 15px;
+        .menu-item.active {
+            background: #1d2630;
+            color: white;
         }
 
         .founder {
-            font-size: 11px;
-            color: #69727e;
-            line-height: 1.6;
+            margin-top: auto;
+            color: #747d88;
+            font-size: 12px;
+            line-height: 1.5;
         }
 
         .founder strong {
-            color: #aeb5bf;
-            font-weight: 500;
+            color: #cbd1d8;
         }
 
         /* MAIN */
-
         .main {
             flex: 1;
-            min-width: 0;
             display: flex;
             flex-direction: column;
+            min-width: 0;
         }
 
         .topbar {
-            height: 64px;
-            border-bottom: 1px solid var(--border);
+            height: 65px;
+            border-bottom: 1px solid #252c35;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 28px;
-            background: rgba(11,13,16,.9);
+            padding: 0 25px;
         }
 
         .top-title {
-            font-size: 14px;
-            font-weight: 600;
+            font-weight: bold;
         }
 
         .status {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            font-size: 11px;
-            color: var(--muted);
+            color: #65d98a;
+            font-size: 13px;
         }
 
-        .status-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: #45d483;
-            box-shadow: 0 0 8px rgba(69,212,131,.45);
-        }
-
-        /* CHAT */
-
-        .chat-container {
+        .chat {
             flex: 1;
             overflow-y: auto;
-            padding: 45px 20px 160px;
+            padding: 40px 20px 120px;
         }
-
-        .chat-inner {
-            max-width: 850px;
-            margin: auto;
-        }
-
-        /* WELCOME */
 
         .welcome {
+            max-width: 750px;
+            margin: 60px auto;
             text-align: center;
-            padding-top: 55px;
         }
 
         .welcome-logo {
-            width: 64px;
-            height: 64px;
-            border-radius: 18px;
+            width: 80px;
+            height: 80px;
             margin: auto;
-            background: linear-gradient(135deg, #5b9cff, #7d5cff);
+            background: #171e27;
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 25px;
-            font-weight: 800;
-            box-shadow: 0 12px 40px rgba(91,156,255,.15);
+            font-size: 42px;
+            margin-bottom: 25px;
         }
 
         .welcome h1 {
-            margin-top: 23px;
-            font-size: 32px;
-            letter-spacing: -1px;
+            font-size: 38px;
+            margin-bottom: 12px;
         }
 
         .welcome p {
-            margin-top: 10px;
-            color: var(--muted);
-            font-size: 14px;
+            color: #8c96a3;
+            font-size: 16px;
         }
 
-        .cards {
-            margin-top: 38px;
+        .prompts {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            gap: 12px;
+            margin-top: 35px;
         }
 
-        .card {
-            background: #11151a;
-            border: 1px solid var(--border);
-            border-radius: 11px;
-            padding: 17px;
+        .prompt {
+            border: 1px solid #29313b;
+            background: #11161d;
+            border-radius: 12px;
+            padding: 18px;
             text-align: left;
             cursor: pointer;
-            transition: .2s;
+            color: #dce1e7;
         }
 
-        .card:hover {
-            background: #171c22;
-            border-color: #39414c;
-            transform: translateY(-1px);
-        }
-
-        .card-title {
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .card-text {
-            color: #737c88;
-            font-size: 11px;
-            margin-top: 6px;
+        .prompt:hover {
+            background: #171e27;
         }
 
         /* MESSAGES */
-
         .message {
+            max-width: 800px;
+            margin: 0 auto 25px;
             display: flex;
-            gap: 13px;
-            margin-bottom: 27px;
-            line-height: 1.65;
-            font-size: 14px;
+            gap: 12px;
         }
 
         .avatar {
-            flex-shrink: 0;
-            width: 31px;
-            height: 31px;
-            border-radius: 9px;
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
+            background: #1d2630;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
-            font-weight: 700;
-        }
-
-        .avatar.ai {
-            background: linear-gradient(135deg, #5b9cff, #7d5cff);
-        }
-
-        .avatar.user {
-            background: #272c33;
-            color: #bfc5ce;
+            flex-shrink: 0;
         }
 
         .message-content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .message-name {
-            font-size: 11px;
-            color: #78818d;
-            margin-bottom: 4px;
-        }
-
-        .message-text {
+            line-height: 1.6;
             white-space: pre-wrap;
-            overflow-wrap: anywhere;
+            padding-top: 5px;
+        }
+
+        .user .avatar {
+            background: #ffffff;
+            color: #111;
         }
 
         /* COMPOSER */
-
-        .composer-area {
+        .composer-wrapper {
             position: fixed;
             bottom: 0;
-            left: 260px;
+            left: 250px;
             right: 0;
-            padding: 18px 20px 22px;
+            padding: 20px;
             background: linear-gradient(
                 transparent,
-                var(--bg) 25%
+                #0b0f14 30%
             );
         }
 
         .composer {
-            max-width: 850px;
+            max-width: 800px;
             margin: auto;
-            background: #15191f;
-            border: 1px solid #303740;
+            background: #151b23;
+            border: 1px solid #303944;
             border-radius: 14px;
-            padding: 8px 9px 8px 15px;
             display: flex;
-            align-items: flex-end;
-            box-shadow: 0 15px 45px rgba(0,0,0,.3);
+            padding: 8px;
         }
 
-        textarea {
+        .composer textarea {
             flex: 1;
             resize: none;
+            background: transparent;
             border: none;
             outline: none;
-            background: transparent;
-            color: var(--text);
-            font-family: inherit;
-            font-size: 14px;
-            padding: 9px 4px;
-            max-height: 130px;
-        }
-
-        textarea::placeholder {
-            color: #69727e;
+            color: white;
+            padding: 12px;
+            font-size: 15px;
+            height: 45px;
         }
 
         .send {
-            width: 37px;
-            height: 37px;
-            border-radius: 9px;
+            width: 45px;
             border: none;
-            background: #e9edf3;
-            color: #111318;
+            border-radius: 10px;
+            background: white;
             cursor: pointer;
-            font-weight: 700;
-            transition: .2s;
+            font-size: 18px;
         }
 
         .send:hover {
-            background: white;
-            transform: translateY(-1px);
+            background: #dddddd;
         }
-
-        .send:disabled {
-            opacity: .4;
-            cursor: default;
-            transform: none;
-        }
-
-        .composer-note {
-            max-width: 850px;
-            margin: 8px auto 0;
-            text-align: center;
-            font-size: 10px;
-            color: #555d68;
-        }
-
-        /* TYPING */
 
         .typing {
-            display: flex;
-            gap: 4px;
-            padding-top: 7px;
-        }
-
-        .typing span {
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background: #8b95a2;
-            animation: bounce 1.2s infinite;
-        }
-
-        .typing span:nth-child(2) {
-            animation-delay: .15s;
-        }
-
-        .typing span:nth-child(3) {
-            animation-delay: .3s;
-        }
-
-        @keyframes bounce {
-            0%, 60%, 100% {
-                transform: translateY(0);
-                opacity: .4;
-            }
-
-            30% {
-                transform: translateY(-4px);
-                opacity: 1;
-            }
+            color: #7e8995;
+            font-size: 13px;
+            margin-left: 47px;
+            margin-bottom: 15px;
         }
 
         /* MOBILE */
-
-        @media (max-width: 750px) {
+        @media (max-width: 700px) {
             .sidebar {
                 display: none;
             }
 
-            .composer-area {
+            .composer-wrapper {
                 left: 0;
             }
 
-            .topbar {
-                padding: 0 17px;
-            }
-
-            .chat-container {
-                padding-top: 30px;
-            }
-
-            .welcome {
-                padding-top: 35px;
+            .prompts {
+                grid-template-columns: 1fr;
             }
 
             .welcome h1 {
-                font-size: 27px;
+                font-size: 30px;
             }
 
-            .cards {
-                grid-template-columns: 1fr;
+            .chat {
+                padding-top: 20px;
             }
         }
     </style>
@@ -474,47 +303,33 @@
     <!-- SIDEBAR -->
     <aside class="sidebar">
 
-        <div class="brand">
-            <div class="logo">M</div>
-
-            <div>
-                <div class="brand-name">MECORA</div>
-                <div class="brand-sub">Engineering Intelligence</div>
-            </div>
+        <div class="logo">
+            <div class="logo-icon">🤖</div>
+            <div class="logo-text">MECORA</div>
         </div>
 
         <button class="new-chat" onclick="newChat()">
-            ＋ New conversation
+            + New conversation
         </button>
 
-        <div class="section-title">Workspace</div>
+        <div class="menu-title">Workspace</div>
 
-        <div class="nav-item active">
-            ◉ &nbsp; AI Assistant
+        <div class="menu-item active">
+            🤖 AI Assistant
         </div>
 
-        <div class="nav-item">
-            ⚙ &nbsp; Engineering Tools
+        <div class="menu-item">
+            ⚙ Engineering Tools
         </div>
 
-        <div class="nav-item">
-            ◇ &nbsp; Settings
+        <div class="menu-item">
+            ⚙ Settings
         </div>
 
-        <div class="section-title">Recent</div>
-
-        <div id="history">
-            <div class="history">
-                No conversations yet
-            </div>
-        </div>
-
-        <div class="sidebar-bottom">
-            <div class="founder">
-                Founded by<br>
-                <strong>Ahmed Bendag</strong><br>
-                Mechatronics Engineering Student
-            </div>
+        <div class="founder">
+            Founded by<br>
+            <strong>Ahmed Bendag</strong><br>
+            Mechatronics Engineering Student
         </div>
 
     </aside>
@@ -523,292 +338,151 @@
     <main class="main">
 
         <header class="topbar">
-
-            <div class="top-title">
-                AI Assistant
-            </div>
-
-            <div class="status">
-                <span class="status-dot"></span>
-                MECORA online
-            </div>
-
+            <div class="top-title">AI Assistant</div>
+            <div class="status">● MECORA online</div>
         </header>
 
-        <section class="chat-container" id="chat">
+        <div class="chat" id="chat">
 
-            <div class="chat-inner" id="chatInner">
+            <div class="welcome" id="welcome">
 
-                <div class="welcome" id="welcome">
+                <div class="welcome-logo">
+                    🤖
+                </div>
 
-                    <div class="welcome-logo">
-                        M
+                <h1>Engineering, accelerated.</h1>
+
+                <p>
+                    Your intelligent engineering assistant.
+                </p>
+
+                <div class="prompts">
+
+                    <div class="prompt"
+                         onclick="usePrompt('Explain control systems simply')">
+                        🎛️ Control systems
                     </div>
 
-                    <h1>
-                        Engineering, accelerated.
-                    </h1>
+                    <div class="prompt"
+                         onclick="usePrompt('Help me with Python engineering')">
+                        💻 Python engineering
+                    </div>
 
-                    <p>
-                        Ask MECORA about engineering, programming,
-                        robotics, mathematics and more.
-                    </p>
+                    <div class="prompt"
+                         onclick="usePrompt('Explain mechatronics')">
+                        🤖 Mechatronics
+                    </div>
 
-                    <div class="cards">
-
-                        <div class="card"
-                             onclick="usePrompt('Explain how a PID controller works with a practical example.')">
-                            <div class="card-title">
-                                Control systems
-                            </div>
-                            <div class="card-text">
-                                Explain a PID controller with an example
-                            </div>
-                        </div>
-
-                        <div class="card"
-                             onclick="usePrompt('Write a clean Python program to solve a numerical engineering problem.')">
-                            <div class="card-title">
-                                Python engineering
-                            </div>
-                            <div class="card-text">
-                                Build a Python solution step by step
-                            </div>
-                        </div>
-
-                        <div class="card"
-                             onclick="usePrompt('Explain the main principles of mechatronics engineering.')">
-                            <div class="card-title">
-                                Mechatronics
-                            </div>
-                            <div class="card-text">
-                                Learn a concept clearly and practically
-                            </div>
-                        </div>
-
-                        <div class="card"
-                             onclick="usePrompt('Help me solve an engineering mathematics problem step by step.')">
-                            <div class="card-title">
-                                Mathematics
-                            </div>
-                            <div class="card-text">
-                                Work through an engineering problem
-                            </div>
-                        </div>
-
+                    <div class="prompt"
+                         onclick="usePrompt('Help me solve a mathematics problem')">
+                        📐 Mathematics
                     </div>
 
                 </div>
 
             </div>
 
-        </section>
+        </div>
+
+        <div class="composer-wrapper">
+
+            <div class="typing" id="typing" style="display:none;">
+                🤖 MECORA is thinking...
+            </div>
+
+            <div class="composer">
+
+                <textarea
+                    id="message"
+                    placeholder="Message MECORA..."
+                    onkeydown="handleKey(event)"
+                ></textarea>
+
+                <button class="send" onclick="sendMessage()">
+                    ➤
+                </button>
+
+            </div>
+
+        </div>
 
     </main>
-
-</div>
-
-<!-- COMPOSER -->
-
-<div class="composer-area">
-
-    <div class="composer">
-
-        <textarea
-            id="input"
-            rows="1"
-            placeholder="Message MECORA..."
-            onkeydown="handleKey(event)"
-        ></textarea>
-
-        <button
-            class="send"
-            id="send"
-            onclick="sendMessage()"
-        >
-            ↑
-        </button>
-
-    </div>
-
-    <div class="composer-note">
-        MECORA can make mistakes. Verify important engineering information.
-    </div>
 
 </div>
 
 
 <script>
 
-const input = document.getElementById("input");
-const sendButton = document.getElementById("send");
-const chatInner = document.getElementById("chatInner");
+const messageInput = document.getElementById("message");
+const chat = document.getElementById("chat");
+const typing = document.getElementById("typing");
 const welcome = document.getElementById("welcome");
 
-let conversationStarted = false;
-
-
-/* ENTER */
 
 function handleKey(event) {
 
     if (event.key === "Enter" && !event.shiftKey) {
+
         event.preventDefault();
+
         sendMessage();
+
     }
 
 }
 
 
-/* PROMPT CARDS */
-
 function usePrompt(text) {
 
-    input.value = text;
-    input.focus();
+    messageInput.value = text;
+
+    sendMessage();
 
 }
 
-
-/* NEW CHAT */
-
-function newChat() {
-
-    chatInner.innerHTML = "";
-
-    const newWelcome = document.createElement("div");
-
-    newWelcome.className = "welcome";
-
-    newWelcome.innerHTML = `
-        <div class="welcome-logo">M</div>
-        <h1>Engineering, accelerated.</h1>
-        <p>
-            Ask MECORA about engineering, programming,
-            robotics, mathematics and more.
-        </p>
-    `;
-
-    chatInner.appendChild(newWelcome);
-
-    conversationStarted = false;
-
-    input.value = "";
-    input.focus();
-
-}
-
-
-/* ADD MESSAGE */
 
 function addMessage(type, text) {
 
     const message = document.createElement("div");
 
-    message.className = "message";
+    message.className = "message " + type;
 
     const avatar = document.createElement("div");
 
-    avatar.className =
-        "avatar " + (type === "user" ? "user" : "ai");
+    avatar.className = "avatar";
 
-    avatar.textContent =
-        type === "user" ? "YOU" : "M";
+    avatar.textContent = type === "user" ? "👤" : "🤖";
 
     const content = document.createElement("div");
 
     content.className = "message-content";
 
-    const name = document.createElement("div");
-
-    name.className = "message-name";
-
-    name.textContent =
-        type === "user" ? "You" : "MECORA";
-
-    const messageText = document.createElement("div");
-
-    messageText.className = "message-text";
-
-    messageText.textContent = text;
-
-    content.appendChild(name);
-    content.appendChild(messageText);
+    content.textContent = text;
 
     message.appendChild(avatar);
+
     message.appendChild(content);
 
-    chatInner.appendChild(message);
+    chat.appendChild(message);
 
-    scrollChat();
-
-    return message;
+    chat.scrollTop = chat.scrollHeight;
 
 }
 
-
-/* TYPING */
-
-function addTyping() {
-
-    const message = document.createElement("div");
-
-    message.className = "message";
-
-    message.innerHTML = `
-        <div class="avatar ai">M</div>
-
-        <div class="message-content">
-
-            <div class="message-name">
-                MECORA
-            </div>
-
-            <div class="typing">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
-        </div>
-    `;
-
-    chatInner.appendChild(message);
-
-    scrollChat();
-
-    return message;
-
-}
-
-
-/* SEND */
 
 async function sendMessage() {
 
-    const message = input.value.trim();
+    const message = messageInput.value.trim();
 
-    if (!message || sendButton.disabled) {
-        return;
-    }
+    if (!message) return;
 
-    if (!conversationStarted) {
-
-        if (welcome) {
-            welcome.remove();
-        }
-
-        conversationStarted = true;
-
-    }
+    welcome.style.display = "none";
 
     addMessage("user", message);
 
-    input.value = "";
+    messageInput.value = "";
 
-    sendButton.disabled = true;
-
-    const typing = addTyping();
+    typing.style.display = "block";
 
     try {
 
@@ -827,23 +501,25 @@ async function sendMessage() {
         });
 
         if (!response.ok) {
+
             throw new Error("Server error");
+
         }
 
         const data = await response.json();
 
-        typing.remove();
+        typing.style.display = "none";
 
         addMessage(
             "ai",
-            data.answer || "MECORA did not return a response."
+            data.answer || "I couldn't generate a response."
         );
 
     }
 
     catch (error) {
 
-        typing.remove();
+        typing.style.display = "none";
 
         addMessage(
             "ai",
@@ -854,32 +530,18 @@ async function sendMessage() {
 
     }
 
-    finally {
-
-        sendButton.disabled = false;
-
-        input.focus();
-
-    }
-
 }
 
 
-/* SCROLL */
+function newChat() {
 
-function scrollChat() {
+    chat.innerHTML = "";
 
-    const container =
-        document.getElementById("chat");
+    chat.appendChild(welcome);
 
-    setTimeout(() => {
+    welcome.style.display = "block";
 
-        container.scrollTo({
-            top: container.scrollHeight,
-            behavior: "smooth"
-        });
-
-    }, 50);
+    typing.style.display = "none";
 
 }
 
