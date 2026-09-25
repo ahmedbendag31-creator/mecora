@@ -6,14 +6,41 @@
 
     <title>MECORA — Robotics & AI Assistant</title>
 
-    <meta name="description"
-        content="MECORA — AI assistant specialized in robotics, programming, embedded systems and AI.">
+    <meta
+        name="description"
+        content="MECORA — AI assistant specialized in robotics, programming, embedded systems and artificial intelligence."
+    >
 
     <style>
+        /* =========================================================
+           RESET
+        ========================================================= */
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #050509;
+            --bg-secondary: #0a0a11;
+            --panel: rgba(15, 15, 24, 0.88);
+            --panel-light: rgba(255, 255, 255, 0.04);
+
+            --text: #f5f5f7;
+            --muted: #9292a3;
+            --muted-dark: #626270;
+
+            --red: #ff1744;
+            --red-dark: #d90e39;
+            --purple: #9c27ff;
+            --green: #35e58b;
+
+            --border: rgba(255, 255, 255, 0.08);
+
+            --shadow:
+                0 20px 60px rgba(0, 0, 0, 0.45);
         }
 
         html {
@@ -22,327 +49,508 @@
 
         body {
             min-height: 100vh;
-            font-family: Arial, Helvetica, sans-serif;
+
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            color: var(--text);
+
             background:
-                radial-gradient(circle at 20% 20%, rgba(0, 255, 200, 0.08), transparent 30%),
-                radial-gradient(circle at 80% 80%, rgba(100, 80, 255, 0.10), transparent 30%),
-                #05070d;
-            color: #ffffff;
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(255, 23, 68, 0.12),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 20%,
+                    rgba(156, 39, 255, 0.10),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #030305,
+                    #080810,
+                    #040408
+                );
+
             overflow-x: hidden;
         }
 
-        /* =========================
+        button,
+        textarea,
+        input {
+            font-family: inherit;
+        }
+
+        /* =========================================================
            BACKGROUND
-        ========================= */
+        ========================================================= */
 
         .background {
             position: fixed;
             inset: 0;
+
             overflow: hidden;
+
             pointer-events: none;
-            z-index: -2;
+
+            z-index: -10;
         }
 
         .orb {
             position: absolute;
+
+            width: 500px;
+            height: 500px;
+
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.25;
-            animation: floatOrb 12s infinite ease-in-out;
+
+            filter: blur(110px);
+
+            opacity: 0.12;
+
+            animation:
+                floatOrb 12s ease-in-out infinite;
         }
 
-        .orb1 {
-            width: 300px;
-            height: 300px;
-            background: #00ffc8;
-            top: 5%;
-            left: -100px;
+        .orb.one {
+            background: var(--red);
+
+            left: -200px;
+            top: -200px;
         }
 
-        .orb2 {
-            width: 350px;
-            height: 350px;
-            background: #6d5dfc;
-            right: -120px;
-            bottom: 10%;
+        .orb.two {
+            background: var(--purple);
+
+            right: -200px;
+            top: 20%;
+
             animation-delay: -4s;
         }
 
-        .orb3 {
-            width: 200px;
-            height: 200px;
-            background: #00aaff;
-            top: 50%;
-            left: 45%;
+        .orb.three {
+            background: var(--red);
+
+            left: 30%;
+            bottom: -300px;
+
             animation-delay: -8s;
         }
 
         @keyframes floatOrb {
-            0%, 100% {
-                transform: translate(0, 0);
+            0%,
+            100% {
+                transform: translate3d(0, 0, 0);
             }
 
             50% {
-                transform: translate(50px, -40px);
+                transform: translate3d(30px, -40px, 0);
             }
         }
 
-        .grid {
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-            background-size: 50px 50px;
-            mask-image: linear-gradient(to bottom, black, transparent);
-            pointer-events: none;
-            z-index: -1;
+        /* =========================================================
+           APP
+        ========================================================= */
+
+        .app {
+            min-height: 100vh;
+
+            display: flex;
         }
 
-        /* =========================
-           HEADER
-        ========================= */
+        /* =========================================================
+           SIDEBAR
+        ========================================================= */
 
-        header {
-            width: 100%;
-            padding: 20px 6%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
+        .sidebar {
+            position: fixed;
+
+            left: 0;
             top: 0;
-            z-index: 100;
-            backdrop-filter: blur(18px);
-            background: rgba(5, 7, 13, 0.72);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            bottom: 0;
+
+            width: 280px;
+
+            padding: 28px 20px;
+
+            display: flex;
+            flex-direction: column;
+
+            background:
+                rgba(5, 5, 10, 0.84);
+
+            backdrop-filter: blur(20px);
+
+            border-right:
+                1px solid var(--border);
+
+            z-index: 20;
         }
 
         .brand {
             display: flex;
+
             align-items: center;
-            gap: 12px;
-            cursor: pointer;
+
+            gap: 14px;
+
+            margin-bottom: 35px;
         }
 
+        /* =========================================================
+           CANVA LOGO
+        ========================================================= */
+
         .brand-logo {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
+            width: 58px;
+            height: 58px;
+
+            flex-shrink: 0;
+
+            border-radius: 14px;
+
+            overflow: hidden;
+
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 900;
-            font-size: 18px;
-            color: #00120e;
-            background: linear-gradient(135deg, #00ffc8, #00aaff);
+
+            background: #08080d;
+
+            border:
+                1px solid rgba(255, 23, 68, 0.35);
+
             box-shadow:
-                0 0 20px rgba(0,255,200,0.35),
-                inset 0 0 12px rgba(255,255,255,0.25);
-            animation: logoPulse 3s infinite ease-in-out;
+                0 0 25px rgba(255, 23, 68, 0.20);
         }
 
-        @keyframes logoPulse {
-            0%, 100% {
-                box-shadow: 0 0 20px rgba(0,255,200,0.35);
-            }
+        .brand-logo img {
+            width: 100%;
+            height: 100%;
 
-            50% {
-                box-shadow:
-                    0 0 35px rgba(0,255,200,0.65),
-                    0 0 60px rgba(0,170,255,0.2);
-            }
+            object-fit: contain;
+
+            display: block;
         }
 
-        .brand-text {
+        .brand-text h1 {
             font-size: 21px;
-            font-weight: 900;
+
+            font-weight: 800;
+
             letter-spacing: 2px;
         }
 
-        .online {
+        .brand-text span {
+            display: block;
+
+            margin-top: 4px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+        }
+
+        /* =========================================================
+           ONLINE STATUS
+        ========================================================= */
+
+        .online-status {
             display: flex;
             align-items: center;
-            gap: 8px;
-            color: #9da6b7;
+
+            gap: 9px;
+
+            padding: 10px 12px;
+
+            margin-bottom: 30px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255, 255, 255, 0.025);
+
+            border:
+                1px solid var(--border);
+
+            color: #c7c7d1;
+
             font-size: 13px;
         }
 
         .online-dot {
             width: 8px;
             height: 8px;
-            background: #00ffc8;
+
             border-radius: 50%;
-            box-shadow: 0 0 12px #00ffc8;
-            animation: onlinePulse 2s infinite;
+
+            background: var(--green);
+
+            box-shadow:
+                0 0 12px rgba(53, 229, 139, 0.8);
+
+            animation:
+                pulseOnline 2s infinite;
         }
 
-        @keyframes onlinePulse {
-            0%, 100% {
-                opacity: 1;
+        @keyframes pulseOnline {
+            0% {
+                box-shadow:
+                    0 0 0 0 rgba(53, 229, 139, 0.6);
             }
 
-            50% {
-                opacity: 0.4;
+            70% {
+                box-shadow:
+                    0 0 0 8px rgba(53, 229, 139, 0);
+            }
+
+            100% {
+                box-shadow:
+                    0 0 0 0 rgba(53, 229, 139, 0);
             }
         }
 
-        /* =========================
+        /* =========================================================
+           SIDEBAR MENU
+        ========================================================= */
+
+        .sidebar-title {
+            margin-bottom: 12px;
+
+            color: #707080;
+
+            font-size: 10px;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+        }
+
+        .side-item {
+            padding: 12px 14px;
+
+            margin-bottom: 6px;
+
+            border-radius: 10px;
+
+            color: #aaaab8;
+
+            font-size: 14px;
+
+            cursor: pointer;
+
+            transition:
+                background .25s ease,
+                color .25s ease,
+                transform .25s ease;
+        }
+
+        .side-item:hover {
+            color: white;
+
+            background:
+                rgba(255, 23, 68, 0.08);
+
+            transform: translateX(4px);
+        }
+
+        .side-item.active {
+            color: white;
+
+            background:
+                rgba(255, 23, 68, 0.12);
+
+            border:
+                1px solid rgba(255, 23, 68, 0.15);
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+
+            padding-top: 20px;
+
+            border-top:
+                1px solid var(--border);
+
+            color: #676774;
+
+            font-size: 11px;
+
+            line-height: 1.6;
+        }
+
+        /* =========================================================
            MAIN
-        ========================= */
+        ========================================================= */
 
-        main {
-            width: min(1200px, 92%);
-            margin: auto;
-            padding: 60px 0 100px;
+        .main {
+            width: calc(100% - 280px);
+
+            min-height: 100vh;
+
+            margin-left: 280px;
+
+            padding: 30px;
         }
 
-        /* =========================
+        .main-inner {
+            width: 100%;
+            max-width: 1250px;
+
+            min-height: calc(100vh - 60px);
+
+            margin: auto;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* =========================================================
            HERO
-        ========================= */
+        ========================================================= */
 
         .hero {
+            padding: 20px 20px 35px;
+
             text-align: center;
-            padding: 35px 0 50px;
-        }
-
-        .hero-logo-container {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 30px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hero-ring {
-            position: absolute;
-            inset: 0;
-            border: 1px solid rgba(0,255,200,0.45);
-            border-radius: 50%;
-            animation: rotateRing 8s linear infinite;
-        }
-
-        .hero-ring::before,
-        .hero-ring::after {
-            content: "";
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #00ffc8;
-            box-shadow: 0 0 15px #00ffc8;
-        }
-
-        .hero-ring::before {
-            top: -5px;
-            left: 50%;
-        }
-
-        .hero-ring::after {
-            bottom: -5px;
-            right: 15%;
-        }
-
-        @keyframes rotateRing {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
         }
 
         .hero-logo {
-            width: 78px;
-            height: 78px;
-            border-radius: 24px;
+            width: 150px;
+            height: 150px;
+
+            margin: 0 auto 22px;
+
+            border-radius: 30px;
+
+            overflow: hidden;
+
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
-            font-weight: 900;
-            color: #00120e;
-            background: linear-gradient(135deg, #00ffc8, #00aaff);
+
+            background:
+                rgba(10, 10, 15, 0.7);
+
+            border:
+                1px solid rgba(255, 23, 68, 0.25);
+
             box-shadow:
-                0 0 40px rgba(0,255,200,0.4),
-                inset 0 0 25px rgba(255,255,255,0.25);
+                0 0 50px rgba(255, 23, 68, 0.18);
+
+            animation:
+                logoFloat 5s ease-in-out infinite;
         }
 
-        .hero h1 {
-            font-size: clamp(42px, 7vw, 82px);
-            font-weight: 950;
-            letter-spacing: -3px;
-            margin-bottom: 15px;
-            background: linear-gradient(
-                90deg,
-                #00ffc8,
-                #00aaff,
-                #8d6cff,
-                #00ffc8
-            );
+        .hero-logo img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: contain;
+
+            display: block;
+        }
+
+        @keyframes logoFloat {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .hero h2 {
+            font-size: clamp(36px, 5vw, 64px);
+
+            font-weight: 900;
+
+            line-height: 1.05;
+
+            letter-spacing: -2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #ff365b,
+                    #ffffff,
+                    #a83cff,
+                    #ffffff
+                );
+
             background-size: 300% auto;
+
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientMove 6s linear infinite;
+            background-clip: text;
+
+            color: transparent;
+
+            animation:
+                gradientText 6s linear infinite;
         }
 
-        @keyframes gradientMove {
+        @keyframes gradientText {
             to {
                 background-position: 300% center;
             }
         }
 
-        .hero-subtitle {
-            font-size: clamp(17px, 2vw, 22px);
-            color: #aeb7c7;
-            max-width: 700px;
-            margin: auto;
-            line-height: 1.6;
+        .hero p {
+            max-width: 680px;
+
+            margin: 16px auto 0;
+
+            color: var(--muted);
+
+            font-size: 15px;
+
+            line-height: 1.7;
         }
 
-        .hero-tag {
-            display: inline-block;
-            margin-top: 22px;
-            padding: 8px 15px;
-            border-radius: 100px;
-            border: 1px solid rgba(0,255,200,0.2);
-            background: rgba(0,255,200,0.05);
-            color: #00ffc8;
-            font-size: 13px;
-            letter-spacing: 1px;
-        }
-
-        /* =========================
+        /* =========================================================
            SPECIALTY CARDS
-        ========================= */
-
-        .section-title {
-            text-align: center;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #697386;
-            margin: 25px 0 20px;
-        }
+        ========================================================= */
 
         .specialties {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-bottom: 40px;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 12px;
+
+            margin-bottom: 25px;
         }
 
         .specialty {
             position: relative;
-            padding: 22px;
-            min-height: 145px;
-            border-radius: 18px;
-            border: 1px solid rgba(255,255,255,0.08);
-            background: rgba(255,255,255,0.025);
-            cursor: pointer;
+
+            padding: 20px;
+
             overflow: hidden;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255, 255, 255, 0.045),
+                    rgba(255, 255, 255, 0.015)
+                );
+
+            border:
+                1px solid var(--border);
+
+            cursor: pointer;
+
             transition:
                 transform .3s ease,
                 border-color .3s ease,
@@ -352,101 +560,170 @@
 
         .specialty::before {
             content: "";
+
             position: absolute;
+
             width: 130px;
             height: 130px;
+
+            right: -50px;
+            top: -50px;
+
             border-radius: 50%;
-            background: rgba(0,255,200,0.12);
+
+            background:
+                rgba(255, 23, 68, 0.15);
+
             filter: blur(35px);
-            top: -70px;
-            right: -70px;
-            transition: .4s ease;
+
+            opacity: 0;
+
+            transition:
+                opacity .3s ease;
         }
 
         .specialty:hover {
-            transform: translateY(-7px);
-            border-color: rgba(0,255,200,0.4);
-            background: rgba(0,255,200,0.045);
+            transform: translateY(-5px);
+
+            background:
+                rgba(255, 23, 68, 0.06);
+
+            border-color:
+                rgba(255, 23, 68, 0.4);
+
             box-shadow:
-                0 15px 45px rgba(0,0,0,0.25),
-                0 0 25px rgba(0,255,200,0.08);
+                0 12px 35px rgba(0, 0, 0, 0.3),
+                0 0 30px rgba(255, 23, 68, 0.08);
         }
 
         .specialty:hover::before {
-            transform: scale(1.5);
+            opacity: 1;
         }
 
         .specialty-icon {
-            font-size: 31px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
+
+            font-size: 28px;
         }
 
         .specialty h3 {
-            font-size: 17px;
-            margin-bottom: 7px;
+            margin-bottom: 5px;
+
+            font-size: 15px;
         }
 
         .specialty p {
-            font-size: 13px;
-            color: #7e899c;
+            color: #81818f;
+
+            font-size: 12px;
+
             line-height: 1.5;
         }
 
-        /* =========================
-           CHAT
-        ========================= */
+        /* =========================================================
+           CHAT CARD
+        ========================================================= */
 
-        .chat-container {
-            border: 1px solid rgba(255,255,255,0.08);
-            background: rgba(8,11,19,0.75);
-            border-radius: 25px;
-            overflow: hidden;
-            box-shadow:
-                0 25px 80px rgba(0,0,0,0.3),
-                inset 0 1px rgba(255,255,255,0.03);
-            backdrop-filter: blur(20px);
-        }
+        .chat-card {
+            min-height: 520px;
 
-        .chat-header {
-            padding: 17px 22px;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+            flex: 1;
 
-        .chat-header-icon {
-            width: 35px;
-            height: 35px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #00ffc8, #00aaff);
-            color: #00120e;
-            font-weight: 900;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-        }
-
-        .chat-header-text strong {
-            display: block;
-            font-size: 14px;
-        }
-
-        .chat-header-text span {
-            display: block;
-            font-size: 11px;
-            color: #657084;
-            margin-top: 2px;
-        }
-
-        .messages {
-            height: 480px;
-            overflow-y: auto;
-            padding: 25px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+
+            overflow: hidden;
+
+            border-radius: 20px;
+
+            background:
+                rgba(8, 8, 14, 0.78);
+
+            border:
+                1px solid var(--border);
+
+            backdrop-filter: blur(20px);
+
+            box-shadow:
+                var(--shadow);
+
+            transition:
+                border-color .3s ease,
+                box-shadow .3s ease;
+        }
+
+        .chat-card.drag-over {
+            border-color:
+                rgba(255, 23, 68, 0.65);
+
+            box-shadow:
+                0 0 50px rgba(255, 23, 68, 0.12);
+        }
+
+        /* =========================================================
+           CHAT HEADER
+        ========================================================= */
+
+        .chat-header {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 15px 20px;
+
+            border-bottom:
+                1px solid var(--border);
+        }
+
+        .chat-header-left {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+        .chat-status {
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+
+            background: var(--green);
+
+            box-shadow:
+                0 0 12px rgba(53, 229, 139, 0.7);
+        }
+
+        .chat-header strong {
+            font-size: 13px;
+        }
+
+        .chat-header span {
+            color: #686875;
+
+            font-size: 11px;
+        }
+
+        /* =========================================================
+           MESSAGES
+        ========================================================= */
+
+        .messages {
+            flex: 1;
+
+            min-height: 0;
+
+            overflow-y: auto;
+
+            padding: 25px;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 15px;
+
             scroll-behavior: smooth;
         }
 
@@ -459,120 +736,141 @@
         }
 
         .messages::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.1);
+            background:
+                rgba(255, 255, 255, 0.08);
+
             border-radius: 10px;
+        }
+
+        .message-row {
+            width: 100%;
+
+            display: flex;
+        }
+
+        .message-row.user {
+            justify-content: flex-end;
         }
 
         .message {
-            display: flex;
-            gap: 11px;
-            max-width: 85%;
-            animation: messageIn .3s ease;
-        }
+            max-width: min(760px, 82%);
 
-        @keyframes messageIn {
-            from {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .message.user {
-            margin-left: auto;
-            flex-direction: row-reverse;
-        }
-
-        .avatar {
-            flex: 0 0 34px;
-            width: 34px;
-            height: 34px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 900;
-        }
-
-        .message.ai .avatar {
-            background: linear-gradient(135deg, #00ffc8, #00aaff);
-            color: #00120e;
-        }
-
-        .message.user .avatar {
-            background: #151b27;
-            color: #9da8bb;
-            border: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .bubble {
             padding: 14px 17px;
-            border-radius: 16px;
+
+            border-radius: 15px;
+
             font-size: 14px;
+
             line-height: 1.65;
+
             white-space: pre-wrap;
+
             word-break: break-word;
         }
 
-        .message.ai .bubble {
-            background: rgba(255,255,255,0.035);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-top-left-radius: 5px;
-            color: #dce2ec;
+        .message.bot {
+            color: #eeeeF2;
+
+            background:
+                rgba(255, 255, 255, 0.045);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.07);
+
+            border-bottom-left-radius: 5px;
         }
 
-        .message.user .bubble {
-            background: linear-gradient(
-                135deg,
-                rgba(0,255,200,0.12),
-                rgba(0,170,255,0.10)
-            );
-            border: 1px solid rgba(0,255,200,0.16);
-            border-top-right-radius: 5px;
-            color: #eafefa;
+        .message.user {
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--red-dark),
+                    var(--red)
+                );
+
+            border-bottom-right-radius: 5px;
+
+            box-shadow:
+                0 8px 25px rgba(255, 23, 68, 0.16);
         }
 
-        /* =========================
-           IMAGE IN CHAT
-        ========================= */
-
-        .chat-image {
+        .message img {
             display: block;
-            max-width: 300px;
-            max-height: 250px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            border: 1px solid rgba(0,255,200,0.15);
+
+            max-width: 320px;
+            max-height: 300px;
+
+            margin-top: 8px;
+
+            object-fit: contain;
+
+            border-radius: 10px;
         }
 
-        /* =========================
+        .message.user img {
+            border:
+                1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        /* =========================================================
+           CODE
+        ========================================================= */
+
+        .message pre {
+            margin: 12px 0 0;
+
+            padding: 13px;
+
+            overflow-x: auto;
+
+            border-radius: 9px;
+
+            background:
+                rgba(0, 0, 0, 0.45);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.07);
+
+            font-family:
+                Consolas,
+                Monaco,
+                monospace;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+        }
+
+        /* =========================================================
            TYPING
-        ========================= */
+        ========================================================= */
 
         .typing {
             display: none;
+
             align-items: center;
+
             gap: 5px;
-            margin-left: 45px;
-            color: #657084;
-            font-size: 12px;
+
+            padding: 5px 3px;
         }
 
-        .typing.show {
+        .typing.active {
             display: flex;
         }
 
         .typing span {
-            width: 5px;
-            height: 5px;
+            width: 7px;
+            height: 7px;
+
             border-radius: 50%;
-            background: #00ffc8;
-            animation: typingDot 1.2s infinite ease-in-out;
+
+            background: #777783;
+
+            animation:
+                typingAnimation 1.2s infinite;
         }
 
         .typing span:nth-child(2) {
@@ -583,8 +881,10 @@
             animation-delay: .3s;
         }
 
-        @keyframes typingDot {
-            0%, 60%, 100% {
+        @keyframes typingAnimation {
+            0%,
+            60%,
+            100% {
                 transform: translateY(0);
                 opacity: .4;
             }
@@ -595,472 +895,477 @@
             }
         }
 
-        /* =========================
-           COMPOSER
-        ========================= */
-
-        .composer {
-            padding: 18px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-            background: rgba(0,0,0,0.12);
-        }
-
-        .input-box {
-            display: flex;
-            align-items: flex-end;
-            gap: 10px;
-            padding: 10px;
-            border-radius: 17px;
-            border: 1px solid rgba(255,255,255,0.08);
-            background: rgba(255,255,255,0.025);
-            transition: .25s ease;
-        }
-
-        .input-box:focus-within {
-            border-color: rgba(0,255,200,0.35);
-            box-shadow: 0 0 25px rgba(0,255,200,0.05);
-        }
-
-        #input {
-            flex: 1;
-            min-height: 45px;
-            max-height: 160px;
-            resize: none;
-            border: none;
-            outline: none;
-            background: transparent;
-            color: white;
-            font-family: inherit;
-            font-size: 14px;
-            line-height: 1.5;
-            padding: 12px 3px;
-        }
-
-        #input::placeholder {
-            color: #596477;
-        }
-
-        /* =========================
-           IMAGE UPLOAD BUTTON
-        ========================= */
-
-        .image-upload-btn {
-            width: 45px;
-            height: 45px;
-            flex: 0 0 45px;
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 13px;
-            background: rgba(255,255,255,0.035);
-            color: #9da8bb;
-            font-size: 20px;
-            cursor: pointer;
-            transition: .25s ease;
-        }
-
-        .image-upload-btn:hover {
-            color: #00ffc8;
-            border-color: rgba(0,255,200,0.35);
-            background: rgba(0,255,200,0.06);
-            box-shadow: 0 0 20px rgba(0,255,200,0.08);
-            transform: translateY(-2px);
-        }
-
-        /* =========================
-           SEND BUTTON
-        ========================= */
-
-        .send-btn {
-            width: 45px;
-            height: 45px;
-            flex: 0 0 45px;
-            border: none;
-            border-radius: 13px;
-            background: linear-gradient(135deg, #00ffc8, #00aaff);
-            color: #00120e;
-            font-size: 20px;
-            font-weight: 900;
-            cursor: pointer;
-            transition: .25s ease;
-            box-shadow: 0 0 20px rgba(0,255,200,0.15);
-        }
-
-        .send-btn:hover {
-            transform: translateY(-2px) scale(1.03);
-            box-shadow:
-                0 0 30px rgba(0,255,200,0.35),
-                0 0 50px rgba(0,170,255,0.12);
-        }
-
-        .send-btn:active {
-            transform: scale(.96);
-        }
-
-        .send-btn:disabled {
-            opacity: .5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* =========================
+        /* =========================================================
            IMAGE PREVIEW
-        ========================= */
+        ========================================================= */
 
-        .image-preview {
+        .preview-area {
             display: none;
+
+            padding: 10px 20px;
+
+            border-top:
+                1px solid var(--border);
+
+            background:
+                rgba(255, 255, 255, 0.015);
+        }
+
+        .preview-area.active {
+            display: flex;
+        }
+
+        .preview-box {
             position: relative;
-            width: fit-content;
-            margin-bottom: 12px;
-            padding: 7px;
-            border-radius: 15px;
-            border: 1px solid rgba(0,255,200,0.2);
-            background: rgba(0,255,200,0.04);
-        }
 
-        .image-preview.show {
-            display: block;
-            animation: previewIn .25s ease;
-        }
+            width: 85px;
+            height: 85px;
 
-        @keyframes previewIn {
-            from {
-                opacity: 0;
-                transform: translateY(5px);
-            }
+            overflow: hidden;
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        #previewImage {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            display: block;
             border-radius: 10px;
+
+            border:
+                1px solid rgba(255, 23, 68, 0.35);
+        }
+
+        .preview-box img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
         }
 
         .remove-image {
             position: absolute;
-            top: -8px;
-            right: -8px;
-            width: 25px;
-            height: 25px;
+
+            top: 4px;
+            right: 4px;
+
+            width: 23px;
+            height: 23px;
+
+            border: none;
+
             border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.15);
-            background: #101620;
-            color: #ffffff;
+
+            background:
+                rgba(0, 0, 0, 0.75);
+
+            color: white;
+
             cursor: pointer;
-            font-size: 17px;
-            line-height: 20px;
-            transition: .2s ease;
+
+            font-size: 14px;
         }
 
         .remove-image:hover {
-            background: #ff4264;
-            border-color: #ff4264;
-            transform: scale(1.08);
+            background: var(--red);
         }
 
-        .image-label {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            padding: 3px 7px;
-            border-radius: 6px;
-            background: rgba(0,0,0,.7);
-            color: #00ffc8;
-            font-size: 9px;
-            font-weight: bold;
+        /* =========================================================
+           INPUT AREA
+        ========================================================= */
+
+        .input-area {
+            padding: 16px;
+
+            border-top:
+                1px solid var(--border);
+
+            background:
+                rgba(0, 0, 0, 0.16);
         }
 
-        .hint {
+        .input-wrapper {
+            display: flex;
+
+            align-items: flex-end;
+
+            gap: 9px;
+
+            padding: 8px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(255, 255, 255, 0.04);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.08);
+
+            transition:
+                border-color .25s ease,
+                box-shadow .25s ease;
+        }
+
+        .input-wrapper:focus-within {
+            border-color:
+                rgba(255, 23, 68, 0.45);
+
+            box-shadow:
+                0 0 25px rgba(255, 23, 68, 0.08);
+        }
+
+        #messageInput {
+            flex: 1;
+
+            min-height: 44px;
+            max-height: 150px;
+
+            resize: none;
+
+            border: none;
+
+            outline: none;
+
+            background: transparent;
+
+            color: white;
+
+            padding: 10px 8px;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+        #messageInput::placeholder {
+            color: #686875;
+        }
+
+        /* =========================================================
+           BUTTONS
+        ========================================================= */
+
+        .icon-button,
+        .send-button {
+            flex-shrink: 0;
+
+            border: none;
+
+            cursor: pointer;
+
+            transition:
+                transform .2s ease,
+                background .2s ease,
+                box-shadow .2s ease,
+                opacity .2s ease;
+        }
+
+        .icon-button {
+            width: 44px;
+            height: 44px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background:
+                rgba(255, 255, 255, 0.06);
+
+            color: #bdbdc8;
+
+            font-size: 19px;
+        }
+
+        .icon-button:hover {
+            color: white;
+
+            background:
+                rgba(255, 23, 68, 0.14);
+
+            transform: translateY(-2px);
+        }
+
+        .send-button {
+            width: 44px;
+            height: 44px;
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--red-dark),
+                    var(--red)
+                );
+
+            color: white;
+
+            font-size: 18px;
+
+            box-shadow:
+                0 5px 20px rgba(255, 23, 68, 0.2);
+        }
+
+        .send-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 25px rgba(255, 23, 68, 0.35);
+        }
+
+        .send-button:disabled,
+        .icon-button:disabled {
+            opacity: .5;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+        #imageInput {
+            display: none;
+        }
+
+        .input-hint {
+            margin-top: 8px;
+
+            color: #565663;
+
             text-align: center;
-            color: #4e596c;
+
             font-size: 10px;
-            margin-top: 10px;
         }
 
-        /* =========================
+        /* =========================================================
            FOOTER
-        ========================= */
+        ========================================================= */
 
-        footer {
+        .footer {
+            padding: 18px 0 4px;
+
+            color: #555561;
+
             text-align: center;
-            margin-top: 30px;
-            color: #4e596c;
-            font-size: 12px;
-            line-height: 1.8;
+
+            font-size: 11px;
         }
 
-        footer strong {
-            color: #7e899c;
+        .footer strong {
+            color: #888895;
         }
 
-        .creator {
-            margin-top: 5px;
-        }
+        /* =========================================================
+           TABLET
+        ========================================================= */
 
-        /* =========================
-           MOBILE
-        ========================= */
+        @media (max-width: 1050px) {
 
-        @media (max-width: 900px) {
+            .sidebar {
+                width: 230px;
+            }
+
+            .main {
+                width: calc(100% - 230px);
+
+                margin-left: 230px;
+            }
+
             .specialties {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns:
+                    repeat(2, 1fr);
             }
         }
 
-        @media (max-width: 600px) {
-            header {
-                padding: 15px 5%;
+        /* =========================================================
+           MOBILE
+        ========================================================= */
+
+        @media (max-width: 750px) {
+
+            .app {
+                display: block;
             }
 
-            .brand-text {
-                font-size: 17px;
+            .sidebar {
+                position: relative;
+
+                width: 100%;
+
+                min-height: auto;
+
+                padding: 15px;
+
+                border-right: none;
+
+                border-bottom:
+                    1px solid var(--border);
             }
 
-            .online {
-                font-size: 11px;
+            .sidebar-bottom,
+            .sidebar-title,
+            .side-item {
+                display: none;
             }
 
-            main {
-                width: 94%;
-                padding-top: 35px;
+            .brand {
+                margin-bottom: 12px;
+            }
+
+            .online-status {
+                margin-bottom: 0;
+            }
+
+            .main {
+                width: 100%;
+
+                margin-left: 0;
+
+                padding: 15px;
+            }
+
+            .main-inner {
+                min-height: auto;
             }
 
             .hero {
-                padding-top: 20px;
-            }
-
-            .hero-logo-container {
-                width: 95px;
-                height: 95px;
+                padding:
+                    20px 10px 25px;
             }
 
             .hero-logo {
-                width: 62px;
-                height: 62px;
-                font-size: 25px;
-                border-radius: 19px;
+                width: 105px;
+                height: 105px;
+
+                border-radius: 22px;
             }
 
-            .hero h1 {
-                letter-spacing: -2px;
+            .hero h2 {
+                font-size: 38px;
+
+                letter-spacing: -1.5px;
             }
 
-            .specialties {
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-            }
-
-            .specialty {
-                padding: 16px;
-                min-height: 125px;
-            }
-
-            .specialty-icon {
-                font-size: 25px;
-            }
-
-            .specialty h3 {
-                font-size: 14px;
-            }
-
-            .specialty p {
-                font-size: 11px;
-            }
-
-            .messages {
-                height: 430px;
-                padding: 18px;
-            }
-
-            .message {
-                max-width: 94%;
-            }
-
-            .bubble {
+            .hero p {
                 font-size: 13px;
             }
 
-            .chat-image {
-                max-width: 220px;
+            .specialties {
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap: 8px;
             }
 
-            .composer {
-                padding: 12px;
+            .specialty {
+                padding: 14px;
             }
 
-            .hint {
-                font-size: 9px;
+            .specialty-icon {
+                font-size: 22px;
+            }
+
+            .specialty h3 {
+                font-size: 13px;
+            }
+
+            .specialty p {
+                font-size: 10px;
+            }
+
+            .chat-card {
+                min-height: 550px;
+
+                border-radius: 15px;
+            }
+
+            .messages {
+                padding: 15px;
+            }
+
+            .message {
+                max-width: 90%;
+
+                font-size: 13px;
+            }
+
+            .message img {
+                max-width: 240px;
+            }
+
+            .input-area {
+                padding: 10px;
             }
         }
+
+        /* =========================================================
+           SMALL MOBILE
+        ========================================================= */
+
+        @media (max-width: 430px) {
+
+            .brand-logo {
+                width: 45px;
+                height: 45px;
+            }
+
+            .brand-text h1 {
+                font-size: 17px;
+            }
+
+            .brand-text span {
+                font-size: 9px;
+            }
+
+            .hero h2 {
+                font-size: 32px;
+            }
+        }
+
     </style>
 </head>
 
 <body>
 
-    <!-- BACKGROUND -->
+    <!-- =========================================================
+         BACKGROUND
+    ========================================================= -->
 
     <div class="background">
-        <div class="orb orb1"></div>
-        <div class="orb orb2"></div>
-        <div class="orb orb3"></div>
+
+        <div class="orb one"></div>
+
+        <div class="orb two"></div>
+
+        <div class="orb three"></div>
+
     </div>
 
-    <div class="grid"></div>
+
+    <!-- =========================================================
+         APP
+    ========================================================= -->
+
+    <div class="app">
 
 
-    <!-- HEADER -->
+        <!-- =====================================================
+             SIDEBAR
+        ====================================================== -->
 
-    <header>
+        <aside class="sidebar">
 
-        <div class="brand">
-            <div class="brand-logo">M</div>
+            <div class="brand">
 
-            <div class="brand-text">
-                MECORA
-            </div>
-        </div>
+                <div class="brand-logo">
 
-        <div class="online">
-            <div class="online-dot"></div>
-            Online
-        </div>
+                    <img
+                        src="/mecora-logo.png"
+                        alt="MECORA logo"
+                    >
 
-    </header>
-
-
-    <!-- MAIN -->
-
-    <main>
-
-        <!-- HERO -->
-
-        <section class="hero">
-
-            <div class="hero-logo-container">
-
-                <div class="hero-ring"></div>
-
-                <div class="hero-logo">
-                    M
                 </div>
 
-            </div>
+                <div class="brand-text">
 
-            <h1>MECORA</h1>
-
-            <p class="hero-subtitle">
-                Your AI engineering assistant for
-                <strong>robotics, programming, embedded systems and AI.</strong>
-            </p>
-
-            <div class="hero-tag">
-                BUILD • CODE • ROBOT
-            </div>
-
-        </section>
-
-
-        <!-- SPECIALTIES -->
-
-        <div class="section-title">
-            Choose your field
-        </div>
-
-        <section class="specialties">
-
-            <div class="specialty"
-                 onclick="specialtyPrompt('I want help with robotics. Explain the problem step by step and give practical engineering advice.')">
-
-                <div class="specialty-icon">
-                    🤖
-                </div>
-
-                <h3>Robotics</h3>
-
-                <p>
-                    Robots, sensors, motors,
-                    kinematics, control and ROS 2.
-                </p>
-
-            </div>
-
-
-            <div class="specialty"
-                 onclick="specialtyPrompt('I need help with programming. Give me a clear explanation and practical code.')">
-
-                <div class="specialty-icon">
-                    💻
-                </div>
-
-                <h3>Programming</h3>
-
-                <p>
-                    Python, C/C++, algorithms,
-                    debugging and software engineering.
-                </p>
-
-            </div>
-
-
-            <div class="specialty"
-                 onclick="specialtyPrompt('I need help with embedded systems and electronics. Explain the circuit or system step by step.')">
-
-                <div class="specialty-icon">
-                    ⚡
-                </div>
-
-                <h3>Embedded</h3>
-
-                <p>
-                    Arduino, ESP32, STM32,
-                    microcontrollers and electronics.
-                </p>
-
-            </div>
-
-
-            <div class="specialty"
-                 onclick="specialtyPrompt('I want help with AI and computer vision for robotics. Explain the concepts and implementation.')">
-
-                <div class="specialty-icon">
-                    🧠
-                </div>
-
-                <h3>AI & Vision</h3>
-
-                <p>
-                    Machine learning, computer vision,
-                    neural networks and robotics AI.
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- CHAT -->
-
-        <section class="chat-container">
-
-            <div class="chat-header">
-
-                <div class="chat-header-icon">
-                    M
-                </div>
-
-                <div class="chat-header-text">
-
-                    <strong>
-                        MECORA AI
-                    </strong>
+                    <h1>MECORA</h1>
 
                     <span>
-                        Robotics & Engineering Assistant
+                        Robotics & AI Assistant
                     </span>
 
                 </div>
@@ -1068,245 +1373,563 @@
             </div>
 
 
-            <!-- MESSAGES -->
+            <div class="online-status">
 
-            <div class="messages" id="messages">
+                <div class="online-dot"></div>
 
-                <div class="message ai">
+                <span>
+                    MECORA online
+                </span>
 
-                    <div class="avatar">
-                        M
+            </div>
+
+
+            <div class="sidebar-title">
+                Specializations
+            </div>
+
+
+            <div
+                class="side-item active"
+                onclick="sendSpecialty('robotics')"
+            >
+                🤖 Robotics
+            </div>
+
+
+            <div
+                class="side-item"
+                onclick="sendSpecialty('programming')"
+            >
+                💻 Programming
+            </div>
+
+
+            <div
+                class="side-item"
+                onclick="sendSpecialty('embedded')"
+            >
+                ⚡ Embedded Systems
+            </div>
+
+
+            <div
+                class="side-item"
+                onclick="sendSpecialty('ai')"
+            >
+                🧠 AI & Computer Vision
+            </div>
+
+
+            <div class="sidebar-bottom">
+
+                MECORA is an AI assistant created for
+                engineering, robotics, programming and
+                intelligent systems.
+
+            </div>
+
+        </aside>
+
+
+        <!-- =====================================================
+             MAIN
+        ====================================================== -->
+
+        <main class="main">
+
+            <div class="main-inner">
+
+
+                <!-- =================================================
+                     HERO
+                ================================================== -->
+
+                <section class="hero">
+
+                    <div class="hero-logo">
+
+                        <img
+                            src="/mecora-logo.png"
+                            alt="MECORA"
+                        >
+
                     </div>
 
-                    <div class="bubble">
-                        Hello! I'm <strong>MECORA</strong> 🤖
 
-                        I can help you with robotics,
+                    <h2>
+                        Build. Code. Robot.
+                    </h2>
+
+
+                    <p>
+
+                        MECORA is your AI engineering
+                        assistant specialized in robotics,
                         programming, embedded systems,
-                        electronics, AI and computer vision.
+                        electronics and artificial
+                        intelligence.
 
-                        You can also upload a photo of a
-                        circuit, robot, component, code,
-                        schematic or engineering problem
-                        and ask me to analyze it.
+                    </p>
+
+                </section>
+
+
+                <!-- =================================================
+                     SPECIALTIES
+                ================================================== -->
+
+                <section class="specialties">
+
+
+                    <div
+                        class="specialty"
+                        onclick="sendSpecialty('robotics')"
+                    >
+
+                        <div class="specialty-icon">
+                            🤖
+                        </div>
+
+                        <h3>
+                            Robotics
+                        </h3>
+
+                        <p>
+                            Kinematics, ROS 2, control,
+                            sensors, motors and robotic
+                            systems.
+                        </p>
+
                     </div>
 
-                </div>
 
-            </div>
-
-
-            <!-- TYPING -->
-
-            <div class="typing" id="typing">
-
-                <span></span>
-                <span></span>
-                <span></span>
-
-                MECORA is thinking...
-
-            </div>
-
-
-            <!-- COMPOSER -->
-
-            <div class="composer">
-
-                <!-- IMAGE PREVIEW -->
-
-                <div class="image-preview" id="imagePreview">
-
-                    <img
-                        id="previewImage"
-                        src=""
-                        alt="Selected image"
+                    <div
+                        class="specialty"
+                        onclick="sendSpecialty('programming')"
                     >
 
-                    <button
-                        class="remove-image"
-                        type="button"
-                        onclick="removeImage()"
-                        title="Remove image"
-                    >
-                        ×
-                    </button>
+                        <div class="specialty-icon">
+                            💻
+                        </div>
 
-                    <div class="image-label">
-                        Image attached
+                        <h3>
+                            Programming
+                        </h3>
+
+                        <p>
+                            Python, C/C++, algorithms,
+                            debugging and software
+                            engineering.
+                        </p>
+
                     </div>
 
-                </div>
 
-
-                <!-- INPUT -->
-
-                <div class="input-box">
-
-                    <!-- IMAGE BUTTON -->
-
-                    <button
-                        class="image-upload-btn"
-                        type="button"
-                        onclick="document.getElementById('imageInput').click()"
-                        title="Upload image"
-                    >
-                        📷
-                    </button>
-
-
-                    <!-- HIDDEN FILE INPUT -->
-
-                    <input
-                        type="file"
-                        id="imageInput"
-                        accept="image/png,image/jpeg,image/webp,image/gif"
-                        style="display:none"
+                    <div
+                        class="specialty"
+                        onclick="sendSpecialty('embedded')"
                     >
 
+                        <div class="specialty-icon">
+                            ⚡
+                        </div>
 
-                    <!-- TEXT -->
+                        <h3>
+                            Embedded
+                        </h3>
 
-                    <textarea
-                        id="input"
-                        placeholder="Ask MECORA about robotics, programming, AI..."
-                        rows="1"
-                        maxlength="4000"
-                    ></textarea>
+                        <p>
+                            Arduino, ESP32, STM32,
+                            electronics and
+                            microcontrollers.
+                        </p>
+
+                    </div>
 
 
-                    <!-- SEND -->
-
-                    <button
-                        class="send-btn"
-                        id="sendButton"
-                        onclick="sendMessage()"
-                        title="Send"
+                    <div
+                        class="specialty"
+                        onclick="sendSpecialty('ai')"
                     >
-                        ➤
-                    </button>
 
-                </div>
+                        <div class="specialty-icon">
+                            🧠
+                        </div>
+
+                        <h3>
+                            AI & Vision
+                        </h3>
+
+                        <p>
+                            Machine learning, computer
+                            vision and AI for robotics.
+                        </p>
+
+                    </div>
+
+                </section>
 
 
-                <div class="hint">
-                    📷 Upload an image and ask MECORA about it
-                </div>
+                <!-- =================================================
+                     CHAT
+                ================================================== -->
+
+                <section
+                    class="chat-card"
+                    id="chatCard"
+                >
+
+
+                    <!-- CHAT HEADER -->
+
+                    <div class="chat-header">
+
+                        <div class="chat-header-left">
+
+                            <div class="chat-status"></div>
+
+                            <strong>
+                                MECORA
+                            </strong>
+
+                            <span>
+                                AI Engineering Assistant
+                            </span>
+
+                        </div>
+
+                        <span>
+                            v1.0
+                        </span>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         MESSAGES
+                    ================================================== -->
+
+                    <div
+                        class="messages"
+                        id="messages"
+                    >
+
+                        <div class="message-row">
+
+                            <div class="message bot">
+
+                                👋 Hello! I'm
+                                <strong>MECORA</strong>.
+
+                                <br><br>
+
+                                I'm specialized in:
+
+                                <br>
+                                🤖 Robotics
+
+                                <br>
+                                💻 Programming
+
+                                <br>
+                                ⚡ Embedded Systems
+
+                                <br>
+                                🧠 AI & Computer Vision
+
+                                <br><br>
+
+                                You can also upload a photo
+                                of a circuit, robot, PCB,
+                                code or engineering diagram
+                                and I'll analyze it.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         IMAGE PREVIEW
+                    ================================================== -->
+
+                    <div
+                        class="preview-area"
+                        id="previewArea"
+                    >
+
+                        <div class="preview-box">
+
+                            <img
+                                id="previewImage"
+                                src=""
+                                alt="Image preview"
+                            >
+
+                            <button
+                                class="remove-image"
+                                id="removeImage"
+                                type="button"
+                                title="Remove image"
+                            >
+                                ×
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         INPUT
+                    ================================================== -->
+
+                    <div class="input-area">
+
+                        <div class="input-wrapper">
+
+
+                            <!-- IMAGE BUTTON -->
+
+                            <button
+                                class="icon-button"
+                                id="imageButton"
+                                type="button"
+                                title="Upload image"
+                            >
+                                📎
+                            </button>
+
+
+                            <input
+                                id="imageInput"
+                                type="file"
+                                accept="image/png,image/jpeg,image/webp,image/gif"
+                            >
+
+
+                            <!-- TEXT INPUT -->
+
+                            <textarea
+                                id="messageInput"
+                                placeholder="Ask MECORA about robotics, programming, AI..."
+                                rows="1"
+                            ></textarea>
+
+
+                            <!-- SEND BUTTON -->
+
+                            <button
+                                class="send-button"
+                                id="sendButton"
+                                type="button"
+                                title="Send"
+                            >
+                                ➤
+                            </button>
+
+                        </div>
+
+
+                        <div class="input-hint">
+
+                            Enter to send ·
+                            Shift + Enter for a new line ·
+                            Drag & drop an image
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     FOOTER
+                ================================================== -->
+
+                <footer class="footer">
+
+                    Created by
+                    <strong>Ahmed Bendag</strong>
+                    · Mechatronics Engineering Student
+
+                </footer>
 
             </div>
 
-        </section>
+        </main>
+
+    </div>
 
 
-        <!-- FOOTER -->
-
-        <footer>
-
-            <div>
-                MECORA — AI Engineering Assistant
-            </div>
-
-            <div class="creator">
-                Created by
-                <strong>Ahmed Bendag</strong>
-                · Mechatronics Engineering Student
-            </div>
-
-        </footer>
-
-    </main>
-
-
-    <!-- JAVASCRIPT -->
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================= -->
 
     <script>
 
-        /* ==========================================
+        /* =========================================================
            ELEMENTS
-        ========================================== */
+        ========================================================= */
 
-        const input = document.getElementById("input");
-        const messages = document.getElementById("messages");
-        const typing = document.getElementById("typing");
-        const sendButton = document.getElementById("sendButton");
+        const messageInput =
+            document.getElementById("messageInput");
 
-        const imageInput = document.getElementById("imageInput");
-        const imagePreview = document.getElementById("imagePreview");
-        const previewImage = document.getElementById("previewImage");
+        const sendButton =
+            document.getElementById("sendButton");
+
+        const imageButton =
+            document.getElementById("imageButton");
+
+        const imageInput =
+            document.getElementById("imageInput");
+
+        const messages =
+            document.getElementById("messages");
+
+        const previewArea =
+            document.getElementById("previewArea");
+
+        const previewImage =
+            document.getElementById("previewImage");
+
+        const removeImage =
+            document.getElementById("removeImage");
+
+        const chatCard =
+            document.getElementById("chatCard");
+
+
+        /* =========================================================
+           STATE
+        ========================================================= */
 
         let selectedImage = null;
 
 
-        /* ==========================================
-           IMAGE UPLOAD
-        ========================================== */
+        /* =========================================================
+           AUTO RESIZE TEXTAREA
+        ========================================================= */
 
-        imageInput.addEventListener("change", function () {
+        messageInput.addEventListener(
+            "input",
+            function () {
 
-            const file = this.files[0];
+                this.style.height = "auto";
 
-            if (!file) {
-                return;
+                this.style.height =
+                    Math.min(
+                        this.scrollHeight,
+                        150
+                    ) + "px";
+
             }
+        );
 
 
-            /* Check file type */
+        /* =========================================================
+           IMAGE BUTTON
+        ========================================================= */
+
+        imageButton.addEventListener(
+            "click",
+            function () {
+
+                imageInput.click();
+
+            }
+        );
+
+
+        /* =========================================================
+           IMAGE INPUT
+        ========================================================= */
+
+        imageInput.addEventListener(
+            "change",
+            function () {
+
+                const file =
+                    this.files[0];
+
+                if (!file) {
+                    return;
+                }
+
+                handleImage(file);
+
+            }
+        );
+
+
+        /* =========================================================
+           HANDLE IMAGE
+        ========================================================= */
+
+        function handleImage(file) {
 
             if (!file.type.startsWith("image/")) {
 
-                alert("Please select an image file.");
-
-                this.value = "";
-
-                return;
-            }
-
-
-            /* Maximum browser-side image size */
-
-            if (file.size > 6 * 1024 * 1024) {
-
-                alert("Image is too large. Maximum size is 6 MB.");
-
-                this.value = "";
+                alert(
+                    "Please select a valid image."
+                );
 
                 return;
             }
 
 
-            /* Read image */
+            /* Maximum 8 MB */
 
-            const reader = new FileReader();
+            if (file.size > 8 * 1024 * 1024) {
 
+                alert(
+                    "Image is too large. Maximum size is 8 MB."
+                );
 
-            reader.onload = function (event) {
-
-                selectedImage = event.target.result;
-
-                previewImage.src = selectedImage;
-
-                imagePreview.classList.add("show");
-
-            };
+                return;
+            }
 
 
-            reader.onerror = function () {
+            selectedImage = file;
 
-                alert("Could not read the image.");
 
-            };
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function (event) {
+
+                    previewImage.src =
+                        event.target.result;
+
+                    previewArea.classList.add(
+                        "active"
+                    );
+
+                };
 
 
             reader.readAsDataURL(file);
 
-        });
+        }
 
 
-        /* ==========================================
+        /* =========================================================
            REMOVE IMAGE
-        ========================================== */
+        ========================================================= */
 
-        function removeImage() {
+        removeImage.addEventListener(
+            "click",
+            removeSelectedImage
+        );
+
+
+        function removeSelectedImage() {
 
             selectedImage = null;
 
@@ -1314,316 +1937,93 @@
 
             previewImage.src = "";
 
-            imagePreview.classList.remove("show");
-
-        }
-
-
-        /* ==========================================
-           ADD MESSAGE
-        ========================================== */
-
-        function addMessage(text, type, image = null) {
-
-            const message = document.createElement("div");
-
-            message.className = `message ${type}`;
-
-
-            const avatar = document.createElement("div");
-
-            avatar.className = "avatar";
-
-            avatar.textContent = type === "ai" ? "M" : "You";
-
-
-            const bubble = document.createElement("div");
-
-            bubble.className = "bubble";
-
-
-            /* Add image */
-
-            if (image) {
-
-                const img = document.createElement("img");
-
-                img.className = "chat-image";
-
-                img.src = image;
-
-                img.alt = "Uploaded image";
-
-                bubble.appendChild(img);
-
-            }
-
-
-            /* Add text */
-
-            if (text) {
-
-                const textNode = document.createElement("div");
-
-                textNode.textContent = text;
-
-                bubble.appendChild(textNode);
-
-            }
-
-
-            message.appendChild(avatar);
-
-            message.appendChild(bubble);
-
-            messages.appendChild(message);
-
-
-            scrollMessages();
-
-        }
-
-
-        /* ==========================================
-           SCROLL CHAT
-        ========================================== */
-
-        function scrollMessages() {
-
-            messages.scrollTop = messages.scrollHeight;
-
-        }
-
-
-        /* ==========================================
-           TYPING
-        ========================================== */
-
-        function showTyping() {
-
-            typing.classList.add("show");
-
-            scrollMessages();
-
-        }
-
-
-        function hideTyping() {
-
-            typing.classList.remove("show");
-
-        }
-
-
-        /* ==========================================
-           SEND MESSAGE
-        ========================================== */
-
-        async function sendMessage() {
-
-            const message = input.value.trim();
-
-
-            /* Allow image-only messages */
-
-            if (!message && !selectedImage) {
-
-                return;
-
-            }
-
-
-            /* Character limit */
-
-            if (message.length > 4000) {
-
-                alert(
-                    "Your message is too long. Please keep it under 4000 characters."
-                );
-
-                return;
-            }
-
-
-            /* Save image before clearing */
-
-            const imageToSend = selectedImage;
-
-
-            /* Display user message */
-
-            addMessage(
-                message || "Analyze this image.",
-                "user",
-                imageToSend
+            previewArea.classList.remove(
+                "active"
             );
 
-
-            /* Clear input */
-
-            input.value = "";
-
-            input.style.height = "auto";
+        }
 
 
-            /* Disable button */
+        /* =========================================================
+           DRAG OVER
+        ========================================================= */
 
-            sendButton.disabled = true;
+        chatCard.addEventListener(
+            "dragover",
+            function (event) {
 
+                event.preventDefault();
 
-            /* Show typing */
+                chatCard.classList.add(
+                    "drag-over"
+                );
 
-            showTyping();
-
-
-            try {
-
-                const response = await fetch("/chat", {
-
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-
-                    body: JSON.stringify({
-
-                        message:
-                            message ||
-                            "Analyze this image and explain what you see.",
-
-                        image: imageToSend
-
-                    })
-
-                });
+            }
+        );
 
 
-                let data = null;
+        /* =========================================================
+           DRAG LEAVE
+        ========================================================= */
 
-                try {
+        chatCard.addEventListener(
+            "dragleave",
+            function (event) {
 
-                    data = await response.json();
+                if (
+                    !chatCard.contains(
+                        event.relatedTarget
+                    )
+                ) {
 
-                } catch {
-
-                    data = null;
-
-                }
-
-
-                /* HTTP error */
-
-                if (!response.ok) {
-
-                    throw new Error(
-                        data?.answer ||
-                        "Server error."
+                    chatCard.classList.remove(
+                        "drag-over"
                     );
 
                 }
 
-
-                /* Hide typing */
-
-                hideTyping();
-
-
-                /* Display answer */
-
-                addMessage(
-
-                    data?.answer ||
-                    "I couldn't generate a response.",
-
-                    "ai"
-
-                );
-
-
-                /* Remove image after successful request */
-
-                removeImage();
-
             }
-
-            catch (error) {
-
-                hideTyping();
-
-
-                console.error(
-                    "MECORA error:",
-                    error
-                );
-
-
-                addMessage(
-
-                    "MECORA is temporarily unavailable. Please try again.",
-
-                    "ai"
-
-                );
-
-            }
-
-            finally {
-
-                sendButton.disabled = false;
-
-                input.focus();
-
-            }
-
-        }
-
-
-        /* ==========================================
-           SPECIALTY BUTTONS
-        ========================================== */
-
-        function specialtyPrompt(prompt) {
-
-            input.value = prompt;
-
-            input.focus();
-
-            autoResize();
-
-        }
-
-
-        /* ==========================================
-           TEXTAREA AUTO RESIZE
-        ========================================== */
-
-        function autoResize() {
-
-            input.style.height = "auto";
-
-            input.style.height =
-                Math.min(
-                    input.scrollHeight,
-                    160
-                ) + "px";
-
-        }
-
-
-        input.addEventListener(
-            "input",
-            autoResize
         );
 
 
-        /* ==========================================
-           ENTER TO SEND
-        ========================================== */
+        /* =========================================================
+           DROP IMAGE
+        ========================================================= */
 
-        input.addEventListener(
+        chatCard.addEventListener(
+            "drop",
+            function (event) {
+
+                event.preventDefault();
+
+                chatCard.classList.remove(
+                    "drag-over"
+                );
+
+
+                const files =
+                    event.dataTransfer.files;
+
+                if (
+                    !files ||
+                    !files.length
+                ) {
+                    return;
+                }
+
+                handleImage(files[0]);
+
+            }
+        );
+
+
+        /* =========================================================
+           ENTER TO SEND
+        ========================================================= */
+
+        messageInput.addEventListener(
             "keydown",
-            function(event) {
+            function (event) {
 
                 if (
                     event.key === "Enter" &&
@@ -1640,102 +2040,497 @@
         );
 
 
-        /* ==========================================
-           DRAG & DROP IMAGE
-        ========================================== */
+        /* =========================================================
+           SEND BUTTON
+        ========================================================= */
 
-        const composer = document.querySelector(".composer");
-
-
-        composer.addEventListener(
-            "dragover",
-            function(event) {
-
-                event.preventDefault();
-
-                composer.style.opacity = "0.8";
-
-            }
+        sendButton.addEventListener(
+            "click",
+            sendMessage
         );
 
 
-        composer.addEventListener(
-            "dragleave",
-            function() {
+        /* =========================================================
+           SPECIALTY BUTTONS
+        ========================================================= */
 
-                composer.style.opacity = "1";
+        function sendSpecialty(type) {
+
+            const prompts = {
+
+                robotics:
+                    "I want to learn robotics. Explain an important robotics concept and give me a practical example.",
+
+                programming:
+                    "Help me improve my programming skills. Give me a practical programming problem related to engineering and explain the solution.",
+
+                embedded:
+                    "I want to learn embedded systems. Explain an important concept involving microcontrollers, sensors or actuators with a practical example.",
+
+                ai:
+                    "I want to learn AI and computer vision for robotics. Explain an important concept and give me a practical robotics example."
+
+            };
+
+
+            const prompt =
+                prompts[type];
+
+
+            if (!prompt) {
+                return;
+            }
+
+
+            messageInput.value =
+                prompt;
+
+
+            messageInput.focus();
+
+
+            setTimeout(
+                sendMessage,
+                100
+            );
+
+        }
+
+
+        /* =========================================================
+           ADD MESSAGE
+        ========================================================= */
+
+        function addMessage(
+            text,
+            sender,
+            imageUrl = null
+        ) {
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "message-row " +
+                (
+                    sender === "user"
+                        ? "user"
+                        : ""
+                );
+
+
+            const message =
+                document.createElement(
+                    "div"
+                );
+
+
+            message.className =
+                "message " +
+                sender;
+
+
+            /* TEXT */
+
+            if (text) {
+
+                const textElement =
+                    document.createElement(
+                        "div"
+                    );
+
+                textElement.textContent =
+                    text;
+
+                message.appendChild(
+                    textElement
+                );
 
             }
-        );
 
 
-        composer.addEventListener(
-            "drop",
-            function(event) {
+            /* IMAGE */
 
-                event.preventDefault();
+            if (imageUrl) {
 
-                composer.style.opacity = "1";
+                const img =
+                    document.createElement(
+                        "img"
+                    );
+
+                img.src =
+                    imageUrl;
+
+                img.alt =
+                    "Uploaded image";
+
+                message.appendChild(
+                    img
+                );
+
+            }
 
 
-                const file =
-                    event.dataTransfer.files[0];
+            row.appendChild(
+                message
+            );
 
 
-                if (!file) {
-                    return;
+            messages.appendChild(
+                row
+            );
+
+
+            scrollToBottom();
+
+        }
+
+
+        /* =========================================================
+           TYPING INDICATOR
+        ========================================================= */
+
+        function showTyping() {
+
+            hideTyping();
+
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "message-row";
+
+
+            row.id =
+                "typingRow";
+
+
+            const message =
+                document.createElement(
+                    "div"
+                );
+
+
+            message.className =
+                "message bot";
+
+
+            const typing =
+                document.createElement(
+                    "div"
+                );
+
+
+            typing.className =
+                "typing active";
+
+
+            typing.innerHTML = `
+                <span></span>
+                <span></span>
+                <span></span>
+            `;
+
+
+            message.appendChild(
+                typing
+            );
+
+
+            row.appendChild(
+                message
+            );
+
+
+            messages.appendChild(
+                row
+            );
+
+
+            scrollToBottom();
+
+        }
+
+
+        function hideTyping() {
+
+            const row =
+                document.getElementById(
+                    "typingRow"
+                );
+
+
+            if (row) {
+
+                row.remove();
+
+            }
+
+        }
+
+
+        /* =========================================================
+           SCROLL TO BOTTOM
+        ========================================================= */
+
+        function scrollToBottom() {
+
+            messages.scrollTop =
+                messages.scrollHeight;
+
+        }
+
+
+        /* =========================================================
+           FILE TO BASE64
+        ========================================================= */
+
+        function fileToBase64(file) {
+
+            return new Promise(
+                function (resolve, reject) {
+
+                    const reader =
+                        new FileReader();
+
+
+                    reader.onload =
+                        function () {
+
+                            resolve(
+                                reader.result
+                            );
+
+                        };
+
+
+                    reader.onerror =
+                        function () {
+
+                            reject(
+                                new Error(
+                                    "Could not read image."
+                                )
+                            );
+
+                        };
+
+
+                    reader.readAsDataURL(
+                        file
+                    );
+
                 }
+            );
+
+        }
 
 
-                if (!file.type.startsWith("image/")) {
+        /* =========================================================
+           SEND MESSAGE
+        ========================================================= */
 
-                    alert("Please drop an image file.");
+        async function sendMessage() {
 
-                    return;
-
-                }
-
-
-                if (file.size > 6 * 1024 * 1024) {
-
-                    alert("Image is too large. Maximum size is 6 MB.");
-
-                    return;
-
-                }
+            const text =
+                messageInput.value.trim();
 
 
-                const reader =
-                    new FileReader();
+            /*
+             * Allow:
+             *
+             * 1. text only
+             * 2. image only
+             * 3. text + image
+             */
+
+            if (
+                !text &&
+                !selectedImage
+            ) {
+
+                return;
+
+            }
 
 
-                reader.onload =
-                    function(e) {
+            /* Disable buttons */
 
-                        selectedImage =
-                            e.target.result;
+            sendButton.disabled =
+                true;
 
-                        previewImage.src =
-                            selectedImage;
+            imageButton.disabled =
+                true;
 
-                        imagePreview.classList.add(
-                            "show"
+
+            const imageFile =
+                selectedImage;
+
+
+            let imageData =
+                null;
+
+
+            try {
+
+                /* Convert image */
+
+                if (imageFile) {
+
+                    imageData =
+                        await fileToBase64(
+                            imageFile
                         );
 
-                    };
+                }
 
 
-                reader.readAsDataURL(file);
+                /* Show user message */
+
+                addMessage(
+                    text,
+                    "user",
+                    imageData
+                );
+
+
+                /* Clear input */
+
+                messageInput.value = "";
+
+                messageInput.style.height =
+                    "auto";
+
+
+                removeSelectedImage();
+
+
+                /* Show typing */
+
+                showTyping();
+
+
+                /* Send request */
+
+                const response =
+                    await fetch(
+                        "/chat",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify({
+                                    message: text,
+                                    image: imageData
+                                })
+                        }
+                    );
+
+
+                /* Read response */
+
+                let data = null;
+
+
+                try {
+
+                    data =
+                        await response.json();
+
+                } catch {
+
+                    data = null;
+
+                }
+
+
+                hideTyping();
+
+
+                /* Server error */
+
+                if (!response.ok) {
+
+                    addMessage(
+                        data?.answer ||
+                        "MECORA encountered a server error.",
+                        "bot"
+                    );
+
+                    return;
+
+                }
+
+
+                /* AI response */
+
+                addMessage(
+                    data?.answer ||
+                    "I couldn't generate a response.",
+                    "bot"
+                );
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "MECORA error:",
+                    error
+                );
+
+
+                hideTyping();
+
+
+                addMessage(
+                    "Unable to connect to MECORA. Please check that the server is running and try again.",
+                    "bot"
+                );
+
+            }
+
+
+            finally {
+
+                sendButton.disabled =
+                    false;
+
+                imageButton.disabled =
+                    false;
+
+                messageInput.focus();
+
+            }
+
+        }
+
+
+        /* =========================================================
+           INITIAL FOCUS
+        ========================================================= */
+
+        window.addEventListener(
+            "load",
+            function () {
+
+                messageInput.focus();
 
             }
         );
-
-
-        /* ==========================================
-           INITIAL FOCUS
-        ========================================== */
-
-        input.focus();
 
     </script>
 

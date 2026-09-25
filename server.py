@@ -1,9 +1,6 @@
-```python
 from flask import Flask, request, jsonify, send_from_directory
 from dotenv import load_dotenv
 import os
-import base64
-import mimetypes
 from openai import OpenAI
 
 load_dotenv()
@@ -15,7 +12,7 @@ load_dotenv()
 api_key = os.getenv("OPENROUTER_API_KEY")
 
 if not api_key:
-    raise RuntimeError("Server configuration error.")
+    raise RuntimeError("OPENROUTER_API_KEY is not configured.")
 
 api_key = api_key.strip()
 
@@ -26,8 +23,7 @@ client = OpenAI(
 
 app = Flask(__name__)
 
-# Images can be much larger than text.
-# 10 MB maximum request size.
+# Maximum request size: 10 MB
 app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024
 
 
@@ -51,7 +47,7 @@ Never claim that you were created by another person, company,
 organization, AI, or model.
 
 Do not claim to be ChatGPT, Claude, Gemini, Grok, DeepSeek,
-Nex, or another AI assistant.
+or another AI assistant.
 
 ============================================================
 MAIN SPECIALIZATION
@@ -265,8 +261,7 @@ When analyzing an engineering image:
 3. Explain their purpose.
 4. Identify possible problems.
 5. Give practical recommendations.
-6. If it is a circuit, do not invent connections that
-   cannot be clearly seen.
+6. Do not invent connections that cannot be clearly seen.
 7. If something is uncertain, explicitly say so.
 
 For screenshots containing code:
@@ -321,12 +316,12 @@ DEBUGGING MODE
 
 When a user gives you code that does not work:
 
-🔎 Problem
-⚠️ Error
-🛠️ Cause
-✅ Solution
-💻 Corrected code
-🧪 Test
+Problem
+Error
+Cause
+Solution
+Corrected code
+Test
 
 Do not simply say that the code is wrong.
 
@@ -415,19 +410,14 @@ You are MECORA.
 
 @app.after_request
 def security_headers(response):
-
     response.headers["X-Content-Type-Options"] = "nosniff"
-
     response.headers["X-Frame-Options"] = "DENY"
-
     response.headers["Referrer-Policy"] = (
         "strict-origin-when-cross-origin"
     )
-
     response.headers["Permissions-Policy"] = (
         "camera=(), microphone=(), geolocation=()"
     )
-
     return response
 
 
@@ -437,7 +427,6 @@ def security_headers(response):
 
 @app.route("/")
 def home():
-
     return send_from_directory(
         "website",
         "index.html"
@@ -463,7 +452,7 @@ def chat():
             "answer": "Invalid request."
         }), 400
 
-    user_message = data.get("message")
+    user_message = data.get("message", "")
 
     if not isinstance(user_message, str):
         return jsonify({
@@ -472,9 +461,30 @@ def chat():
 
     user_message = user_message.strip()
 
-    if not user_message:
+    image_data = data.get("image")
+
+    if image_data is not None:
+        if not isinstance(image_data, str):
+            return jsonify({
+                "answer": "Invalid image."
+            }), 400
+
+        if not image_data.startswith("data:image/"):
+            return jsonify({
+                "answer": "Invalid image format."
+            }), 400
+
+        if len(image_data) > 8 * 1024 * 1024:
+            return jsonify({
+                "answer": (
+                    "The image is too large. "
+                    "Please use a smaller image."
+                )
+            }), 400
+
+    if not user_message and not image_data:
         return jsonify({
-            "answer": "Please enter a message."
+            "answer": "Please enter a message or upload an image."
         }), 400
 
     if len(user_message) > 4000:
@@ -484,26 +494,6 @@ def chat():
                 "Please keep it under 4000 characters."
             )
         }), 400
-
-    # ========================================================
-    # IMAGE
-    # ========================================================
-
-    image_data = data.get("image")
-
-    if image_data is not None:
-
-        if not isinstance(image_data, str):
-            return jsonify({
-                "answer": "Invalid image."
-            }), 400
-
-        # Basic protection against extremely large base64 data.
-        if len(image_data) > 8 * 1024 * 1024:
-
-            return jsonify({
-                "answer": "The image is too large. Please use a smaller image."
-            }), 400
 
     try:
 
@@ -534,11 +524,22 @@ def chat():
 
         else:
 
-            # The browser sends:
-            #
-            # data:image/jpeg;base64,...
-            #
-            # We pass it directly to OpenRouter.
+            user_content = [
+                {
+                    "type": "text",
+                    "text": (
+                        user_message
+                        if user_message
+                        else "Analyze this image."
+                    )
+                },
+                {
+                    "type": "image_url",
+                    "image_url": {
+                        "url": image_data
+                    }
+                }
+            ]
 
             response = client.chat.completions.create(
                 model="openrouter/free",
@@ -549,18 +550,7 @@ def chat():
                     },
                     {
                         "role": "user",
-                        "content": [
-                            {
-                                "type": "text",
-                                "text": user_message
-                            },
-                            {
-                                "type": "image_url",
-                                "image_url": {
-                                    "url": image_data
-                                }
-                            }
-                        ]
+                        "content": user_content
                     }
                 ],
                 max_tokens=1200
@@ -569,7 +559,6 @@ def chat():
         answer = response.choices[0].message.content
 
         if not answer:
-
             answer = "I couldn't generate a response."
 
         return jsonify({
@@ -578,10 +567,11 @@ def chat():
 
     except Exception as e:
 
-        # Never log:
+        # Do not log:
         # - user messages
         # - images
         # - API keys
+        # - secrets
 
         print(
             "MECORA request failed:",
@@ -611,7 +601,7 @@ if __name__ == "__main__":
 
     print()
     print("================================")
-    print("          🤖 MECORA")
+    print("          MECORA")
     print("================================")
     print("Robotics & Programming AI")
     print()
@@ -627,4 +617,3 @@ if __name__ == "__main__":
         port=port,
         debug=False
     )
-```
