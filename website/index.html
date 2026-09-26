@@ -2,45 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>MECORA — Robotics & AI Assistant</title>
+    <title>MECORA 1.0 | Robotics & Programming AI</title>
 
     <meta
         name="description"
-        content="MECORA — AI assistant specialized in robotics, programming, embedded systems and artificial intelligence."
+        content="MECORA 1.0 - Robotics, Programming, Embedded Systems and AI & Vision assistant."
     >
 
     <style>
-        /* =========================================================
+
+        /* =====================================================
            RESET
-        ========================================================= */
+        ===================================================== */
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         :root {
-            --bg: #050509;
-            --bg-secondary: #0a0a11;
-            --panel: rgba(15, 15, 24, 0.88);
-            --panel-light: rgba(255, 255, 255, 0.04);
+            --bg: #020817;
+            --bg2: #061426;
+            --panel: rgba(4, 19, 38, 0.82);
 
-            --text: #f5f5f7;
-            --muted: #9292a3;
-            --muted-dark: #626270;
+            --blue: #08a9ff;
+            --blue2: #006eff;
+            --cyan: #00e5ff;
 
-            --red: #ff1744;
-            --red-dark: #d90e39;
-            --purple: #9c27ff;
-            --green: #35e58b;
+            --text: #edf7ff;
+            --muted: #8eafd0;
 
-            --border: rgba(255, 255, 255, 0.08);
+            --border: rgba(0, 157, 255, 0.35);
+
+            --green: #00e676;
+            --purple: #b967ff;
+            --orange: #ffb000;
 
             --shadow:
-                0 20px 60px rgba(0, 0, 0, 0.45);
+                0 0 30px rgba(0, 140, 255, 0.15);
         }
 
         html {
@@ -52,411 +57,598 @@
 
             font-family:
                 Inter,
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
+                Segoe UI,
+                Arial,
                 sans-serif;
 
             color: var(--text);
 
             background:
                 radial-gradient(
-                    circle at 10% 10%,
-                    rgba(255, 23, 68, 0.12),
+                    circle at 20% 10%,
+                    rgba(0, 120, 255, 0.15),
                     transparent 30%
                 ),
                 radial-gradient(
-                    circle at 90% 20%,
-                    rgba(156, 39, 255, 0.10),
+                    circle at 80% 80%,
+                    rgba(0, 220, 255, 0.08),
                     transparent 30%
                 ),
                 linear-gradient(
                     135deg,
-                    #030305,
-                    #080810,
-                    #040408
+                    #010611,
+                    #031022,
+                    #020817
                 );
 
             overflow-x: hidden;
         }
 
-        button,
-        textarea,
-        input {
-            font-family: inherit;
-        }
-
-        /* =========================================================
+        /* =====================================================
            BACKGROUND
-        ========================================================= */
+        ===================================================== */
 
-        .background {
+        body::before {
+            content: "";
+
             position: fixed;
-            inset: 0;
-
-            overflow: hidden;
-
-            pointer-events: none;
-
-            z-index: -10;
-        }
-
-        .orb {
-            position: absolute;
 
             width: 500px;
             height: 500px;
 
             border-radius: 50%;
 
-            filter: blur(110px);
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(0, 157, 255, 0.12),
+                    transparent 70%
+                );
 
-            opacity: 0.12;
+            top: -180px;
+            left: -150px;
 
-            animation:
-                floatOrb 12s ease-in-out infinite;
+            animation: backgroundFloat 12s ease-in-out infinite;
+
+            pointer-events: none;
+
+            z-index: -1;
         }
 
-        .orb.one {
-            background: var(--red);
+        body::after {
+            content: "";
 
-            left: -200px;
-            top: -200px;
+            position: fixed;
+
+            width: 450px;
+            height: 450px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(0, 229, 255, 0.08),
+                    transparent 70%
+                );
+
+            right: -180px;
+            bottom: -180px;
+
+            animation: backgroundFloat2 15s ease-in-out infinite;
+
+            pointer-events: none;
+
+            z-index: -1;
         }
 
-        .orb.two {
-            background: var(--purple);
+        @keyframes backgroundFloat {
 
-            right: -200px;
-            top: 20%;
-
-            animation-delay: -4s;
-        }
-
-        .orb.three {
-            background: var(--red);
-
-            left: 30%;
-            bottom: -300px;
-
-            animation-delay: -8s;
-        }
-
-        @keyframes floatOrb {
             0%,
             100% {
-                transform: translate3d(0, 0, 0);
+                transform: translate(0, 0);
             }
 
             50% {
-                transform: translate3d(30px, -40px, 0);
+                transform: translate(70px, 50px);
             }
         }
 
-        /* =========================================================
-           APP
-        ========================================================= */
+        @keyframes backgroundFloat2 {
 
-        .app {
-            min-height: 100vh;
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
 
-            display: flex;
+            50% {
+                transform: translate(-60px, -40px);
+            }
         }
 
-        /* =========================================================
-           SIDEBAR
-        ========================================================= */
+        /* =====================================================
+           HEADER
+        ===================================================== */
 
-        .sidebar {
-            position: fixed;
-
-            left: 0;
-            top: 0;
-            bottom: 0;
-
-            width: 280px;
-
-            padding: 28px 20px;
+        header {
+            height: 105px;
 
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 42px;
+
+            border-bottom:
+                1px solid rgba(0, 157, 255, 0.22);
 
             background:
-                rgba(5, 5, 10, 0.84);
+                rgba(1, 10, 23, 0.75);
 
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(18px);
 
-            border-right:
-                1px solid var(--border);
+            position: relative;
 
-            z-index: 20;
+            z-index: 10;
         }
 
         .brand {
             display: flex;
-
             align-items: center;
-
-            gap: 14px;
-
-            margin-bottom: 35px;
+            gap: 18px;
         }
 
-        /* =========================================================
-           CANVA LOGO
-        ========================================================= */
+        /* =====================================================
+           ROBOT LOGO
+        ===================================================== */
 
-        .brand-logo {
-            width: 58px;
-            height: 58px;
+        .robot-logo {
+            width: 70px;
+            height: 70px;
 
-            flex-shrink: 0;
-
-            border-radius: 14px;
-
-            overflow: hidden;
+            border-radius: 50%;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            background: #08080d;
+            position: relative;
+
+            background:
+                radial-gradient(
+                    circle at 35% 30%,
+                    #ffffff,
+                    #9ccfff 20%,
+                    #153a5f 55%,
+                    #020b17 100%
+                );
 
             border:
-                1px solid rgba(255, 23, 68, 0.35);
+                2px solid var(--blue);
 
             box-shadow:
-                0 0 25px rgba(255, 23, 68, 0.20);
+                0 0 10px rgba(0, 174, 255, 0.8),
+                0 0 35px rgba(0, 110, 255, 0.35);
+
+            animation: robotPulse 3s ease-in-out infinite;
         }
 
-        .brand-logo img {
-            width: 100%;
-            height: 100%;
+        .robot-logo::before {
+            content: "";
 
-            object-fit: contain;
+            width: 34px;
+            height: 29px;
 
-            display: block;
+            background:
+                linear-gradient(
+                    145deg,
+                    #dff5ff,
+                    #4e8ebc
+                );
+
+            border-radius:
+                13px 13px 10px 10px;
+
+            border: 2px solid #9ddfff;
+
+            box-shadow:
+                inset 0 -7px 10px rgba(0, 0, 0, 0.35);
+
+            position: absolute;
         }
 
-        .brand-text h1 {
-            font-size: 21px;
+        .robot-logo::after {
+            content: "••";
 
-            font-weight: 800;
+            position: absolute;
+
+            color: #00d9ff;
+
+            font-size: 17px;
+            letter-spacing: 4px;
+
+            top: 22px;
+            left: 24px;
+
+            text-shadow:
+                0 0 8px #00d9ff,
+                0 0 15px #00d9ff;
+        }
+
+        @keyframes robotPulse {
+
+            0%,
+            100% {
+                box-shadow:
+                    0 0 10px rgba(0, 174, 255, 0.8),
+                    0 0 35px rgba(0, 110, 255, 0.35);
+            }
+
+            50% {
+                box-shadow:
+                    0 0 20px rgba(0, 229, 255, 1),
+                    0 0 55px rgba(0, 110, 255, 0.55);
+            }
+        }
+
+        .brand-name {
+            font-size: 36px;
+
+            font-weight: 900;
 
             letter-spacing: 2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffffff,
+                    #8ddaff,
+                    #ffffff,
+                    #008cff
+                );
+
+            background-size: 250% auto;
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+
+            animation:
+                brandShine 5s linear infinite;
         }
 
-        .brand-text span {
-            display: block;
+        .version {
+            color: var(--blue);
 
-            margin-top: 4px;
+            font-size: 26px;
 
+            font-weight: 900;
+
+            margin-left: 5px;
+        }
+
+        @keyframes brandShine {
+
+            0% {
+                background-position: 0% center;
+            }
+
+            100% {
+                background-position: 250% center;
+            }
+        }
+
+        .tagline {
             color: var(--muted);
 
             font-size: 11px;
+
+            letter-spacing: 4px;
+
+            margin-top: 5px;
         }
 
-        /* =========================================================
-           ONLINE STATUS
-        ========================================================= */
-
-        .online-status {
+        .header-links {
             display: flex;
-            align-items: center;
 
-            gap: 9px;
+            gap: 28px;
 
-            padding: 10px 12px;
+            color: #86b8e9;
 
-            margin-bottom: 30px;
+            font-size: 14px;
+        }
 
-            border-radius: 10px;
+        .header-links span {
+            cursor: default;
+        }
 
+        .header-links span::before {
+            content: "•";
+
+            color: var(--blue);
+
+            margin-right: 8px;
+        }
+
+        /* =====================================================
+           MAIN LAYOUT
+        ===================================================== */
+
+        .main {
+            max-width: 1500px;
+
+            margin: auto;
+
+            padding: 24px 16px 0;
+
+            display: grid;
+
+            grid-template-columns:
+                290px
+                minmax(400px, 1fr)
+                330px;
+
+            gap: 14px;
+
+            min-height: calc(100vh - 165px);
+        }
+
+        .panel {
             background:
-                rgba(255, 255, 255, 0.025);
+                linear-gradient(
+                    145deg,
+                    rgba(5, 24, 46, 0.85),
+                    rgba(1, 12, 26, 0.9)
+                );
 
             border:
                 1px solid var(--border);
 
-            color: #c7c7d1;
-
-            font-size: 13px;
-        }
-
-        .online-dot {
-            width: 8px;
-            height: 8px;
-
-            border-radius: 50%;
-
-            background: var(--green);
-
             box-shadow:
-                0 0 12px rgba(53, 229, 139, 0.8);
-
-            animation:
-                pulseOnline 2s infinite;
-        }
-
-        @keyframes pulseOnline {
-            0% {
-                box-shadow:
-                    0 0 0 0 rgba(53, 229, 139, 0.6);
-            }
-
-            70% {
-                box-shadow:
-                    0 0 0 8px rgba(53, 229, 139, 0);
-            }
-
-            100% {
-                box-shadow:
-                    0 0 0 0 rgba(53, 229, 139, 0);
-            }
-        }
-
-        /* =========================================================
-           SIDEBAR MENU
-        ========================================================= */
-
-        .sidebar-title {
-            margin-bottom: 12px;
-
-            color: #707080;
-
-            font-size: 10px;
-
-            letter-spacing: 2px;
-
-            text-transform: uppercase;
-        }
-
-        .side-item {
-            padding: 12px 14px;
-
-            margin-bottom: 6px;
+                var(--shadow);
 
             border-radius: 10px;
 
-            color: #aaaab8;
+            backdrop-filter: blur(15px);
+        }
 
-            font-size: 14px;
+        /* =====================================================
+           LEFT CONTEXT PANEL
+        ===================================================== */
+
+        .context-panel {
+            padding: 25px 18px;
+
+            min-height: 720px;
+        }
+
+        .panel-title {
+            font-size: 18px;
+
+            color: #8dc7ff;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 20px;
+        }
+
+        .context-buttons {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 12px;
+        }
+
+        .context-btn {
+            width: 100%;
+
+            min-height: 70px;
+
+            border-radius: 10px;
+
+            border:
+                1px solid #008cff;
+
+            background:
+                rgba(1, 18, 37, 0.7);
+
+            color: #dceeff;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 17px;
+
+            padding: 12px 18px;
 
             cursor: pointer;
 
             transition:
-                background .25s ease,
-                color .25s ease,
-                transform .25s ease;
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                background 0.25s ease,
+                box-shadow 0.25s ease;
+
+            text-align: left;
+
+            font-size: 16px;
+
+            font-weight: 700;
         }
 
-        .side-item:hover {
-            color: white;
-
-            background:
-                rgba(255, 23, 68, 0.08);
-
+        .context-btn:hover {
             transform: translateX(4px);
-        }
 
-        .side-item.active {
-            color: white;
+            border-color: #00d9ff;
 
             background:
-                rgba(255, 23, 68, 0.12);
+                rgba(0, 110, 255, 0.13);
 
-            border:
-                1px solid rgba(255, 23, 68, 0.15);
+            box-shadow:
+                0 0 20px rgba(0, 157, 255, 0.18);
         }
 
-        .sidebar-bottom {
-            margin-top: auto;
+        .context-btn.active {
+            background:
+                linear-gradient(
+                    100deg,
+                    rgba(0, 125, 255, 0.45),
+                    rgba(0, 60, 140, 0.18)
+                );
 
-            padding-top: 20px;
+            border-color: #00c8ff;
 
-            border-top:
-                1px solid var(--border);
-
-            color: #676774;
-
-            font-size: 11px;
-
-            line-height: 1.6;
+            box-shadow:
+                0 0 22px rgba(0, 157, 255, 0.42),
+                inset 0 0 15px rgba(0, 157, 255, 0.1);
         }
 
-        /* =========================================================
-           MAIN
-        ========================================================= */
+        .context-icon {
+            width: 34px;
 
-        .main {
-            width: calc(100% - 280px);
-
-            min-height: 100vh;
-
-            margin-left: 280px;
-
-            padding: 30px;
-        }
-
-        .main-inner {
-            width: 100%;
-            max-width: 1250px;
-
-            min-height: calc(100vh - 60px);
-
-            margin: auto;
-
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* =========================================================
-           HERO
-        ========================================================= */
-
-        .hero {
-            padding: 20px 20px 35px;
+            font-size: 27px;
 
             text-align: center;
         }
 
-        .hero-logo {
-            width: 150px;
-            height: 150px;
+        .context-info {
+            margin-top: 30px;
 
-            margin: 0 auto 22px;
+            padding-top: 25px;
 
-            border-radius: 30px;
+            border-top:
+                1px solid rgba(0, 157, 255, 0.28);
+
+            color: var(--muted);
+
+            line-height: 1.7;
+
+            font-size: 14px;
+        }
+
+        .context-status {
+            margin-top: 20px;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            background:
+                rgba(0, 157, 255, 0.06);
+
+            color: #8bcaff;
+
+            font-size: 13px;
+
+            text-align: center;
+        }
+
+        /* =====================================================
+           CENTER CHAT
+        ===================================================== */
+
+        .chat-panel {
+            min-height: 720px;
+
+            display: flex;
+
+            flex-direction: column;
 
             overflow: hidden;
+        }
+
+        .chat-header {
+            padding: 20px;
+
+            border-bottom:
+                1px solid rgba(0, 157, 255, 0.22);
+
+            text-align: center;
+        }
+
+        .big-robot {
+            width: 115px;
+            height: 115px;
+
+            margin: 0 auto 15px;
+
+            border-radius: 50%;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
+            position: relative;
+
             background:
-                rgba(10, 10, 15, 0.7);
+                radial-gradient(
+                    circle at 35% 25%,
+                    #ffffff,
+                    #a9dfff 18%,
+                    #23547a 48%,
+                    #020a14 100%
+                );
 
             border:
-                1px solid rgba(255, 23, 68, 0.25);
+                3px solid #00b7ff;
 
             box-shadow:
-                0 0 50px rgba(255, 23, 68, 0.18);
+                0 0 20px #008cff,
+                0 0 55px rgba(0, 157, 255, 0.35);
 
             animation:
-                logoFloat 5s ease-in-out infinite;
+                robotFloat 4s ease-in-out infinite;
         }
 
-        .hero-logo img {
-            width: 100%;
-            height: 100%;
+        .big-robot::before {
+            content: "";
 
-            object-fit: contain;
+            width: 60px;
+            height: 52px;
 
-            display: block;
+            border-radius:
+                21px 21px 17px 17px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #f0fbff,
+                    #5993ba
+                );
+
+            border:
+                3px solid #b5e9ff;
+
+            box-shadow:
+                inset 0 -12px 15px rgba(0, 0, 0, 0.3);
+
+            position: absolute;
         }
 
-        @keyframes logoFloat {
+        .big-robot::after {
+            content: "••";
+
+            position: absolute;
+
+            color: #00ddff;
+
+            font-size: 29px;
+
+            letter-spacing: 9px;
+
+            top: 38px;
+            left: 39px;
+
+            text-shadow:
+                0 0 10px #00ddff,
+                0 0 20px #00ddff;
+        }
+
+        @keyframes robotFloat {
+
             0%,
             100% {
                 transform: translateY(0);
@@ -467,23 +659,411 @@
             }
         }
 
-        .hero h2 {
-            font-size: clamp(36px, 5vw, 64px);
+        .chat-title {
+            font-size: 34px;
 
             font-weight: 900;
+        }
 
-            line-height: 1.05;
+        .chat-title span {
+            color: var(--blue);
+        }
 
-            letter-spacing: -2px;
+        .chat-subtitle {
+            margin-top: 7px;
+
+            color: #7eaedb;
+
+            font-size: 15px;
+        }
+
+        .active-context {
+            margin-top: 18px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 8px 15px;
+
+            border-radius: 20px;
+
+            color: #00bfff;
+
+            background:
+                rgba(0, 157, 255, 0.08);
+
+            border:
+                1px solid rgba(0, 157, 255, 0.3);
+
+            font-size: 13px;
+        }
+
+        /* =====================================================
+           CHAT MESSAGES
+        ===================================================== */
+
+        .messages {
+            flex: 1;
+
+            overflow-y: auto;
+
+            padding: 25px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 15px;
+        }
+
+        .welcome {
+            margin: auto;
+
+            max-width: 570px;
+
+            padding: 28px;
+
+            text-align: center;
+
+            border:
+                1px solid rgba(0, 157, 255, 0.42);
+
+            border-radius: 12px;
+
+            background:
+                rgba(0, 35, 70, 0.18);
+
+            color: #bddcff;
+
+            line-height: 1.7;
+        }
+
+        .welcome strong {
+            display: block;
+
+            font-size: 22px;
+
+            color: white;
+
+            margin-bottom: 10px;
+        }
+
+        .message {
+            max-width: 82%;
+
+            padding: 13px 17px;
+
+            border-radius: 13px;
+
+            line-height: 1.55;
+
+            white-space: pre-wrap;
+
+            word-wrap: break-word;
+        }
+
+        .message.user {
+            align-self: flex-end;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0076df,
+                    #0053b5
+                );
+
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.ai {
+            align-self: flex-start;
+
+            background:
+                rgba(7, 29, 52, 0.9);
+
+            border:
+                1px solid rgba(0, 157, 255, 0.28);
+
+            border-bottom-left-radius: 4px;
+
+            color: #dceeff;
+        }
+
+        .message img {
+            max-width: 300px;
+
+            max-height: 250px;
+
+            display: block;
+
+            margin-top: 8px;
+
+            border-radius: 8px;
+        }
+
+        /* =====================================================
+           INPUT
+        ===================================================== */
+
+        .composer {
+            padding: 14px;
+
+            border-top:
+                1px solid rgba(0, 157, 255, 0.22);
+
+            background:
+                rgba(1, 12, 25, 0.7);
+        }
+
+        .input-box {
+            display: flex;
+
+            align-items: flex-end;
+
+            gap: 10px;
+
+            padding: 8px;
+
+            border:
+                1px solid #008cff;
+
+            border-radius: 12px;
+
+            background:
+                rgba(2, 14, 28, 0.85);
+
+            box-shadow:
+                0 0 15px rgba(0, 140, 255, 0.08);
+        }
+
+        textarea {
+            flex: 1;
+
+            resize: none;
+
+            min-height: 46px;
+            max-height: 140px;
+
+            padding: 12px;
+
+            background: transparent;
+
+            border: none;
+
+            outline: none;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-family: inherit;
+        }
+
+        textarea::placeholder {
+            color: #6084a8;
+        }
+
+        .input-actions {
+            display: flex;
+
+            gap: 8px;
+        }
+
+        .attach-btn,
+        .send-btn {
+            border: none;
+
+            cursor: pointer;
+
+            border-radius: 8px;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .attach-btn {
+            padding: 10px 13px;
+
+            color: #bde4ff;
+
+            background:
+                rgba(0, 130, 255, 0.1);
+
+            border:
+                1px solid rgba(0, 157, 255, 0.35);
+        }
+
+        .send-btn {
+            width: 48px;
+            height: 48px;
+
+            font-size: 21px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #008cff,
+                    #0055cc
+                );
+        }
+
+        .attach-btn:hover,
+        .send-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 0 20px rgba(0, 157, 255, 0.4);
+        }
+
+        #imageInput {
+            display: none;
+        }
+
+        .image-preview {
+            display: none;
+
+            margin-bottom: 10px;
+
+            position: relative;
+
+            width: fit-content;
+        }
+
+        .image-preview img {
+            width: 100px;
+            height: 80px;
+
+            object-fit: cover;
+
+            border-radius: 8px;
+
+            border:
+                1px solid var(--blue);
+        }
+
+        .remove-image {
+            position: absolute;
+
+            top: -7px;
+            right: -7px;
+
+            width: 22px;
+            height: 22px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: #ff3150;
+
+            color: white;
+
+            cursor: pointer;
+        }
+
+        /* =====================================================
+           RIGHT PANEL
+        ===================================================== */
+
+        .help-panel {
+            padding: 25px 18px;
+
+            min-height: 720px;
+        }
+
+        .help-card {
+            margin-bottom: 13px;
+
+            padding: 15px;
+
+            border:
+                1px solid rgba(0, 157, 255, 0.25);
+
+            border-radius: 10px;
+
+            background:
+                rgba(3, 25, 48, 0.55);
+        }
+
+        .help-card h3 {
+            margin-bottom: 8px;
+
+            font-size: 15px;
+        }
+
+        .help-card p {
+            color: #86acd0;
+
+            font-size: 12px;
+
+            line-height: 1.7;
+        }
+
+        .robotics h3 {
+            color: #08a9ff;
+        }
+
+        .programming h3 {
+            color: #00e89a;
+        }
+
+        .embedded h3 {
+            color: #ffb000;
+        }
+
+        .vision h3 {
+            color: #c46dff;
+        }
+
+        .mission {
+            margin-top: 20px;
+
+            padding-top: 20px;
+
+            border-top:
+                1px solid rgba(0, 157, 255, 0.25);
+
+            color: #83b5df;
+
+            line-height: 1.7;
+
+            font-size: 13px;
+        }
+
+        /* =====================================================
+           FOUNDER ANIMATION
+        ===================================================== */
+
+        .founder {
+            text-align: center;
+
+            margin-top: 18px;
+
+            font-size: 13px;
+
+            color: #7399bd;
+        }
+
+        .founder-name {
+            display: inline-block;
+
+            margin-left: 5px;
+
+            font-weight: 800;
 
             background:
                 linear-gradient(
                     90deg,
                     #ffffff,
-                    #ff365b,
+                    #00c8ff,
                     #ffffff,
-                    #a83cff,
-                    #ffffff
+                    #008cff
                 );
 
             background-size: 300% auto;
@@ -494,825 +1074,238 @@
             color: transparent;
 
             animation:
-                gradientText 6s linear infinite;
+                founderShine 4s linear infinite,
+                founderFloat 2.8s ease-in-out infinite;
         }
 
-        @keyframes gradientText {
-            to {
+        @keyframes founderShine {
+
+            0% {
+                background-position: 0% center;
+            }
+
+            100% {
                 background-position: 300% center;
             }
         }
 
-        .hero p {
-            max-width: 680px;
+        @keyframes founderFloat {
 
-            margin: 16px auto 0;
+            0%,
+            100% {
+                transform: translateY(0);
+            }
 
-            color: var(--muted);
-
-            font-size: 15px;
-
-            line-height: 1.7;
+            50% {
+                transform: translateY(-2px);
+            }
         }
 
-        /* =========================================================
-           SPECIALTY CARDS
-        ========================================================= */
-
-        .specialties {
-            display: grid;
-
-            grid-template-columns:
-                repeat(4, 1fr);
-
-            gap: 12px;
-
-            margin-bottom: 25px;
-        }
-
-        .specialty {
-            position: relative;
-
-            padding: 20px;
-
-            overflow: hidden;
-
-            border-radius: 15px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(255, 255, 255, 0.045),
-                    rgba(255, 255, 255, 0.015)
-                );
-
-            border:
-                1px solid var(--border);
-
-            cursor: pointer;
-
-            transition:
-                transform .3s ease,
-                border-color .3s ease,
-                background .3s ease,
-                box-shadow .3s ease;
-        }
-
-        .specialty::before {
-            content: "";
-
-            position: absolute;
-
-            width: 130px;
-            height: 130px;
-
-            right: -50px;
-            top: -50px;
-
-            border-radius: 50%;
-
-            background:
-                rgba(255, 23, 68, 0.15);
-
-            filter: blur(35px);
-
-            opacity: 0;
-
-            transition:
-                opacity .3s ease;
-        }
-
-        .specialty:hover {
-            transform: translateY(-5px);
-
-            background:
-                rgba(255, 23, 68, 0.06);
-
-            border-color:
-                rgba(255, 23, 68, 0.4);
-
-            box-shadow:
-                0 12px 35px rgba(0, 0, 0, 0.3),
-                0 0 30px rgba(255, 23, 68, 0.08);
-        }
-
-        .specialty:hover::before {
-            opacity: 1;
-        }
-
-        .specialty-icon {
-            margin-bottom: 12px;
-
-            font-size: 28px;
-        }
-
-        .specialty h3 {
-            margin-bottom: 5px;
-
-            font-size: 15px;
-        }
-
-        .specialty p {
-            color: #81818f;
-
-            font-size: 12px;
-
-            line-height: 1.5;
-        }
-
-        /* =========================================================
-           CHAT CARD
-        ========================================================= */
-
-        .chat-card {
-            min-height: 520px;
-
-            flex: 1;
-
-            display: flex;
-            flex-direction: column;
-
-            overflow: hidden;
-
-            border-radius: 20px;
-
-            background:
-                rgba(8, 8, 14, 0.78);
-
-            border:
-                1px solid var(--border);
-
-            backdrop-filter: blur(20px);
-
-            box-shadow:
-                var(--shadow);
-
-            transition:
-                border-color .3s ease,
-                box-shadow .3s ease;
-        }
-
-        .chat-card.drag-over {
-            border-color:
-                rgba(255, 23, 68, 0.65);
-
-            box-shadow:
-                0 0 50px rgba(255, 23, 68, 0.12);
-        }
-
-        /* =========================================================
-           CHAT HEADER
-        ========================================================= */
-
-        .chat-header {
-            display: flex;
-
-            align-items: center;
-            justify-content: space-between;
-
-            padding: 15px 20px;
-
-            border-bottom:
-                1px solid var(--border);
-        }
-
-        .chat-header-left {
-            display: flex;
-
-            align-items: center;
-
-            gap: 10px;
-        }
-
-        .chat-status {
-            width: 9px;
-            height: 9px;
-
-            border-radius: 50%;
-
-            background: var(--green);
-
-            box-shadow:
-                0 0 12px rgba(53, 229, 139, 0.7);
-        }
-
-        .chat-header strong {
-            font-size: 13px;
-        }
-
-        .chat-header span {
-            color: #686875;
-
-            font-size: 11px;
-        }
-
-        /* =========================================================
-           MESSAGES
-        ========================================================= */
-
-        .messages {
-            flex: 1;
-
-            min-height: 0;
-
-            overflow-y: auto;
-
-            padding: 25px;
-
-            display: flex;
-            flex-direction: column;
-
-            gap: 15px;
-
-            scroll-behavior: smooth;
-        }
-
-        .messages::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .messages::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .messages::-webkit-scrollbar-thumb {
-            background:
-                rgba(255, 255, 255, 0.08);
-
-            border-radius: 10px;
-        }
-
-        .message-row {
-            width: 100%;
-
-            display: flex;
-        }
-
-        .message-row.user {
-            justify-content: flex-end;
-        }
-
-        .message {
-            max-width: min(760px, 82%);
-
-            padding: 14px 17px;
-
-            border-radius: 15px;
-
-            font-size: 14px;
-
-            line-height: 1.65;
-
-            white-space: pre-wrap;
-
-            word-break: break-word;
-        }
-
-        .message.bot {
-            color: #eeeeF2;
-
-            background:
-                rgba(255, 255, 255, 0.045);
-
-            border:
-                1px solid rgba(255, 255, 255, 0.07);
-
-            border-bottom-left-radius: 5px;
-        }
-
-        .message.user {
-            color: white;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--red-dark),
-                    var(--red)
-                );
-
-            border-bottom-right-radius: 5px;
-
-            box-shadow:
-                0 8px 25px rgba(255, 23, 68, 0.16);
-        }
-
-        .message img {
-            display: block;
-
-            max-width: 320px;
-            max-height: 300px;
-
-            margin-top: 8px;
-
-            object-fit: contain;
-
-            border-radius: 10px;
-        }
-
-        .message.user img {
-            border:
-                1px solid rgba(255, 255, 255, 0.18);
-        }
-
-        /* =========================================================
-           CODE
-        ========================================================= */
-
-        .message pre {
-            margin: 12px 0 0;
-
-            padding: 13px;
-
-            overflow-x: auto;
-
-            border-radius: 9px;
-
-            background:
-                rgba(0, 0, 0, 0.45);
-
-            border:
-                1px solid rgba(255, 255, 255, 0.07);
-
-            font-family:
-                Consolas,
-                Monaco,
-                monospace;
-
-            font-size: 12px;
-
-            line-height: 1.6;
-        }
-
-        /* =========================================================
+        /* =====================================================
            TYPING
-        ========================================================= */
+        ===================================================== */
 
         .typing {
             display: none;
 
-            align-items: center;
+            align-self: flex-start;
 
-            gap: 5px;
+            color: #71bfff;
 
-            padding: 5px 3px;
-        }
+            font-size: 13px;
 
-        .typing.active {
-            display: flex;
+            padding: 8px 13px;
         }
 
         .typing span {
-            width: 7px;
-            height: 7px;
-
-            border-radius: 50%;
-
-            background: #777783;
-
-            animation:
-                typingAnimation 1.2s infinite;
+            animation: typingDot 1.2s infinite;
         }
 
         .typing span:nth-child(2) {
-            animation-delay: .15s;
+            animation-delay: 0.2s;
         }
 
         .typing span:nth-child(3) {
-            animation-delay: .3s;
+            animation-delay: 0.4s;
         }
 
-        @keyframes typingAnimation {
+        @keyframes typingDot {
+
             0%,
             60%,
             100% {
-                transform: translateY(0);
-                opacity: .4;
+                opacity: 0.2;
             }
 
             30% {
-                transform: translateY(-5px);
                 opacity: 1;
             }
         }
 
-        /* =========================================================
-           IMAGE PREVIEW
-        ========================================================= */
+        /* =====================================================
+           FOOTER
+        ===================================================== */
 
-        .preview-area {
-            display: none;
+        footer {
+            height: 60px;
 
-            padding: 10px 20px;
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 18px;
+
+            color: #6487a9;
+
+            font-size: 12px;
 
             border-top:
-                1px solid var(--border);
+                1px solid rgba(0, 157, 255, 0.2);
 
-            background:
-                rgba(255, 255, 255, 0.015);
+            margin-top: 14px;
         }
 
-        .preview-area.active {
-            display: flex;
-        }
-
-        .preview-box {
-            position: relative;
-
-            width: 85px;
-            height: 85px;
-
-            overflow: hidden;
-
-            border-radius: 10px;
-
-            border:
-                1px solid rgba(255, 23, 68, 0.35);
-        }
-
-        .preview-box img {
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-        }
-
-        .remove-image {
+        .online {
             position: absolute;
 
-            top: 4px;
-            right: 4px;
+            right: 25px;
 
-            width: 23px;
-            height: 23px;
+            color: #65d99a;
+        }
 
-            border: none;
+        .online::before {
+            content: "";
+
+            display: inline-block;
+
+            width: 8px;
+            height: 8px;
 
             border-radius: 50%;
 
-            background:
-                rgba(0, 0, 0, 0.75);
+            background: #00e676;
 
-            color: white;
-
-            cursor: pointer;
-
-            font-size: 14px;
-        }
-
-        .remove-image:hover {
-            background: var(--red);
-        }
-
-        /* =========================================================
-           INPUT AREA
-        ========================================================= */
-
-        .input-area {
-            padding: 16px;
-
-            border-top:
-                1px solid var(--border);
-
-            background:
-                rgba(0, 0, 0, 0.16);
-        }
-
-        .input-wrapper {
-            display: flex;
-
-            align-items: flex-end;
-
-            gap: 9px;
-
-            padding: 8px;
-
-            border-radius: 14px;
-
-            background:
-                rgba(255, 255, 255, 0.04);
-
-            border:
-                1px solid rgba(255, 255, 255, 0.08);
-
-            transition:
-                border-color .25s ease,
-                box-shadow .25s ease;
-        }
-
-        .input-wrapper:focus-within {
-            border-color:
-                rgba(255, 23, 68, 0.45);
+            margin-right: 7px;
 
             box-shadow:
-                0 0 25px rgba(255, 23, 68, 0.08);
+                0 0 10px #00e676;
         }
 
-        #messageInput {
-            flex: 1;
+        /* =====================================================
+           SCROLLBAR
+        ===================================================== */
 
-            min-height: 44px;
-            max-height: 150px;
-
-            resize: none;
-
-            border: none;
-
-            outline: none;
-
-            background: transparent;
-
-            color: white;
-
-            padding: 10px 8px;
-
-            font-size: 14px;
-
-            line-height: 1.5;
+        ::-webkit-scrollbar {
+            width: 7px;
         }
 
-        #messageInput::placeholder {
-            color: #686875;
+        ::-webkit-scrollbar-track {
+            background: #020817;
         }
 
-        /* =========================================================
-           BUTTONS
-        ========================================================= */
+        ::-webkit-scrollbar-thumb {
+            background: #07568a;
 
-        .icon-button,
-        .send-button {
-            flex-shrink: 0;
-
-            border: none;
-
-            cursor: pointer;
-
-            transition:
-                transform .2s ease,
-                background .2s ease,
-                box-shadow .2s ease,
-                opacity .2s ease;
+            border-radius: 10px;
         }
 
-        .icon-button {
-            width: 44px;
-            height: 44px;
+        /* =====================================================
+           MOBILE
+        ===================================================== */
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 11px;
-
-            background:
-                rgba(255, 255, 255, 0.06);
-
-            color: #bdbdc8;
-
-            font-size: 19px;
-        }
-
-        .icon-button:hover {
-            color: white;
-
-            background:
-                rgba(255, 23, 68, 0.14);
-
-            transform: translateY(-2px);
-        }
-
-        .send-button {
-            width: 44px;
-            height: 44px;
-
-            border-radius: 11px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    var(--red-dark),
-                    var(--red)
-                );
-
-            color: white;
-
-            font-size: 18px;
-
-            box-shadow:
-                0 5px 20px rgba(255, 23, 68, 0.2);
-        }
-
-        .send-button:hover {
-            transform: translateY(-2px);
-
-            box-shadow:
-                0 8px 25px rgba(255, 23, 68, 0.35);
-        }
-
-        .send-button:disabled,
-        .icon-button:disabled {
-            opacity: .5;
-
-            cursor: not-allowed;
-
-            transform: none;
-        }
-
-        #imageInput {
-            display: none;
-        }
-
-        .input-hint {
-            margin-top: 8px;
-
-            color: #565663;
-
-            text-align: center;
-
-            font-size: 10px;
-        }
-
-        /* =========================================================
-           FOOTER
-        ========================================================= */
-
-        .footer {
-            padding: 18px 0 4px;
-
-            color: #555561;
-
-            text-align: center;
-
-            font-size: 11px;
-        }
-
-        .footer strong {
-            color: #888895;
-        }
-
-        /* =========================================================
-           TABLET
-        ========================================================= */
-
-        @media (max-width: 1050px) {
-
-            .sidebar {
-                width: 230px;
-            }
+        @media (max-width: 1100px) {
 
             .main {
-                width: calc(100% - 230px);
-
-                margin-left: 230px;
-            }
-
-            .specialties {
                 grid-template-columns:
-                    repeat(2, 1fr);
-            }
-        }
-
-        /* =========================================================
-           MOBILE
-        ========================================================= */
-
-        @media (max-width: 750px) {
-
-            .app {
-                display: block;
+                    240px
+                    minmax(350px, 1fr);
             }
 
-            .sidebar {
-                position: relative;
-
-                width: 100%;
-
-                min-height: auto;
-
-                padding: 15px;
-
-                border-right: none;
-
-                border-bottom:
-                    1px solid var(--border);
-            }
-
-            .sidebar-bottom,
-            .sidebar-title,
-            .side-item {
+            .help-panel {
                 display: none;
             }
 
-            .brand {
-                margin-bottom: 12px;
+        }
+
+        @media (max-width: 760px) {
+
+            header {
+                height: auto;
+
+                padding: 18px;
+
+                gap: 15px;
+
+                flex-direction: column;
+
+                align-items: flex-start;
             }
 
-            .online-status {
-                margin-bottom: 0;
+            .header-links {
+                display: none;
             }
 
             .main {
-                width: 100%;
+                display: block;
 
-                margin-left: 0;
-
-                padding: 15px;
+                padding: 12px;
             }
 
-            .main-inner {
+            .context-panel {
                 min-height: auto;
+
+                margin-bottom: 12px;
             }
 
-            .hero {
-                padding:
-                    20px 10px 25px;
+            .context-buttons {
+                display: grid;
+
+                grid-template-columns: 1fr 1fr;
             }
 
-            .hero-logo {
-                width: 105px;
-                height: 105px;
-
-                border-radius: 22px;
+            .chat-panel {
+                min-height: 650px;
             }
 
-            .hero h2 {
-                font-size: 38px;
+            footer {
+                position: relative;
 
-                letter-spacing: -1.5px;
+                height: auto;
+
+                padding: 18px;
             }
 
-            .hero p {
-                font-size: 13px;
-            }
-
-            .specialties {
-                grid-template-columns:
-                    repeat(2, 1fr);
-
-                gap: 8px;
-            }
-
-            .specialty {
-                padding: 14px;
-            }
-
-            .specialty-icon {
-                font-size: 22px;
-            }
-
-            .specialty h3 {
-                font-size: 13px;
-            }
-
-            .specialty p {
-                font-size: 10px;
-            }
-
-            .chat-card {
-                min-height: 550px;
-
-                border-radius: 15px;
-            }
-
-            .messages {
-                padding: 15px;
-            }
-
-            .message {
-                max-width: 90%;
-
-                font-size: 13px;
-            }
-
-            .message img {
-                max-width: 240px;
-            }
-
-            .input-area {
-                padding: 10px;
+            .online {
+                position: static;
             }
         }
 
-        /* =========================================================
-           SMALL MOBILE
-        ========================================================= */
+        @media (max-width: 480px) {
 
-        @media (max-width: 430px) {
-
-            .brand-logo {
-                width: 45px;
-                height: 45px;
+            .brand-name {
+                font-size: 27px;
             }
 
-            .brand-text h1 {
-                font-size: 17px;
+            .version {
+                font-size: 20px;
             }
 
-            .brand-text span {
-                font-size: 9px;
+            .tagline {
+                font-size: 8px;
             }
 
-            .hero h2 {
-                font-size: 32px;
+            .context-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-title {
+                font-size: 27px;
+            }
+
+            .message {
+                max-width: 92%;
             }
         }
 
@@ -1321,523 +1314,558 @@
 
 <body>
 
-    <!-- =========================================================
-         BACKGROUND
-    ========================================================= -->
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
 
-    <div class="background">
+    <header>
 
-        <div class="orb one"></div>
+        <div class="brand">
 
-        <div class="orb two"></div>
+            <div class="robot-logo"></div>
 
-        <div class="orb three"></div>
+            <div>
 
-    </div>
-
-
-    <!-- =========================================================
-         APP
-    ========================================================= -->
-
-    <div class="app">
-
-
-        <!-- =====================================================
-             SIDEBAR
-        ====================================================== -->
-
-        <aside class="sidebar">
-
-            <div class="brand">
-
-                <div class="brand-logo">
-
-                    <img
-                        src="/mecora-logo.png"
-                        alt="MECORA logo"
-                    >
-
+                <div class="brand-name">
+                    MECORA <span class="version">1.0</span>
                 </div>
 
-                <div class="brand-text">
+                <div class="tagline">
+                    ROBOTICS &nbsp;•&nbsp; PROGRAMMING &nbsp;•&nbsp; AI
+                </div>
 
-                    <h1>MECORA</h1>
+            </div>
 
-                    <span>
-                        Robotics & AI Assistant
-                    </span>
+        </div>
+
+        <div class="header-links">
+
+            <span>Build Robots</span>
+            <span>Program Robots</span>
+            <span>Learn</span>
+            <span>Create</span>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+
+        <!-- =================================================
+             LEFT
+        ================================================== -->
+
+        <section class="panel context-panel">
+
+            <h2 class="panel-title">
+                SELECT CONTEXT
+            </h2>
+
+            <div class="context-buttons">
+
+                <button
+                    class="context-btn active"
+                    data-context="robotics"
+                >
+                    <span class="context-icon">🤖</span>
+                    <span>Robotics</span>
+                </button>
+
+                <button
+                    class="context-btn"
+                    data-context="programming"
+                >
+                    <span class="context-icon">💻</span>
+                    <span>Programming</span>
+                </button>
+
+                <button
+                    class="context-btn"
+                    data-context="embedded"
+                >
+                    <span class="context-icon">🔌</span>
+                    <span>Embedded</span>
+                </button>
+
+                <button
+                    class="context-btn"
+                    data-context="vision"
+                >
+                    <span class="context-icon">👁️</span>
+                    <span>AI & Vision</span>
+                </button>
+
+            </div>
+
+            <div class="context-info">
+
+                <strong>
+                    Choose a context.
+                </strong>
+
+                <br>
+
+                MECORA will use your selected
+                technical domain for the next
+                question.
+
+                <div class="context-status">
+
+                    Context:
+                    <strong id="contextLabel">
+                        Robotics
+                    </strong>
 
                 </div>
 
             </div>
 
+            <div class="founder">
 
-            <div class="online-status">
+                Created by
 
-                <div class="online-dot"></div>
-
-                <span>
-                    MECORA online
+                <span class="founder-name">
+                    Ahmed Bendag
                 </span>
 
             </div>
 
+        </section>
 
-            <div class="sidebar-title">
-                Specializations
+
+        <!-- =================================================
+             CENTER
+        ================================================== -->
+
+        <section class="panel chat-panel">
+
+            <div class="chat-header">
+
+                <div class="big-robot"></div>
+
+                <div class="chat-title">
+
+                    MECORA
+                    <span>1.0</span>
+
+                </div>
+
+                <div class="chat-subtitle">
+
+                    Your Robotics & Programming AI Assistant
+
+                </div>
+
+                <div class="active-context">
+
+                    🤖
+
+                    <span>
+                        Context:
+                    </span>
+
+                    <strong id="activeContext">
+                        Robotics
+                    </strong>
+
+                </div>
+
             </div>
 
 
             <div
-                class="side-item active"
-                onclick="sendSpecialty('robotics')"
+                class="messages"
+                id="messages"
             >
-                🤖 Robotics
+
+                <div
+                    class="welcome"
+                    id="welcome"
+                >
+
+                    <strong>
+                        Hello! I'm MECORA 1.0
+                    </strong>
+
+                    Select a context and
+                    write your question.
+
+                    <br><br>
+
+                    I will keep responses
+                    focused and concise.
+
+                </div>
+
             </div>
 
 
             <div
-                class="side-item"
-                onclick="sendSpecialty('programming')"
+                class="typing"
+                id="typing"
             >
-                💻 Programming
+
+                MECORA is thinking
+
+                <span>•</span>
+                <span>•</span>
+                <span>•</span>
+
             </div>
 
+
+            <!-- IMAGE PREVIEW -->
 
             <div
-                class="side-item"
-                onclick="sendSpecialty('embedded')"
+                class="image-preview"
+                id="imagePreview"
             >
-                ⚡ Embedded Systems
+
+                <img
+                    id="previewImage"
+                    alt="Selected image"
+                >
+
+                <button
+                    class="remove-image"
+                    id="removeImage"
+                    type="button"
+                >
+                    ×
+                </button>
+
             </div>
 
 
-            <div
-                class="side-item"
-                onclick="sendSpecialty('ai')"
-            >
-                🧠 AI & Computer Vision
+            <!-- COMPOSER -->
+
+            <div class="composer">
+
+                <div class="input-box">
+
+                    <textarea
+                        id="messageInput"
+                        placeholder="Type your message..."
+                        rows="1"
+                    ></textarea>
+
+                    <div class="input-actions">
+
+                        <input
+                            type="file"
+                            id="imageInput"
+                            accept="image/png,image/jpeg,image/webp,image/gif"
+                        >
+
+                        <button
+                            class="attach-btn"
+                            id="attachBtn"
+                            type="button"
+                        >
+                            🖼️ Attach
+                        </button>
+
+                        <button
+                            class="send-btn"
+                            id="sendBtn"
+                            type="button"
+                            title="Send"
+                        >
+                            ➤
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             RIGHT
+        ================================================== -->
+
+        <aside class="panel help-panel">
+
+            <h2 class="panel-title">
+                MECORA SPECIALIZATIONS
+            </h2>
+
+            <div class="help-card robotics">
+
+                <h3>
+                    🤖 ROBOTICS
+                </h3>
+
+                <p>
+                    Kinematics & dynamics<br>
+                    Path planning & navigation<br>
+                    ROS / ROS 2<br>
+                    Sensors & actuators
+                </p>
+
             </div>
 
 
-            <div class="sidebar-bottom">
+            <div class="help-card programming">
 
-                MECORA is an AI assistant created for
-                engineering, robotics, programming and
-                intelligent systems.
+                <h3>
+                    💻 PROGRAMMING
+                </h3>
+
+                <p>
+                    Python, C, C++<br>
+                    Algorithms & data structures<br>
+                    Arduino / ESP32 / STM32<br>
+                    Git & Linux
+                </p>
+
+            </div>
+
+
+            <div class="help-card embedded">
+
+                <h3>
+                    🔌 EMBEDDED
+                </h3>
+
+                <p>
+                    GPIO / PWM / ADC<br>
+                    UART / SPI / I2C<br>
+                    Motor control<br>
+                    Embedded C / MicroPython
+                </p>
+
+            </div>
+
+
+            <div class="help-card vision">
+
+                <h3>
+                    👁️ AI & VISION
+                </h3>
+
+                <p>
+                    Computer vision<br>
+                    OpenCV<br>
+                    Machine learning<br>
+                    Object detection
+                </p>
+
+            </div>
+
+
+            <div class="mission">
+
+                ⚡ Your goals.
+                <strong>My mission.</strong>
+
+                <br>
+
+                Build.
+                Program.
+                Learn.
+                Create.
+
+                <br><br>
+
+                — MECORA 1.0
 
             </div>
 
         </aside>
 
+    </main>
 
-        <!-- =====================================================
-             MAIN
-        ====================================================== -->
 
-        <main class="main">
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
 
-            <div class="main-inner">
+    <footer>
 
+        <span>
+            MECORA 1.0
+        </span>
 
-                <!-- =================================================
-                     HERO
-                ================================================== -->
+        |
 
-                <section class="hero">
+        <span>
+            Robotics & Programming AI
+        </span>
 
-                    <div class="hero-logo">
+        |
 
-                        <img
-                            src="/mecora-logo.png"
-                            alt="MECORA"
-                        >
+        <span>
+            Created by
+            <strong class="founder-name">
+                Ahmed Bendag
+            </strong>
+        </span>
 
-                    </div>
+        <span class="online">
+            Online
+        </span>
 
+    </footer>
 
-                    <h2>
-                        Build. Code. Robot.
-                    </h2>
 
-
-                    <p>
-
-                        MECORA is your AI engineering
-                        assistant specialized in robotics,
-                        programming, embedded systems,
-                        electronics and artificial
-                        intelligence.
-
-                    </p>
-
-                </section>
-
-
-                <!-- =================================================
-                     SPECIALTIES
-                ================================================== -->
-
-                <section class="specialties">
-
-
-                    <div
-                        class="specialty"
-                        onclick="sendSpecialty('robotics')"
-                    >
-
-                        <div class="specialty-icon">
-                            🤖
-                        </div>
-
-                        <h3>
-                            Robotics
-                        </h3>
-
-                        <p>
-                            Kinematics, ROS 2, control,
-                            sensors, motors and robotic
-                            systems.
-                        </p>
-
-                    </div>
-
-
-                    <div
-                        class="specialty"
-                        onclick="sendSpecialty('programming')"
-                    >
-
-                        <div class="specialty-icon">
-                            💻
-                        </div>
-
-                        <h3>
-                            Programming
-                        </h3>
-
-                        <p>
-                            Python, C/C++, algorithms,
-                            debugging and software
-                            engineering.
-                        </p>
-
-                    </div>
-
-
-                    <div
-                        class="specialty"
-                        onclick="sendSpecialty('embedded')"
-                    >
-
-                        <div class="specialty-icon">
-                            ⚡
-                        </div>
-
-                        <h3>
-                            Embedded
-                        </h3>
-
-                        <p>
-                            Arduino, ESP32, STM32,
-                            electronics and
-                            microcontrollers.
-                        </p>
-
-                    </div>
-
-
-                    <div
-                        class="specialty"
-                        onclick="sendSpecialty('ai')"
-                    >
-
-                        <div class="specialty-icon">
-                            🧠
-                        </div>
-
-                        <h3>
-                            AI & Vision
-                        </h3>
-
-                        <p>
-                            Machine learning, computer
-                            vision and AI for robotics.
-                        </p>
-
-                    </div>
-
-                </section>
-
-
-                <!-- =================================================
-                     CHAT
-                ================================================== -->
-
-                <section
-                    class="chat-card"
-                    id="chatCard"
-                >
-
-
-                    <!-- CHAT HEADER -->
-
-                    <div class="chat-header">
-
-                        <div class="chat-header-left">
-
-                            <div class="chat-status"></div>
-
-                            <strong>
-                                MECORA
-                            </strong>
-
-                            <span>
-                                AI Engineering Assistant
-                            </span>
-
-                        </div>
-
-                        <span>
-                            v1.0
-                        </span>
-
-                    </div>
-
-
-                    <!-- =================================================
-                         MESSAGES
-                    ================================================== -->
-
-                    <div
-                        class="messages"
-                        id="messages"
-                    >
-
-                        <div class="message-row">
-
-                            <div class="message bot">
-
-                                👋 Hello! I'm
-                                <strong>MECORA</strong>.
-
-                                <br><br>
-
-                                I'm specialized in:
-
-                                <br>
-                                🤖 Robotics
-
-                                <br>
-                                💻 Programming
-
-                                <br>
-                                ⚡ Embedded Systems
-
-                                <br>
-                                🧠 AI & Computer Vision
-
-                                <br><br>
-
-                                You can also upload a photo
-                                of a circuit, robot, PCB,
-                                code or engineering diagram
-                                and I'll analyze it.
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- =================================================
-                         IMAGE PREVIEW
-                    ================================================== -->
-
-                    <div
-                        class="preview-area"
-                        id="previewArea"
-                    >
-
-                        <div class="preview-box">
-
-                            <img
-                                id="previewImage"
-                                src=""
-                                alt="Image preview"
-                            >
-
-                            <button
-                                class="remove-image"
-                                id="removeImage"
-                                type="button"
-                                title="Remove image"
-                            >
-                                ×
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- =================================================
-                         INPUT
-                    ================================================== -->
-
-                    <div class="input-area">
-
-                        <div class="input-wrapper">
-
-
-                            <!-- IMAGE BUTTON -->
-
-                            <button
-                                class="icon-button"
-                                id="imageButton"
-                                type="button"
-                                title="Upload image"
-                            >
-                                📎
-                            </button>
-
-
-                            <input
-                                id="imageInput"
-                                type="file"
-                                accept="image/png,image/jpeg,image/webp,image/gif"
-                            >
-
-
-                            <!-- TEXT INPUT -->
-
-                            <textarea
-                                id="messageInput"
-                                placeholder="Ask MECORA about robotics, programming, AI..."
-                                rows="1"
-                            ></textarea>
-
-
-                            <!-- SEND BUTTON -->
-
-                            <button
-                                class="send-button"
-                                id="sendButton"
-                                type="button"
-                                title="Send"
-                            >
-                                ➤
-                            </button>
-
-                        </div>
-
-
-                        <div class="input-hint">
-
-                            Enter to send ·
-                            Shift + Enter for a new line ·
-                            Drag & drop an image
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-                <!-- =================================================
-                     FOOTER
-                ================================================== -->
-
-                <footer class="footer">
-
-                    Created by
-                    <strong>Ahmed Bendag</strong>
-                    · Mechatronics Engineering Student
-
-                </footer>
-
-            </div>
-
-        </main>
-
-    </div>
-
-
-    <!-- =========================================================
+    <!-- =====================================================
          JAVASCRIPT
-    ========================================================= -->
+    ====================================================== -->
 
     <script>
 
-        /* =========================================================
-           ELEMENTS
-        ========================================================= */
+        /* =====================================================
+           VARIABLES
+        ===================================================== */
 
-        const messageInput =
-            document.getElementById("messageInput");
-
-        const sendButton =
-            document.getElementById("sendButton");
-
-        const imageButton =
-            document.getElementById("imageButton");
-
-        const imageInput =
-            document.getElementById("imageInput");
-
-        const messages =
-            document.getElementById("messages");
-
-        const previewArea =
-            document.getElementById("previewArea");
-
-        const previewImage =
-            document.getElementById("previewImage");
-
-        const removeImage =
-            document.getElementById("removeImage");
-
-        const chatCard =
-            document.getElementById("chatCard");
-
-
-        /* =========================================================
-           STATE
-        ========================================================= */
+        let selectedContext = "robotics";
 
         let selectedImage = null;
 
+        const contextNames = {
 
-        /* =========================================================
-           AUTO RESIZE TEXTAREA
-        ========================================================= */
+            robotics: "Robotics",
 
-        messageInput.addEventListener(
-            "input",
-            function () {
+            programming: "Programming",
 
-                this.style.height = "auto";
+            embedded: "Embedded",
 
-                this.style.height =
-                    Math.min(
-                        this.scrollHeight,
-                        150
-                    ) + "px";
+            vision: "AI & Vision"
 
-            }
-        );
+        };
 
 
-        /* =========================================================
-           IMAGE BUTTON
-        ========================================================= */
+        const contextButtons =
+            document.querySelectorAll(
+                ".context-btn"
+            );
 
-        imageButton.addEventListener(
+        const contextLabel =
+            document.getElementById(
+                "contextLabel"
+            );
+
+        const activeContext =
+            document.getElementById(
+                "activeContext"
+            );
+
+        const messages =
+            document.getElementById(
+                "messages"
+            );
+
+        const welcome =
+            document.getElementById(
+                "welcome"
+            );
+
+        const messageInput =
+            document.getElementById(
+                "messageInput"
+            );
+
+        const sendBtn =
+            document.getElementById(
+                "sendBtn"
+            );
+
+        const attachBtn =
+            document.getElementById(
+                "attachBtn"
+            );
+
+        const imageInput =
+            document.getElementById(
+                "imageInput"
+            );
+
+        const imagePreview =
+            document.getElementById(
+                "imagePreview"
+            );
+
+        const previewImage =
+            document.getElementById(
+                "previewImage"
+            );
+
+        const removeImage =
+            document.getElementById(
+                "removeImage"
+            );
+
+        const typing =
+            document.getElementById(
+                "typing"
+            );
+
+
+        /* =====================================================
+           CONTEXT BUTTONS
+
+           IMPORTANT:
+           Clicking these buttons does NOT call the AI.
+
+           Therefore:
+           0 API requests
+           0 LLM tokens
+        ===================================================== */
+
+        contextButtons.forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    selectedContext =
+                        button.dataset.context;
+
+                    contextButtons.forEach(
+                        btn => {
+                            btn.classList.remove(
+                                "active"
+                            );
+                        }
+                    );
+
+                    button.classList.add(
+                        "active"
+                    );
+
+                    const name =
+                        contextNames[
+                            selectedContext
+                        ];
+
+                    contextLabel.textContent =
+                        name;
+
+                    activeContext.textContent =
+                        name;
+
+                }
+            );
+
+        });
+
+
+        /* =====================================================
+           IMAGE UPLOAD
+        ===================================================== */
+
+        attachBtn.addEventListener(
             "click",
-            function () {
+            () => {
 
                 imageInput.click();
 
@@ -1845,185 +1873,279 @@
         );
 
 
-        /* =========================================================
-           IMAGE INPUT
-        ========================================================= */
-
         imageInput.addEventListener(
             "change",
-            function () {
+            () => {
 
                 const file =
-                    this.files[0];
+                    imageInput.files[0];
 
                 if (!file) {
                     return;
                 }
 
-                handleImage(file);
+                if (!file.type.startsWith("image/")) {
 
-            }
-        );
+                    alert(
+                        "Please select an image."
+                    );
 
+                    return;
+                }
 
-        /* =========================================================
-           HANDLE IMAGE
-        ========================================================= */
+                const reader =
+                    new FileReader();
 
-        function handleImage(file) {
+                reader.onload = event => {
 
-            if (!file.type.startsWith("image/")) {
-
-                alert(
-                    "Please select a valid image."
-                );
-
-                return;
-            }
-
-
-            /* Maximum 8 MB */
-
-            if (file.size > 8 * 1024 * 1024) {
-
-                alert(
-                    "Image is too large. Maximum size is 8 MB."
-                );
-
-                return;
-            }
-
-
-            selectedImage = file;
-
-
-            const reader =
-                new FileReader();
-
-
-            reader.onload =
-                function (event) {
-
-                    previewImage.src =
+                    selectedImage =
                         event.target.result;
 
-                    previewArea.classList.add(
-                        "active"
-                    );
+                    previewImage.src =
+                        selectedImage;
+
+                    imagePreview.style.display =
+                        "block";
 
                 };
 
+                reader.readAsDataURL(file);
 
-            reader.readAsDataURL(file);
-
-        }
-
-
-        /* =========================================================
-           REMOVE IMAGE
-        ========================================================= */
-
-        removeImage.addEventListener(
-            "click",
-            removeSelectedImage
+            }
         );
 
 
-        function removeSelectedImage() {
+        removeImage.addEventListener(
+            "click",
+            () => {
+
+                selectedImage = null;
+
+                imageInput.value = "";
+
+                imagePreview.style.display =
+                    "none";
+
+                previewImage.src = "";
+
+            }
+        );
+
+
+        /* =====================================================
+           ADD MESSAGE
+        ===================================================== */
+
+        function addMessage(
+            text,
+            type,
+            image = null
+        ) {
+
+            const message =
+                document.createElement(
+                    "div"
+                );
+
+            message.className =
+                `message ${type}`;
+
+            if (text) {
+
+                const textNode =
+                    document.createElement(
+                        "div"
+                    );
+
+                textNode.textContent =
+                    text;
+
+                message.appendChild(
+                    textNode
+                );
+
+            }
+
+            if (image) {
+
+                const img =
+                    document.createElement(
+                        "img"
+                    );
+
+                img.src = image;
+
+                img.alt =
+                    "Uploaded image";
+
+                message.appendChild(
+                    img
+                );
+
+            }
+
+            messages.appendChild(
+                message
+            );
+
+            messages.scrollTop =
+                messages.scrollHeight;
+        }
+
+
+        /* =====================================================
+           SEND MESSAGE
+        ===================================================== */
+
+        async function sendMessage() {
+
+            const text =
+                messageInput.value.trim();
+
+            if (!text && !selectedImage) {
+                return;
+            }
+
+            if (welcome) {
+
+                welcome.remove();
+
+            }
+
+            const imageToSend =
+                selectedImage;
+
+            addMessage(
+                text,
+                "user",
+                imageToSend
+            );
+
+            messageInput.value = "";
+
+            messageInput.style.height =
+                "auto";
+
+            typing.style.display =
+                "block";
+
+            messages.scrollTop =
+                messages.scrollHeight;
+
+
+            try {
+
+                /*
+                 * The context is sent to Flask.
+                 *
+                 * Clicking the context button itself
+                 * NEVER reaches this function.
+                 */
+
+                const response =
+                    await fetch(
+                        "/chat",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                message: text,
+
+                                context:
+                                    selectedContext,
+
+                                image:
+                                    imageToSend
+
+                            })
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                typing.style.display =
+                    "none";
+
+
+                if (!response.ok) {
+
+                    addMessage(
+                        data.answer ||
+                        "MECORA is temporarily unavailable.",
+                        "ai"
+                    );
+
+                    return;
+                }
+
+
+                addMessage(
+                    data.answer ||
+                    "No response received.",
+                    "ai"
+                );
+
+
+            } catch (error) {
+
+                typing.style.display =
+                    "none";
+
+                addMessage(
+                    "Connection error. Please try again.",
+                    "ai"
+                );
+
+                console.error(
+                    "MECORA:",
+                    error
+                );
+
+            }
+
+
+            /*
+             * Clear image AFTER request.
+             */
 
             selectedImage = null;
 
             imageInput.value = "";
 
-            previewImage.src = "";
+            imagePreview.style.display =
+                "none";
 
-            previewArea.classList.remove(
-                "active"
-            );
+            previewImage.src = "";
 
         }
 
 
-        /* =========================================================
-           DRAG OVER
-        ========================================================= */
+        /* =====================================================
+           SEND BUTTON
+        ===================================================== */
 
-        chatCard.addEventListener(
-            "dragover",
-            function (event) {
-
-                event.preventDefault();
-
-                chatCard.classList.add(
-                    "drag-over"
-                );
-
-            }
+        sendBtn.addEventListener(
+            "click",
+            sendMessage
         );
 
 
-        /* =========================================================
-           DRAG LEAVE
-        ========================================================= */
-
-        chatCard.addEventListener(
-            "dragleave",
-            function (event) {
-
-                if (
-                    !chatCard.contains(
-                        event.relatedTarget
-                    )
-                ) {
-
-                    chatCard.classList.remove(
-                        "drag-over"
-                    );
-
-                }
-
-            }
-        );
-
-
-        /* =========================================================
-           DROP IMAGE
-        ========================================================= */
-
-        chatCard.addEventListener(
-            "drop",
-            function (event) {
-
-                event.preventDefault();
-
-                chatCard.classList.remove(
-                    "drag-over"
-                );
-
-
-                const files =
-                    event.dataTransfer.files;
-
-                if (
-                    !files ||
-                    !files.length
-                ) {
-                    return;
-                }
-
-                handleImage(files[0]);
-
-            }
-        );
-
-
-        /* =========================================================
+        /* =====================================================
            ENTER TO SEND
-        ========================================================= */
+        ===================================================== */
 
         messageInput.addEventListener(
             "keydown",
-            function (event) {
+            event => {
 
                 if (
                     event.key === "Enter" &&
@@ -2040,494 +2162,104 @@
         );
 
 
-        /* =========================================================
-           SEND BUTTON
-        ========================================================= */
-
-        sendButton.addEventListener(
-            "click",
-            sendMessage
-        );
-
-
-        /* =========================================================
-           SPECIALTY BUTTONS
-        ========================================================= */
-
-        function sendSpecialty(type) {
-
-            const prompts = {
-
-                robotics:
-                    "I want to learn robotics. Explain an important robotics concept and give me a practical example.",
-
-                programming:
-                    "Help me improve my programming skills. Give me a practical programming problem related to engineering and explain the solution.",
-
-                embedded:
-                    "I want to learn embedded systems. Explain an important concept involving microcontrollers, sensors or actuators with a practical example.",
-
-                ai:
-                    "I want to learn AI and computer vision for robotics. Explain an important concept and give me a practical robotics example."
-
-            };
-
-
-            const prompt =
-                prompts[type];
-
-
-            if (!prompt) {
-                return;
-            }
-
-
-            messageInput.value =
-                prompt;
-
-
-            messageInput.focus();
-
-
-            setTimeout(
-                sendMessage,
-                100
-            );
-
-        }
-
-
-        /* =========================================================
-           ADD MESSAGE
-        ========================================================= */
-
-        function addMessage(
-            text,
-            sender,
-            imageUrl = null
-        ) {
-
-            const row =
-                document.createElement(
-                    "div"
-                );
-
-
-            row.className =
-                "message-row " +
-                (
-                    sender === "user"
-                        ? "user"
-                        : ""
-                );
-
-
-            const message =
-                document.createElement(
-                    "div"
-                );
-
-
-            message.className =
-                "message " +
-                sender;
-
-
-            /* TEXT */
-
-            if (text) {
-
-                const textElement =
-                    document.createElement(
-                        "div"
-                    );
-
-                textElement.textContent =
-                    text;
-
-                message.appendChild(
-                    textElement
-                );
-
-            }
-
-
-            /* IMAGE */
-
-            if (imageUrl) {
-
-                const img =
-                    document.createElement(
-                        "img"
-                    );
-
-                img.src =
-                    imageUrl;
-
-                img.alt =
-                    "Uploaded image";
-
-                message.appendChild(
-                    img
-                );
-
-            }
-
-
-            row.appendChild(
-                message
-            );
-
-
-            messages.appendChild(
-                row
-            );
-
-
-            scrollToBottom();
-
-        }
-
-
-        /* =========================================================
-           TYPING INDICATOR
-        ========================================================= */
-
-        function showTyping() {
-
-            hideTyping();
-
-
-            const row =
-                document.createElement(
-                    "div"
-                );
-
-
-            row.className =
-                "message-row";
-
-
-            row.id =
-                "typingRow";
-
-
-            const message =
-                document.createElement(
-                    "div"
-                );
-
-
-            message.className =
-                "message bot";
-
-
-            const typing =
-                document.createElement(
-                    "div"
-                );
-
-
-            typing.className =
-                "typing active";
-
-
-            typing.innerHTML = `
-                <span></span>
-                <span></span>
-                <span></span>
-            `;
-
-
-            message.appendChild(
-                typing
-            );
-
-
-            row.appendChild(
-                message
-            );
-
-
-            messages.appendChild(
-                row
-            );
-
-
-            scrollToBottom();
-
-        }
-
-
-        function hideTyping() {
-
-            const row =
-                document.getElementById(
-                    "typingRow"
-                );
-
-
-            if (row) {
-
-                row.remove();
-
-            }
-
-        }
-
-
-        /* =========================================================
-           SCROLL TO BOTTOM
-        ========================================================= */
-
-        function scrollToBottom() {
-
-            messages.scrollTop =
-                messages.scrollHeight;
-
-        }
-
-
-        /* =========================================================
-           FILE TO BASE64
-        ========================================================= */
-
-        function fileToBase64(file) {
-
-            return new Promise(
-                function (resolve, reject) {
-
-                    const reader =
-                        new FileReader();
-
-
-                    reader.onload =
-                        function () {
-
-                            resolve(
-                                reader.result
-                            );
-
-                        };
-
-
-                    reader.onerror =
-                        function () {
-
-                            reject(
-                                new Error(
-                                    "Could not read image."
-                                )
-                            );
-
-                        };
-
-
-                    reader.readAsDataURL(
-                        file
-                    );
-
-                }
-            );
-
-        }
-
-
-        /* =========================================================
-           SEND MESSAGE
-        ========================================================= */
-
-        async function sendMessage() {
-
-            const text =
-                messageInput.value.trim();
-
-
-            /*
-             * Allow:
-             *
-             * 1. text only
-             * 2. image only
-             * 3. text + image
-             */
-
-            if (
-                !text &&
-                !selectedImage
-            ) {
-
-                return;
-
-            }
-
-
-            /* Disable buttons */
-
-            sendButton.disabled =
-                true;
-
-            imageButton.disabled =
-                true;
-
-
-            const imageFile =
-                selectedImage;
-
-
-            let imageData =
-                null;
-
-
-            try {
-
-                /* Convert image */
-
-                if (imageFile) {
-
-                    imageData =
-                        await fileToBase64(
-                            imageFile
-                        );
-
-                }
-
-
-                /* Show user message */
-
-                addMessage(
-                    text,
-                    "user",
-                    imageData
-                );
-
-
-                /* Clear input */
-
-                messageInput.value = "";
+        /* =====================================================
+           AUTO RESIZE TEXTAREA
+        ===================================================== */
+
+        messageInput.addEventListener(
+            "input",
+            () => {
 
                 messageInput.style.height =
                     "auto";
 
+                messageInput.style.height =
+                    Math.min(
+                        messageInput.scrollHeight,
+                        140
+                    ) + "px";
 
-                removeSelectedImage();
-
-
-                /* Show typing */
-
-                showTyping();
-
-
-                /* Send request */
-
-                const response =
-                    await fetch(
-                        "/chat",
-                        {
-                            method: "POST",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body:
-                                JSON.stringify({
-                                    message: text,
-                                    image: imageData
-                                })
-                        }
-                    );
+            }
+        );
 
 
-                /* Read response */
+        /* =====================================================
+           DRAG & DROP IMAGE
+        ===================================================== */
 
-                let data = null;
-
-
-                try {
-
-                    data =
-                        await response.json();
-
-                } catch {
-
-                    data = null;
-
-                }
+        const composer =
+            document.querySelector(
+                ".composer"
+            );
 
 
-                hideTyping();
+        composer.addEventListener(
+            "dragover",
+            event => {
+
+                event.preventDefault();
+
+                composer.style.borderColor =
+                    "#00d9ff";
+
+            }
+        );
 
 
-                /* Server error */
+        composer.addEventListener(
+            "dragleave",
+            () => {
 
-                if (!response.ok) {
+                composer.style.borderColor =
+                    "";
 
-                    addMessage(
-                        data?.answer ||
-                        "MECORA encountered a server error.",
-                        "bot"
-                    );
+            }
+        );
+
+
+        composer.addEventListener(
+            "drop",
+            event => {
+
+                event.preventDefault();
+
+                composer.style.borderColor =
+                    "";
+
+                const file =
+                    event.dataTransfer.files[0];
+
+                if (
+                    !file ||
+                    !file.type.startsWith(
+                        "image/"
+                    )
+                ) {
 
                     return;
 
                 }
 
+                const reader =
+                    new FileReader();
 
-                /* AI response */
+                reader.onload =
+                    event => {
 
-                addMessage(
-                    data?.answer ||
-                    "I couldn't generate a response.",
-                    "bot"
+                        selectedImage =
+                            event.target.result;
+
+                        previewImage.src =
+                            selectedImage;
+
+                        imagePreview.style.display =
+                            "block";
+
+                    };
+
+                reader.readAsDataURL(
+                    file
                 );
-
-            }
-
-
-            catch (error) {
-
-                console.error(
-                    "MECORA error:",
-                    error
-                );
-
-
-                hideTyping();
-
-
-                addMessage(
-                    "Unable to connect to MECORA. Please check that the server is running and try again.",
-                    "bot"
-                );
-
-            }
-
-
-            finally {
-
-                sendButton.disabled =
-                    false;
-
-                imageButton.disabled =
-                    false;
-
-                messageInput.focus();
-
-            }
-
-        }
-
-
-        /* =========================================================
-           INITIAL FOCUS
-        ========================================================= */
-
-        window.addEventListener(
-            "load",
-            function () {
-
-                messageInput.focus();
 
             }
         );
