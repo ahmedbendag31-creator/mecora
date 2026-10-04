@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,19 +8,16 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>MECORA 1.0 | Robotics & Programming AI</title>
-
     <meta
         name="description"
-        content="MECORA 1.0 - Robotics, Programming, Embedded Systems and AI & Vision assistant."
+        content="MECORA 1.0 — AI assistant for robotics, programming, embedded systems and computer vision."
     >
 
+    <meta name="theme-color" content="#050914">
+
+    <title>MECORA 1.0 — Robotics AI</title>
+
     <style>
-
-        /* =====================================================
-           RESET
-        ===================================================== */
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -27,25 +25,28 @@
         }
 
         :root {
-            --bg: #020817;
-            --bg2: #061426;
-            --panel: rgba(4, 19, 38, 0.82);
-
-            --blue: #08a9ff;
-            --blue2: #006eff;
-            --cyan: #00e5ff;
+            --bg: #050914;
+            --bg2: #080d1a;
+            --panel: rgba(10, 18, 32, 0.72);
+            --panel-solid: #0b1220;
+            --border: rgba(120, 180, 255, 0.14);
+            --border-hover: rgba(0, 220, 255, 0.38);
 
             --text: #edf7ff;
-            --muted: #8eafd0;
+            --muted: #8291a8;
 
-            --border: rgba(0, 157, 255, 0.35);
+            --cyan: #00e5ff;
+            --blue: #3b82f6;
+            --purple: #8b5cf6;
+            --green: #22c55e;
 
-            --green: #00e676;
-            --purple: #b967ff;
-            --orange: #ffb000;
+            --user: linear-gradient(
+                135deg,
+                rgba(0, 229, 255, 0.15),
+                rgba(59, 130, 246, 0.13)
+            );
 
-            --shadow:
-                0 0 30px rgba(0, 140, 255, 0.15);
+            --radius: 18px;
         }
 
         html {
@@ -54,1530 +55,2356 @@
 
         body {
             min-height: 100vh;
-
             font-family:
                 Inter,
-                Segoe UI,
-                Arial,
+                ui-sans-serif,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
                 sans-serif;
 
             color: var(--text);
-
             background:
                 radial-gradient(
-                    circle at 20% 10%,
-                    rgba(0, 120, 255, 0.15),
-                    transparent 30%
+                    circle at 15% 10%,
+                    rgba(0, 229, 255, 0.10),
+                    transparent 28%
                 ),
                 radial-gradient(
-                    circle at 80% 80%,
-                    rgba(0, 220, 255, 0.08),
+                    circle at 85% 20%,
+                    rgba(139, 92, 246, 0.09),
+                    transparent 25%
+                ),
+                radial-gradient(
+                    circle at 50% 90%,
+                    rgba(59, 130, 246, 0.08),
                     transparent 30%
                 ),
-                linear-gradient(
-                    135deg,
-                    #010611,
-                    #031022,
-                    #020817
-                );
+                var(--bg);
 
             overflow-x: hidden;
         }
 
-        /* =====================================================
-           BACKGROUND
-        ===================================================== */
-
         body::before {
             content: "";
-
             position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
 
-            width: 500px;
-            height: 500px;
-
-            border-radius: 50%;
-
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(0, 157, 255, 0.12),
-                    transparent 70%
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
                 );
 
-            top: -180px;
-            left: -150px;
+            background-size: 55px 55px;
 
-            animation: backgroundFloat 12s ease-in-out infinite;
-
-            pointer-events: none;
-
-            z-index: -1;
+            mask-image: linear-gradient(
+                to bottom,
+                black,
+                transparent 85%
+            );
         }
 
-        body::after {
-            content: "";
-
-            position: fixed;
-
-            width: 450px;
-            height: 450px;
-
-            border-radius: 50%;
-
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(0, 229, 255, 0.08),
-                    transparent 70%
-                );
-
-            right: -180px;
-            bottom: -180px;
-
-            animation: backgroundFloat2 15s ease-in-out infinite;
-
-            pointer-events: none;
-
-            z-index: -1;
+        a {
+            color: inherit;
+            text-decoration: none;
         }
 
-        @keyframes backgroundFloat {
-
-            0%,
-            100% {
-                transform: translate(0, 0);
-            }
-
-            50% {
-                transform: translate(70px, 50px);
-            }
+        button,
+        textarea,
+        input {
+            font: inherit;
         }
 
-        @keyframes backgroundFloat2 {
-
-            0%,
-            100% {
-                transform: translate(0, 0);
-            }
-
-            50% {
-                transform: translate(-60px, -40px);
-            }
+        button {
+            cursor: pointer;
         }
 
-        /* =====================================================
+        /* =========================
+           SCROLLBAR
+        ========================= */
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #050914;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1d334c;
+            border-radius: 20px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2b526f;
+        }
+
+        /* =========================
            HEADER
-        ===================================================== */
+        ========================= */
 
-        header {
-            height: 105px;
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            width: 100%;
+
+            border-bottom: 1px solid var(--border);
+
+            background: rgba(5, 9, 20, 0.78);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .nav-inner {
+            width: min(1400px, 94%);
+            margin: auto;
+
+            min-height: 76px;
 
             display: flex;
             align-items: center;
             justify-content: space-between;
-
-            padding: 0 42px;
-
-            border-bottom:
-                1px solid rgba(0, 157, 255, 0.22);
-
-            background:
-                rgba(1, 10, 23, 0.75);
-
-            backdrop-filter: blur(18px);
-
-            position: relative;
-
-            z-index: 10;
+            gap: 20px;
         }
 
         .brand {
             display: flex;
             align-items: center;
-            gap: 18px;
-        }
-
-        /* =====================================================
-           ROBOT LOGO
-        ===================================================== */
-
-        .robot-logo {
-            width: 70px;
-            height: 70px;
-
-            border-radius: 50%;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            position: relative;
-
-            background:
-                radial-gradient(
-                    circle at 35% 30%,
-                    #ffffff,
-                    #9ccfff 20%,
-                    #153a5f 55%,
-                    #020b17 100%
-                );
-
-            border:
-                2px solid var(--blue);
-
-            box-shadow:
-                0 0 10px rgba(0, 174, 255, 0.8),
-                0 0 35px rgba(0, 110, 255, 0.35);
-
-            animation: robotPulse 3s ease-in-out infinite;
-        }
-
-        .robot-logo::before {
-            content: "";
-
-            width: 34px;
-            height: 29px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    #dff5ff,
-                    #4e8ebc
-                );
-
-            border-radius:
-                13px 13px 10px 10px;
-
-            border: 2px solid #9ddfff;
-
-            box-shadow:
-                inset 0 -7px 10px rgba(0, 0, 0, 0.35);
-
-            position: absolute;
-        }
-
-        .robot-logo::after {
-            content: "••";
-
-            position: absolute;
-
-            color: #00d9ff;
-
-            font-size: 17px;
-            letter-spacing: 4px;
-
-            top: 22px;
-            left: 24px;
-
-            text-shadow:
-                0 0 8px #00d9ff,
-                0 0 15px #00d9ff;
-        }
-
-        @keyframes robotPulse {
-
-            0%,
-            100% {
-                box-shadow:
-                    0 0 10px rgba(0, 174, 255, 0.8),
-                    0 0 35px rgba(0, 110, 255, 0.35);
-            }
-
-            50% {
-                box-shadow:
-                    0 0 20px rgba(0, 229, 255, 1),
-                    0 0 55px rgba(0, 110, 255, 0.55);
-            }
-        }
-
-        .brand-name {
-            font-size: 36px;
-
-            font-weight: 900;
-
-            letter-spacing: 2px;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    #ffffff,
-                    #8ddaff,
-                    #ffffff,
-                    #008cff
-                );
-
-            background-size: 250% auto;
-
-            -webkit-background-clip: text;
-            background-clip: text;
-
-            color: transparent;
-
-            animation:
-                brandShine 5s linear infinite;
-        }
-
-        .version {
-            color: var(--blue);
-
-            font-size: 26px;
-
-            font-weight: 900;
-
-            margin-left: 5px;
-        }
-
-        @keyframes brandShine {
-
-            0% {
-                background-position: 0% center;
-            }
-
-            100% {
-                background-position: 250% center;
-            }
-        }
-
-        .tagline {
-            color: var(--muted);
-
-            font-size: 11px;
-
-            letter-spacing: 4px;
-
-            margin-top: 5px;
-        }
-
-        .header-links {
-            display: flex;
-
-            gap: 28px;
-
-            color: #86b8e9;
-
-            font-size: 14px;
-        }
-
-        .header-links span {
-            cursor: default;
-        }
-
-        .header-links span::before {
-            content: "•";
-
-            color: var(--blue);
-
-            margin-right: 8px;
-        }
-
-        /* =====================================================
-           MAIN LAYOUT
-        ===================================================== */
-
-        .main {
-            max-width: 1500px;
-
-            margin: auto;
-
-            padding: 24px 16px 0;
-
-            display: grid;
-
-            grid-template-columns:
-                290px
-                minmax(400px, 1fr)
-                330px;
-
-            gap: 14px;
-
-            min-height: calc(100vh - 165px);
-        }
-
-        .panel {
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(5, 24, 46, 0.85),
-                    rgba(1, 12, 26, 0.9)
-                );
-
-            border:
-                1px solid var(--border);
-
-            box-shadow:
-                var(--shadow);
-
-            border-radius: 10px;
-
-            backdrop-filter: blur(15px);
-        }
-
-        /* =====================================================
-           LEFT CONTEXT PANEL
-        ===================================================== */
-
-        .context-panel {
-            padding: 25px 18px;
-
-            min-height: 720px;
-        }
-
-        .panel-title {
-            font-size: 18px;
-
-            color: #8dc7ff;
-
-            letter-spacing: 1px;
-
-            margin-bottom: 20px;
-        }
-
-        .context-buttons {
-            display: flex;
-
-            flex-direction: column;
-
             gap: 12px;
         }
 
-        .context-btn {
-            width: 100%;
-
-            min-height: 70px;
-
-            border-radius: 10px;
-
-            border:
-                1px solid #008cff;
-
-            background:
-                rgba(1, 18, 37, 0.7);
-
-            color: #dceeff;
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 17px;
-
-            padding: 12px 18px;
-
-            cursor: pointer;
-
-            transition:
-                transform 0.25s ease,
-                border-color 0.25s ease,
-                background 0.25s ease,
-                box-shadow 0.25s ease;
-
-            text-align: left;
-
-            font-size: 16px;
-
-            font-weight: 700;
-        }
-
-        .context-btn:hover {
-            transform: translateX(4px);
-
-            border-color: #00d9ff;
-
-            background:
-                rgba(0, 110, 255, 0.13);
-
-            box-shadow:
-                0 0 20px rgba(0, 157, 255, 0.18);
-        }
-
-        .context-btn.active {
-            background:
-                linear-gradient(
-                    100deg,
-                    rgba(0, 125, 255, 0.45),
-                    rgba(0, 60, 140, 0.18)
-                );
-
-            border-color: #00c8ff;
-
-            box-shadow:
-                0 0 22px rgba(0, 157, 255, 0.42),
-                inset 0 0 15px rgba(0, 157, 255, 0.1);
-        }
-
-        .context-icon {
-            width: 34px;
-
-            font-size: 27px;
-
-            text-align: center;
-        }
-
-        .context-info {
-            margin-top: 30px;
-
-            padding-top: 25px;
-
-            border-top:
-                1px solid rgba(0, 157, 255, 0.28);
-
-            color: var(--muted);
-
-            line-height: 1.7;
-
-            font-size: 14px;
-        }
-
-        .context-status {
-            margin-top: 20px;
-
-            padding: 12px;
-
-            border-radius: 8px;
-
-            background:
-                rgba(0, 157, 255, 0.06);
-
-            color: #8bcaff;
-
-            font-size: 13px;
-
-            text-align: center;
-        }
-
-        /* =====================================================
-           CENTER CHAT
-        ===================================================== */
-
-        .chat-panel {
-            min-height: 720px;
-
-            display: flex;
-
-            flex-direction: column;
-
-            overflow: hidden;
-        }
-
-        .chat-header {
-            padding: 20px;
-
-            border-bottom:
-                1px solid rgba(0, 157, 255, 0.22);
-
-            text-align: center;
-        }
-
-        .big-robot {
-            width: 115px;
-            height: 115px;
-
-            margin: 0 auto 15px;
-
-            border-radius: 50%;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
+        .brand-mark {
             position: relative;
 
-            background:
-                radial-gradient(
-                    circle at 35% 25%,
-                    #ffffff,
-                    #a9dfff 18%,
-                    #23547a 48%,
-                    #020a14 100%
-                );
-
-            border:
-                3px solid #00b7ff;
-
-            box-shadow:
-                0 0 20px #008cff,
-                0 0 55px rgba(0, 157, 255, 0.35);
-
-            animation:
-                robotFloat 4s ease-in-out infinite;
-        }
-
-        .big-robot::before {
-            content: "";
-
-            width: 60px;
-            height: 52px;
-
-            border-radius:
-                21px 21px 17px 17px;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    #f0fbff,
-                    #5993ba
-                );
-
-            border:
-                3px solid #b5e9ff;
-
-            box-shadow:
-                inset 0 -12px 15px rgba(0, 0, 0, 0.3);
-
-            position: absolute;
-        }
-
-        .big-robot::after {
-            content: "••";
-
-            position: absolute;
-
-            color: #00ddff;
-
-            font-size: 29px;
-
-            letter-spacing: 9px;
-
-            top: 38px;
-            left: 39px;
-
-            text-shadow:
-                0 0 10px #00ddff,
-                0 0 20px #00ddff;
-        }
-
-        @keyframes robotFloat {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-8px);
-            }
-        }
-
-        .chat-title {
-            font-size: 34px;
-
-            font-weight: 900;
-        }
-
-        .chat-title span {
-            color: var(--blue);
-        }
-
-        .chat-subtitle {
-            margin-top: 7px;
-
-            color: #7eaedb;
-
-            font-size: 15px;
-        }
-
-        .active-context {
-            margin-top: 18px;
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            padding: 8px 15px;
-
-            border-radius: 20px;
-
-            color: #00bfff;
-
-            background:
-                rgba(0, 157, 255, 0.08);
-
-            border:
-                1px solid rgba(0, 157, 255, 0.3);
-
-            font-size: 13px;
-        }
-
-        /* =====================================================
-           CHAT MESSAGES
-        ===================================================== */
-
-        .messages {
-            flex: 1;
-
-            overflow-y: auto;
-
-            padding: 25px;
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 15px;
-        }
-
-        .welcome {
-            margin: auto;
-
-            max-width: 570px;
-
-            padding: 28px;
-
-            text-align: center;
-
-            border:
-                1px solid rgba(0, 157, 255, 0.42);
-
-            border-radius: 12px;
-
-            background:
-                rgba(0, 35, 70, 0.18);
-
-            color: #bddcff;
-
-            line-height: 1.7;
-        }
-
-        .welcome strong {
-            display: block;
-
-            font-size: 22px;
-
-            color: white;
-
-            margin-bottom: 10px;
-        }
-
-        .message {
-            max-width: 82%;
-
-            padding: 13px 17px;
+            width: 42px;
+            height: 42px;
 
             border-radius: 13px;
 
-            line-height: 1.55;
-
-            white-space: pre-wrap;
-
-            word-wrap: break-word;
-        }
-
-        .message.user {
-            align-self: flex-end;
+            display: grid;
+            place-items: center;
 
             background:
                 linear-gradient(
                     135deg,
-                    #0076df,
-                    #0053b5
+                    rgba(0, 229, 255, 0.2),
+                    rgba(59, 130, 246, 0.18)
                 );
 
-            border-bottom-right-radius: 4px;
-        }
-
-        .message.ai {
-            align-self: flex-start;
-
-            background:
-                rgba(7, 29, 52, 0.9);
-
-            border:
-                1px solid rgba(0, 157, 255, 0.28);
-
-            border-bottom-left-radius: 4px;
-
-            color: #dceeff;
-        }
-
-        .message img {
-            max-width: 300px;
-
-            max-height: 250px;
-
-            display: block;
-
-            margin-top: 8px;
-
-            border-radius: 8px;
-        }
-
-        /* =====================================================
-           INPUT
-        ===================================================== */
-
-        .composer {
-            padding: 14px;
-
-            border-top:
-                1px solid rgba(0, 157, 255, 0.22);
-
-            background:
-                rgba(1, 12, 25, 0.7);
-        }
-
-        .input-box {
-            display: flex;
-
-            align-items: flex-end;
-
-            gap: 10px;
-
-            padding: 8px;
-
-            border:
-                1px solid #008cff;
-
-            border-radius: 12px;
-
-            background:
-                rgba(2, 14, 28, 0.85);
+            border: 1px solid rgba(0, 229, 255, 0.35);
 
             box-shadow:
-                0 0 15px rgba(0, 140, 255, 0.08);
+                0 0 25px rgba(0, 229, 255, 0.12),
+                inset 0 0 20px rgba(0, 229, 255, 0.05);
+
+            overflow: hidden;
         }
 
-        textarea {
-            flex: 1;
+        .brand-mark::before {
+            content: "";
 
-            resize: none;
+            width: 17px;
+            height: 17px;
 
-            min-height: 46px;
-            max-height: 140px;
+            border: 2px solid var(--cyan);
+            border-radius: 5px;
 
-            padding: 12px;
+            box-shadow:
+                0 0 12px rgba(0, 229, 255, 0.8);
+        }
 
-            background: transparent;
+        .brand-mark::after {
+            content: "";
 
-            border: none;
+            position: absolute;
 
-            outline: none;
+            width: 5px;
+            height: 5px;
+
+            border-radius: 50%;
+
+            background: var(--cyan);
+
+            box-shadow:
+                -7px 0 0 var(--cyan),
+                7px 0 0 var(--cyan);
+
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.35;
+            }
+        }
+
+        .brand-name {
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            font-size: 18px;
+        }
+
+        .brand-version {
+            color: var(--cyan);
+            font-size: 11px;
+            margin-left: 4px;
+            opacity: 0.85;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .nav-link {
+            padding: 10px 14px;
+
+            color: var(--muted);
+
+            font-size: 13px;
+            font-weight: 600;
+
+            border-radius: 10px;
+
+            transition:
+                color 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .facebook-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 10px 15px;
+
+            border-radius: 11px;
 
             color: white;
 
-            font-size: 15px;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(24,119,242,0.95),
+                    rgba(24,119,242,0.72)
+                );
 
-            font-family: inherit;
-        }
+            border: 1px solid rgba(255,255,255,0.14);
 
-        textarea::placeholder {
-            color: #6084a8;
-        }
-
-        .input-actions {
-            display: flex;
-
-            gap: 8px;
-        }
-
-        .attach-btn,
-        .send-btn {
-            border: none;
-
-            cursor: pointer;
-
-            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
 
             transition:
                 transform 0.2s ease,
                 box-shadow 0.2s ease;
         }
 
-        .attach-btn {
-            padding: 10px 13px;
-
-            color: #bde4ff;
-
-            background:
-                rgba(0, 130, 255, 0.1);
-
-            border:
-                1px solid rgba(0, 157, 255, 0.35);
-        }
-
-        .send-btn {
-            width: 48px;
-            height: 48px;
-
-            font-size: 21px;
-
-            color: white;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #008cff,
-                    #0055cc
-                );
-        }
-
-        .attach-btn:hover,
-        .send-btn:hover {
+        .facebook-btn:hover {
             transform: translateY(-2px);
 
             box-shadow:
-                0 0 20px rgba(0, 157, 255, 0.4);
+                0 8px 25px rgba(24,119,242,0.22);
         }
 
-        #imageInput {
-            display: none;
-        }
+        .facebook-icon {
+            width: 18px;
+            height: 18px;
 
-        .image-preview {
-            display: none;
-
-            margin-bottom: 10px;
-
-            position: relative;
-
-            width: fit-content;
-        }
-
-        .image-preview img {
-            width: 100px;
-            height: 80px;
-
-            object-fit: cover;
-
-            border-radius: 8px;
-
-            border:
-                1px solid var(--blue);
-        }
-
-        .remove-image {
-            position: absolute;
-
-            top: -7px;
-            right: -7px;
-
-            width: 22px;
-            height: 22px;
-
-            border: none;
+            display: grid;
+            place-items: center;
 
             border-radius: 50%;
 
-            background: #ff3150;
+            background: white;
+            color: #1877f2;
 
-            color: white;
-
-            cursor: pointer;
+            font-weight: 900;
+            font-size: 13px;
         }
 
-        /* =====================================================
-           RIGHT PANEL
-        ===================================================== */
+        /* =========================
+           HERO
+        ========================= */
 
-        .help-panel {
-            padding: 25px 18px;
+        .hero {
+            width: min(1400px, 94%);
+            margin: auto;
 
-            min-height: 720px;
+            min-height: 570px;
+
+            display: grid;
+            grid-template-columns: 1.08fr 0.92fr;
+
+            align-items: center;
+
+            gap: 40px;
+
+            padding: 75px 0 60px;
         }
 
-        .help-card {
-            margin-bottom: 13px;
-
-            padding: 15px;
-
-            border:
-                1px solid rgba(0, 157, 255, 0.25);
-
-            border-radius: 10px;
-
-            background:
-                rgba(3, 25, 48, 0.55);
+        .hero-content {
+            max-width: 720px;
         }
 
-        .help-card h3 {
-            margin-bottom: 8px;
+        .status-pill {
+            width: fit-content;
 
-            font-size: 15px;
-        }
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
 
-        .help-card p {
-            color: #86acd0;
+            padding: 8px 12px;
+
+            border-radius: 999px;
+
+            color: #a8f8ff;
+
+            background: rgba(0, 229, 255, 0.055);
+
+            border: 1px solid rgba(0, 229, 255, 0.17);
 
             font-size: 12px;
+            font-weight: 700;
 
-            line-height: 1.7;
+            margin-bottom: 22px;
         }
 
-        .robotics h3 {
-            color: #08a9ff;
+        .status-dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #22c55e;
+
+            box-shadow:
+                0 0 10px rgba(34,197,94,0.85);
+
+            animation: pulse 1.8s infinite;
         }
 
-        .programming h3 {
-            color: #00e89a;
+        @keyframes pulse {
+            0% {
+                transform: scale(0.9);
+                opacity: 0.65;
+            }
+
+            50% {
+                transform: scale(1.25);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0.9);
+                opacity: 0.65;
+            }
         }
 
-        .embedded h3 {
-            color: #ffb000;
-        }
+        .hero h1 {
+            font-size: clamp(48px, 7vw, 86px);
 
-        .vision h3 {
-            color: #c46dff;
-        }
+            line-height: 0.95;
 
-        .mission {
-            margin-top: 20px;
+            letter-spacing: -0.055em;
 
-            padding-top: 20px;
-
-            border-top:
-                1px solid rgba(0, 157, 255, 0.25);
-
-            color: #83b5df;
-
-            line-height: 1.7;
-
-            font-size: 13px;
-        }
-
-        /* =====================================================
-           FOUNDER ANIMATION
-        ===================================================== */
-
-        .founder {
-            text-align: center;
-
-            margin-top: 18px;
-
-            font-size: 13px;
-
-            color: #7399bd;
-        }
-
-        .founder-name {
-            display: inline-block;
-
-            margin-left: 5px;
-
-            font-weight: 800;
+            margin-bottom: 23px;
 
             background:
                 linear-gradient(
-                    90deg,
-                    #ffffff,
-                    #00c8ff,
-                    #ffffff,
-                    #008cff
+                    100deg,
+                    #ffffff 10%,
+                    #8cefff 46%,
+                    #7c6cff 90%
                 );
-
-            background-size: 300% auto;
 
             -webkit-background-clip: text;
             background-clip: text;
 
             color: transparent;
 
-            animation:
-                founderShine 4s linear infinite,
-                founderFloat 2.8s ease-in-out infinite;
+            animation: titleGlow 5s ease-in-out infinite;
         }
 
-        @keyframes founderShine {
-
-            0% {
-                background-position: 0% center;
-            }
-
-            100% {
-                background-position: 300% center;
-            }
-        }
-
-        @keyframes founderFloat {
-
-            0%,
-            100% {
-                transform: translateY(0);
+        @keyframes titleGlow {
+            0%, 100% {
+                filter: drop-shadow(
+                    0 0 8px rgba(0,229,255,0.05)
+                );
             }
 
             50% {
-                transform: translateY(-2px);
+                filter: drop-shadow(
+                    0 0 18px rgba(0,229,255,0.12)
+                );
             }
         }
 
-        /* =====================================================
-           TYPING
-        ===================================================== */
+        .hero-subtitle {
+            max-width: 650px;
 
-        .typing {
-            display: none;
+            color: #9eacc1;
 
-            align-self: flex-start;
+            font-size: clamp(16px, 2vw, 20px);
 
-            color: #71bfff;
+            line-height: 1.7;
 
-            font-size: 13px;
-
-            padding: 8px 13px;
+            margin-bottom: 29px;
         }
 
-        .typing span {
-            animation: typingDot 1.2s infinite;
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
-        .typing span:nth-child(2) {
-            animation-delay: 0.2s;
+        .primary-btn,
+        .secondary-btn {
+            border: none;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+
+            padding: 13px 19px;
+
+            border-radius: 12px;
+
+            font-size: 14px;
+            font-weight: 750;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
         }
 
-        .typing span:nth-child(3) {
-            animation-delay: 0.4s;
+        .primary-btn {
+            color: #021017;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4ff5ff,
+                    #46b8ff
+                );
+
+            box-shadow:
+                0 10px 35px rgba(0,229,255,0.13);
         }
 
-        @keyframes typingDot {
+        .primary-btn:hover {
+            transform: translateY(-2px);
 
-            0%,
-            60%,
-            100% {
-                opacity: 0.2;
+            box-shadow:
+                0 14px 40px rgba(0,229,255,0.23);
+        }
+
+        .secondary-btn {
+            color: var(--text);
+
+            background: rgba(255,255,255,0.035);
+
+            border: 1px solid var(--border);
+        }
+
+        .secondary-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--border-hover);
+        }
+
+        /* =========================
+           HERO VISUAL
+        ========================= */
+
+        .hero-visual {
+            position: relative;
+
+            min-height: 410px;
+
+            display: grid;
+            place-items: center;
+        }
+
+        .orb {
+            position: absolute;
+
+            width: 290px;
+            height: 290px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(0,229,255,0.17),
+                    rgba(59,130,246,0.08) 35%,
+                    transparent 70%
+                );
+
+            filter: blur(1px);
+
+            animation: float 7s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) scale(1);
             }
 
-            30% {
+            50% {
+                transform: translateY(-12px) scale(1.03);
+            }
+        }
+
+        .robot-core {
+            position: relative;
+
+            width: 245px;
+            height: 245px;
+
+            border-radius: 34%;
+
+            transform: rotate(2deg);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(18,34,55,0.96),
+                    rgba(6,14,28,0.97)
+                );
+
+            border: 1px solid rgba(106,208,255,0.32);
+
+            box-shadow:
+                0 35px 90px rgba(0,0,0,0.45),
+                0 0 70px rgba(0,229,255,0.11),
+                inset 0 0 50px rgba(0,229,255,0.035);
+
+            display: grid;
+            place-items: center;
+
+            animation: robotFloat 5s ease-in-out infinite;
+        }
+
+        @keyframes robotFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(2deg);
+            }
+
+            50% {
+                transform: translateY(-8px) rotate(-1deg);
+            }
+        }
+
+        .robot-face {
+            width: 155px;
+            height: 125px;
+
+            border-radius: 27px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #101e31,
+                    #07111f
+                );
+
+            border: 1px solid rgba(0,229,255,0.25);
+
+            box-shadow:
+                inset 0 0 25px rgba(0,229,255,0.06),
+                0 0 20px rgba(0,229,255,0.08);
+
+            position: relative;
+        }
+
+        .robot-eyes {
+            position: absolute;
+
+            left: 50%;
+            top: 38px;
+
+            transform: translateX(-50%);
+
+            display: flex;
+            gap: 34px;
+        }
+
+        .robot-eye {
+            width: 18px;
+            height: 18px;
+
+            border-radius: 6px;
+
+            background: var(--cyan);
+
+            box-shadow:
+                0 0 17px rgba(0,229,255,0.95);
+
+            animation: eyePulse 2.4s infinite;
+        }
+
+        @keyframes eyePulse {
+            0%, 100% {
+                opacity: 0.8;
+            }
+
+            50% {
                 opacity: 1;
             }
         }
 
-        /* =====================================================
-           FOOTER
-        ===================================================== */
-
-        footer {
-            height: 60px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            gap: 18px;
-
-            color: #6487a9;
-
-            font-size: 12px;
-
-            border-top:
-                1px solid rgba(0, 157, 255, 0.2);
-
-            margin-top: 14px;
-        }
-
-        .online {
+        .robot-mouth {
             position: absolute;
 
-            right: 25px;
+            left: 50%;
+            bottom: 25px;
 
-            color: #65d99a;
+            transform: translateX(-50%);
+
+            width: 48px;
+            height: 5px;
+
+            border-radius: 20px;
+
+            background: #3c7d95;
+
+            box-shadow:
+                0 0 10px rgba(0,229,255,0.3);
         }
 
-        .online::before {
+        .robot-antenna {
+            position: absolute;
+
+            width: 2px;
+            height: 27px;
+
+            top: -28px;
+            left: 50%;
+
+            background: rgba(0,229,255,0.7);
+        }
+
+        .robot-antenna::before {
             content: "";
 
-            display: inline-block;
+            position: absolute;
 
             width: 8px;
             height: 8px;
 
             border-radius: 50%;
 
-            background: #00e676;
+            left: 50%;
+            top: -4px;
 
-            margin-right: 7px;
+            transform: translateX(-50%);
+
+            background: var(--cyan);
 
             box-shadow:
-                0 0 10px #00e676;
+                0 0 14px rgba(0,229,255,0.95);
         }
 
-        /* =====================================================
-           SCROLLBAR
-        ===================================================== */
+        .orbit {
+            position: absolute;
 
-        ::-webkit-scrollbar {
-            width: 7px;
+            width: 330px;
+            height: 120px;
+
+            border-radius: 50%;
+
+            border: 1px solid rgba(0,229,255,0.16);
+
+            transform: rotate(-24deg);
+
+            animation: orbit 8s linear infinite;
         }
 
-        ::-webkit-scrollbar-track {
-            background: #020817;
+        @keyframes orbit {
+            from {
+                transform: rotate(-24deg);
+            }
+
+            to {
+                transform: rotate(336deg);
+            }
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: #07568a;
+        .orbit::after {
+            content: "";
+
+            position: absolute;
+
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: var(--cyan);
+
+            top: 18px;
+            left: 50%;
+
+            box-shadow:
+                0 0 15px var(--cyan);
+        }
+
+        .floating-card {
+            position: absolute;
+
+            padding: 12px 14px;
+
+            border-radius: 13px;
+
+            background: rgba(8,16,29,0.72);
+
+            border: 1px solid var(--border);
+
+            backdrop-filter: blur(14px);
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,0.28);
+        }
+
+        .floating-card strong {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 3px;
+        }
+
+        .floating-card span {
+            color: var(--muted);
+            font-size: 10px;
+        }
+
+        .card-one {
+            left: 0;
+            top: 70px;
+        }
+
+        .card-two {
+            right: 0;
+            top: 145px;
+        }
+
+        .card-three {
+            left: 45px;
+            bottom: 45px;
+        }
+
+        /* =========================
+           SECTION
+        ========================= */
+
+        .section {
+            width: min(1400px, 94%);
+            margin: auto;
+
+            padding: 55px 0;
+        }
+
+        .section-header {
+            margin-bottom: 25px;
+        }
+
+        .eyebrow {
+            color: var(--cyan);
+
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+
+            font-size: 11px;
+            font-weight: 800;
+
+            margin-bottom: 9px;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 42px);
+
+            letter-spacing: -0.04em;
+        }
+
+        .section-description {
+            color: var(--muted);
+
+            max-width: 670px;
+
+            margin-top: 10px;
+
+            line-height: 1.6;
+        }
+
+        /* =========================
+           SPECIALIZATIONS
+        ========================= */
+
+        .specializations {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, minmax(0, 1fr));
+
+            gap: 14px;
+        }
+
+        .special-card {
+            position: relative;
+
+            padding: 22px;
+
+            min-height: 190px;
+
+            border-radius: var(--radius);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(13,25,43,0.75),
+                    rgba(7,13,25,0.7)
+                );
+
+            border: 1px solid var(--border);
+
+            overflow: hidden;
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        .special-card::after {
+            content: "";
+
+            position: absolute;
+
+            width: 130px;
+            height: 130px;
+
+            border-radius: 50%;
+
+            right: -60px;
+            bottom: -70px;
+
+            background: rgba(0,229,255,0.06);
+
+            filter: blur(10px);
+        }
+
+        .special-card:hover {
+            transform: translateY(-5px);
+
+            border-color: var(--border-hover);
+
+            box-shadow:
+                0 20px 45px rgba(0,0,0,0.22);
+        }
+
+        .special-icon {
+            width: 44px;
+            height: 44px;
+
+            border-radius: 13px;
+
+            display: grid;
+            place-items: center;
+
+            margin-bottom: 19px;
+
+            font-size: 20px;
+
+            background:
+                rgba(0,229,255,0.08);
+
+            border: 1px solid rgba(0,229,255,0.14);
+        }
+
+        .special-card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .special-card p {
+            color: var(--muted);
+
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           CHAT
+        ========================= */
+
+        .chat-section {
+            padding-top: 45px;
+        }
+
+        .chat-shell {
+            display: grid;
+
+            grid-template-columns:
+                230px minmax(0, 1fr);
+
+            min-height: 680px;
+
+            border-radius: 24px;
+
+            background:
+                rgba(7,14,26,0.76);
+
+            border: 1px solid var(--border);
+
+            box-shadow:
+                0 30px 100px rgba(0,0,0,0.3);
+
+            overflow: hidden;
+
+            backdrop-filter: blur(18px);
+        }
+
+        /* =========================
+           CONTEXT SIDEBAR
+        ========================= */
+
+        .context-panel {
+            padding: 20px;
+
+            border-right: 1px solid var(--border);
+
+            background:
+                rgba(3,9,18,0.55);
+        }
+
+        .panel-label {
+            color: #66768d;
+
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+
+            font-size: 10px;
+            font-weight: 800;
+
+            margin-bottom: 14px;
+        }
+
+        .context-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .context-btn {
+            width: 100%;
+
+            padding: 12px;
+
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            color: #8796aa;
+
+            background: transparent;
+
+            border: 1px solid transparent;
+
+            border-radius: 11px;
+
+            text-align: left;
+
+            font-size: 12px;
+            font-weight: 650;
+
+            transition:
+                color 0.2s ease,
+                background 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .context-btn:hover {
+            color: var(--text);
+
+            background:
+                rgba(255,255,255,0.035);
+        }
+
+        .context-btn.active {
+            color: #c9fbff;
+
+            background:
+                rgba(0,229,255,0.065);
+
+            border-color:
+                rgba(0,229,255,0.16);
+        }
+
+        .context-symbol {
+            width: 27px;
+            height: 27px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 8px;
+
+            background:
+                rgba(255,255,255,0.045);
+
+            font-size: 13px;
+        }
+
+        .context-btn.active .context-symbol {
+            background:
+                rgba(0,229,255,0.11);
+        }
+
+        .memory-status {
+            margin-top: 28px;
+
+            padding: 14px;
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,0.025);
+
+            border: 1px solid var(--border);
+        }
+
+        .memory-status-title {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            font-size: 11px;
+            font-weight: 750;
+
+            margin-bottom: 5px;
+        }
+
+        .memory-status-dot {
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: var(--green);
+
+            box-shadow:
+                0 0 9px rgba(34,197,94,0.8);
+        }
+
+        .memory-status p {
+            color: #63748b;
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           CHAT MAIN
+        ========================= */
+
+        .chat-main {
+            min-width: 0;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            min-height: 70px;
+
+            padding: 15px 20px;
+
+            border-bottom: 1px solid var(--border);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .chat-title {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .chat-avatar {
+            width: 38px;
+            height: 38px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(0,229,255,0.14),
+                    rgba(139,92,246,0.13)
+                );
+
+            border: 1px solid rgba(0,229,255,0.17);
+        }
+
+        .chat-title strong {
+            display: block;
+
+            font-size: 13px;
+        }
+
+        .chat-title span {
+            display: block;
+
+            margin-top: 3px;
+
+            color: #687990;
+
+            font-size: 10px;
+        }
+
+        .online {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+
+            color: #78dc9a;
+
+            font-size: 10px;
+        }
+
+        .online::before {
+            content: "";
+
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: #22c55e;
+
+            box-shadow:
+                0 0 8px rgba(34,197,94,0.8);
+        }
+
+        .messages {
+            flex: 1;
+
+            min-height: 450px;
+            max-height: 600px;
+
+            overflow-y: auto;
+
+            padding: 25px;
+        }
+
+        .welcome {
+            min-height: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+        }
+
+        .welcome-inner {
+            max-width: 560px;
+        }
+
+        .welcome-icon {
+            width: 64px;
+            height: 64px;
+
+            margin: 0 auto 20px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 19px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(0,229,255,0.12),
+                    rgba(139,92,246,0.12)
+                );
+
+            border: 1px solid rgba(0,229,255,0.2);
+
+            font-size: 27px;
+
+            box-shadow:
+                0 0 40px rgba(0,229,255,0.07);
+        }
+
+        .welcome h2 {
+            font-size: 27px;
+
+            letter-spacing: -0.03em;
+
+            margin-bottom: 9px;
+        }
+
+        .welcome p {
+            color: var(--muted);
+
+            font-size: 13px;
+
+            line-height: 1.7;
+        }
+
+        .message {
+            display: flex;
+
+            gap: 11px;
+
+            margin-bottom: 21px;
+
+            animation:
+                messageIn 0.28s ease both;
+        }
+
+        @keyframes messageIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-avatar {
+            flex: 0 0 auto;
+
+            width: 31px;
+            height: 31px;
+
+            display: grid;
+            place-items: center;
 
             border-radius: 10px;
+
+            background:
+                rgba(0,229,255,0.08);
+
+            border: 1px solid rgba(0,229,255,0.13);
+
+            font-size: 12px;
         }
 
-        /* =====================================================
-           MOBILE
-        ===================================================== */
+        .message.user .message-avatar {
+            order: 2;
 
-        @media (max-width: 1100px) {
+            background:
+                rgba(59,130,246,0.1);
 
-            .main {
+            border-color:
+                rgba(59,130,246,0.16);
+        }
+
+        .message-content {
+            max-width: min(720px, 82%);
+
+            padding: 12px 15px;
+
+            border-radius: 15px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border: 1px solid var(--border);
+
+            color: #dbe7f4;
+
+            font-size: 13px;
+
+            line-height: 1.65;
+
+            white-space: pre-wrap;
+
+            overflow-wrap: anywhere;
+        }
+
+        .message.user .message-content {
+            background: var(--user);
+
+            border-color:
+                rgba(0,229,255,0.12);
+        }
+
+        .message-image {
+            max-width: 280px;
+            max-height: 240px;
+
+            display: block;
+
+            margin-top: 9px;
+
+            border-radius: 12px;
+
+            border: 1px solid var(--border);
+        }
+
+        .typing {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            padding: 8px 3px;
+        }
+
+        .typing span {
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: #6e849c;
+
+            animation: typing 1.2s infinite;
+        }
+
+        .typing span:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+        .typing span:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.45;
+            }
+
+            30% {
+                transform: translateY(-4px);
+                opacity: 1;
+            }
+        }
+
+        /* =========================
+           IMAGE PREVIEW
+        ========================= */
+
+        .image-preview {
+            display: none;
+
+            padding: 0 20px 10px;
+        }
+
+        .preview-inner {
+            position: relative;
+
+            width: fit-content;
+
+            max-width: 220px;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            border: 1px solid var(--border);
+        }
+
+        .preview-inner img {
+            display: block;
+
+            max-width: 220px;
+            max-height: 150px;
+        }
+
+        .remove-image {
+            position: absolute;
+
+            top: 6px;
+            right: 6px;
+
+            width: 25px;
+            height: 25px;
+
+            border-radius: 50%;
+
+            border: 1px solid rgba(255,255,255,0.12);
+
+            color: white;
+
+            background:
+                rgba(0,0,0,0.68);
+
+            font-size: 13px;
+        }
+
+        /* =========================
+           CHAT INPUT
+        ========================= */
+
+        .input-area {
+            padding: 14px 18px 18px;
+
+            border-top: 1px solid var(--border);
+        }
+
+        .input-box {
+            display: flex;
+            align-items: flex-end;
+            gap: 9px;
+
+            padding: 8px;
+
+            border-radius: 16px;
+
+            background:
+                rgba(255,255,255,0.025);
+
+            border: 1px solid var(--border);
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .input-box:focus-within {
+            border-color:
+                rgba(0,229,255,0.28);
+
+            box-shadow:
+                0 0 0 3px rgba(0,229,255,0.035);
+        }
+
+        .attach-btn {
+            flex: 0 0 auto;
+
+            width: 40px;
+            height: 40px;
+
+            border-radius: 11px;
+
+            border: 1px solid var(--border);
+
+            background:
+                rgba(255,255,255,0.035);
+
+            color: #a4b3c5;
+
+            display: grid;
+            place-items: center;
+
+            font-size: 17px;
+
+            transition: 0.2s ease;
+        }
+
+        .attach-btn:hover {
+            color: var(--cyan);
+
+            border-color:
+                rgba(0,229,255,0.25);
+        }
+
+        #imageInput {
+            display: none;
+        }
+
+        #messageInput {
+            flex: 1;
+
+            min-height: 40px;
+            max-height: 150px;
+
+            resize: none;
+
+            border: none;
+            outline: none;
+
+            color: var(--text);
+
+            background: transparent;
+
+            padding: 10px 4px;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+        #messageInput::placeholder {
+            color: #56677e;
+        }
+
+        .send-btn {
+            flex: 0 0 auto;
+
+            width: 40px;
+            height: 40px;
+
+            border-radius: 11px;
+
+            border: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #4ff5ff,
+                    #4285f4
+                );
+
+            color: #031017;
+
+            display: grid;
+            place-items: center;
+
+            font-size: 16px;
+            font-weight: 900;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 8px 22px rgba(0,229,255,0.18);
+        }
+
+        .input-hint {
+            color: #4f6177;
+
+            font-size: 9px;
+
+            margin-top: 8px;
+
+            text-align: center;
+        }
+
+        /* =========================
+           FOUNDER
+        ========================= */
+
+        .founder-section {
+            padding-top: 50px;
+        }
+
+        .founder-card {
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 30px;
+
+            padding: 30px;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    rgba(0,229,255,0.06),
+                    rgba(139,92,246,0.055),
+                    rgba(255,255,255,0.018)
+                );
+
+            border: 1px solid var(--border);
+
+            overflow: hidden;
+        }
+
+        .founder-card::after {
+            content: "";
+
+            position: absolute;
+
+            width: 220px;
+            height: 220px;
+
+            border-radius: 50%;
+
+            right: -90px;
+            top: -120px;
+
+            background:
+                rgba(0,229,255,0.08);
+
+            filter: blur(30px);
+        }
+
+        .founder-info {
+            position: relative;
+            z-index: 1;
+        }
+
+        .founder-label {
+            color: var(--cyan);
+
+            text-transform: uppercase;
+            letter-spacing: 0.13em;
+
+            font-size: 10px;
+            font-weight: 800;
+
+            margin-bottom: 9px;
+        }
+
+        .founder-name {
+            font-size: 25px;
+
+            font-weight: 800;
+
+            margin-bottom: 6px;
+        }
+
+        .founder-role {
+            color: #91a0b4;
+
+            font-size: 13px;
+        }
+
+        .founder-social {
+            position: relative;
+            z-index: 1;
+
+            display: flex;
+            gap: 10px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            width: min(1400px, 94%);
+            margin: auto;
+
+            padding: 28px 0 38px;
+
+            border-top: 1px solid var(--border);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+
+            color: #5c6d83;
+
+            font-size: 11px;
+        }
+
+        .footer-brand {
+            color: #8191a7;
+        }
+
+        .footer-social {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-facebook {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            color: #8394aa;
+
+            transition: color 0.2s ease;
+        }
+
+        .footer-facebook:hover {
+            color: #1877f2;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1000px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content {
+                margin: auto;
+            }
+
+            .status-pill {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                min-height: 380px;
+            }
+
+            .specializations {
                 grid-template-columns:
-                    240px
-                    minmax(350px, 1fr);
+                    repeat(2, minmax(0, 1fr));
             }
-
-            .help-panel {
-                display: none;
-            }
-
         }
 
-        @media (max-width: 760px) {
-
-            header {
-                height: auto;
-
-                padding: 18px;
-
-                gap: 15px;
-
-                flex-direction: column;
-
-                align-items: flex-start;
-            }
-
-            .header-links {
+        @media (max-width: 780px) {
+            .nav-links .nav-link {
                 display: none;
             }
 
-            .main {
-                display: block;
-
-                padding: 12px;
+            .chat-shell {
+                grid-template-columns: 1fr;
             }
 
             .context-panel {
-                min-height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
 
-                margin-bottom: 12px;
+                padding: 12px;
             }
 
             .context-buttons {
                 display: grid;
 
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns:
+                    repeat(2, minmax(0, 1fr));
             }
 
-            .chat-panel {
-                min-height: 650px;
+            .memory-status {
+                display: none;
             }
 
-            footer {
-                position: relative;
-
-                height: auto;
-
-                padding: 18px;
+            .messages {
+                min-height: 440px;
             }
 
-            .online {
-                position: static;
+            .founder-card {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
 
-        @media (max-width: 480px) {
-
-            .brand-name {
-                font-size: 27px;
+        @media (max-width: 580px) {
+            .nav-inner {
+                min-height: 66px;
             }
 
-            .version {
-                font-size: 20px;
+            .facebook-btn span {
+                display: none;
             }
 
-            .tagline {
-                font-size: 8px;
+            .facebook-btn {
+                padding: 10px;
             }
 
-            .context-buttons {
+            .hero {
+                padding-top: 55px;
+            }
+
+            .hero h1 {
+                font-size: 53px;
+            }
+
+            .hero-subtitle {
+                font-size: 14px;
+            }
+
+            .hero-visual {
+                min-height: 320px;
+            }
+
+            .robot-core {
+                width: 195px;
+                height: 195px;
+            }
+
+            .robot-face {
+                width: 125px;
+                height: 100px;
+            }
+
+            .robot-eyes {
+                top: 30px;
+                gap: 26px;
+            }
+
+            .robot-eye {
+                width: 14px;
+                height: 14px;
+            }
+
+            .robot-mouth {
+                bottom: 20px;
+            }
+
+            .orbit {
+                width: 270px;
+            }
+
+            .floating-card {
+                display: none;
+            }
+
+            .specializations {
                 grid-template-columns: 1fr;
             }
 
-            .chat-title {
-                font-size: 27px;
+            .section {
+                padding: 40px 0;
             }
 
-            .message {
-                max-width: 92%;
+            .chat-shell {
+                border-radius: 17px;
+            }
+
+            .messages {
+                padding: 18px 14px;
+            }
+
+            .message-content {
+                max-width: 84%;
+                font-size: 12px;
+            }
+
+            .input-area {
+                padding: 10px;
+            }
+
+            footer {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
-
     </style>
 </head>
 
 <body>
 
-    <!-- =====================================================
-         HEADER
-    ====================================================== -->
+    <!-- =========================
+         NAVBAR
+    ========================== -->
 
-    <header>
+    <header class="navbar">
+        <div class="nav-inner">
 
-        <div class="brand">
+            <a href="#" class="brand">
+                <div class="brand-mark"></div>
 
-            <div class="robot-logo"></div>
-
-            <div>
-
-                <div class="brand-name">
-                    MECORA <span class="version">1.0</span>
+                <div>
+                    <span class="brand-name">MECORA</span>
+                    <span class="brand-version">1.0</span>
                 </div>
+            </a>
 
-                <div class="tagline">
-                    ROBOTICS &nbsp;•&nbsp; PROGRAMMING &nbsp;•&nbsp; AI
-                </div>
+            <nav class="nav-links">
+                <a
+                    href="#specializations"
+                    class="nav-link"
+                >
+                    Specializations
+                </a>
 
-            </div>
+                <a
+                    href="#assistant"
+                    class="nav-link"
+                >
+                    AI Assistant
+                </a>
+
+                <a
+                    href="#founder"
+                    class="nav-link"
+                >
+                    Founder
+                </a>
+
+                <a
+                    href="https://www.facebook.com/share/1ETnfPGPrF/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="facebook-btn"
+                >
+                    <span class="facebook-icon">f</span>
+                    <span>Facebook</span>
+                </a>
+            </nav>
 
         </div>
-
-        <div class="header-links">
-
-            <span>Build Robots</span>
-            <span>Program Robots</span>
-            <span>Learn</span>
-            <span>Create</span>
-
-        </div>
-
     </header>
 
 
-    <!-- =====================================================
-         MAIN
-    ====================================================== -->
+    <!-- =========================
+         HERO
+    ========================== -->
 
-    <main class="main">
+    <main>
 
-        <!-- =================================================
-             LEFT
-        ================================================== -->
+        <section class="hero">
 
-        <section class="panel context-panel">
+            <div class="hero-content">
 
-            <h2 class="panel-title">
-                SELECT CONTEXT
-            </h2>
+                <div class="status-pill">
+                    <span class="status-dot"></span>
+                    MECORA ONLINE
+                </div>
 
-            <div class="context-buttons">
+                <h1>
+                    Intelligence<br>
+                    for Engineering.
+                </h1>
 
-                <button
-                    class="context-btn active"
-                    data-context="robotics"
-                >
-                    <span class="context-icon">🤖</span>
-                    <span>Robotics</span>
-                </button>
+                <p class="hero-subtitle">
+                    MECORA is a personal AI assistant focused on
+                    robotics, programming, embedded systems,
+                    artificial intelligence and computer vision.
+                </p>
 
-                <button
-                    class="context-btn"
-                    data-context="programming"
-                >
-                    <span class="context-icon">💻</span>
-                    <span>Programming</span>
-                </button>
+                <div class="hero-actions">
 
-                <button
-                    class="context-btn"
-                    data-context="embedded"
-                >
-                    <span class="context-icon">🔌</span>
-                    <span>Embedded</span>
-                </button>
+                    <a
+                        href="#assistant"
+                        class="primary-btn"
+                    >
+                        Launch MECORA
+                        <span>→</span>
+                    </a>
 
-                <button
-                    class="context-btn"
-                    data-context="vision"
-                >
-                    <span class="context-icon">👁️</span>
-                    <span>AI & Vision</span>
-                </button>
-
-            </div>
-
-            <div class="context-info">
-
-                <strong>
-                    Choose a context.
-                </strong>
-
-                <br>
-
-                MECORA will use your selected
-                technical domain for the next
-                question.
-
-                <div class="context-status">
-
-                    Context:
-                    <strong id="contextLabel">
-                        Robotics
-                    </strong>
+                    <a
+                        href="https://www.facebook.com/share/1ETnfPGPrF/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="secondary-btn"
+                    >
+                        <span>f</span>
+                        Connect on Facebook
+                    </a>
 
                 </div>
 
             </div>
 
-            <div class="founder">
 
-                Created by
+            <div class="hero-visual">
 
-                <span class="founder-name">
-                    Ahmed Bendag
-                </span>
+                <div class="orb"></div>
+
+                <div class="orbit"></div>
+
+                <div class="robot-core">
+
+                    <div class="robot-face">
+
+                        <div class="robot-antenna"></div>
+
+                        <div class="robot-eyes">
+                            <div class="robot-eye"></div>
+                            <div class="robot-eye"></div>
+                        </div>
+
+                        <div class="robot-mouth"></div>
+
+                    </div>
+
+                </div>
+
+                <div class="floating-card card-one">
+                    <strong>ROBOTICS</strong>
+                    <span>Control • ROS • Kinematics</span>
+                </div>
+
+                <div class="floating-card card-two">
+                    <strong>AI / VISION</strong>
+                    <span>ML • OpenCV • Detection</span>
+                </div>
+
+                <div class="floating-card card-three">
+                    <strong>EMBEDDED</strong>
+                    <span>ESP32 • STM32 • C/C++</span>
+                </div>
 
             </div>
 
         </section>
 
 
-        <!-- =================================================
-             CENTER
-        ================================================== -->
+        <!-- =========================
+             SPECIALIZATIONS
+        ========================== -->
 
-        <section class="panel chat-panel">
+        <section
+            class="section"
+            id="specializations"
+        >
 
-            <div class="chat-header">
+            <div class="section-header">
 
-                <div class="big-robot"></div>
-
-                <div class="chat-title">
-
-                    MECORA
-                    <span>1.0</span>
-
+                <div class="eyebrow">
+                    Engineering Intelligence
                 </div>
 
-                <div class="chat-subtitle">
+                <h2 class="section-title">
+                    Built for technical work.
+                </h2>
 
-                    Your Robotics & Programming AI Assistant
+                <p class="section-description">
+                    MECORA is designed around the areas that matter
+                    most in modern mechatronics and robotics.
+                </p>
 
-                </div>
+            </div>
 
-                <div class="active-context">
 
-                    🤖
+            <div class="specializations">
 
-                    <span>
-                        Context:
-                    </span>
+                <article class="special-card">
 
-                    <strong id="activeContext">
+                    <div class="special-icon">
+                        🤖
+                    </div>
+
+                    <h3>
                         Robotics
-                    </strong>
+                    </h3>
 
+                    <p>
+                        Kinematics, dynamics, ROS/ROS2,
+                        sensors, actuators, navigation,
+                        control and automation.
+                    </p>
+
+                </article>
+
+
+                <article class="special-card">
+
+                    <div class="special-icon">
+                        💻
+                    </div>
+
+                    <h3>
+                        Programming
+                    </h3>
+
+                    <p>
+                        Python, C, C++, algorithms,
+                        data structures, debugging,
+                        Git and software engineering.
+                    </p>
+
+                </article>
+
+
+                <article class="special-card">
+
+                    <div class="special-icon">
+                        ⚡
+                    </div>
+
+                    <h3>
+                        Embedded Systems
+                    </h3>
+
+                    <p>
+                        Arduino, ESP32, STM32, GPIO,
+                        PWM, UART, SPI, I2C, CAN
+                        and Embedded C.
+                    </p>
+
+                </article>
+
+
+                <article class="special-card">
+
+                    <div class="special-icon">
+                        👁
+                    </div>
+
+                    <h3>
+                        AI & Vision
+                    </h3>
+
+                    <p>
+                        Machine learning, OpenCV,
+                        image processing, deep learning
+                        and computer vision.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             AI ASSISTANT
+        ========================== -->
+
+        <section
+            class="section chat-section"
+            id="assistant"
+        >
+
+            <div class="section-header">
+
+                <div class="eyebrow">
+                    Personal AI
                 </div>
 
-            </div>
+                <h2 class="section-title">
+                    Talk to MECORA.
+                </h2>
 
-
-            <div
-                class="messages"
-                id="messages"
-            >
-
-                <div
-                    class="welcome"
-                    id="welcome"
-                >
-
-                    <strong>
-                        Hello! I'm MECORA 1.0
-                    </strong>
-
-                    Select a context and
-                    write your question.
-
-                    <br><br>
-
-                    I will keep responses
-                    focused and concise.
-
-                </div>
+                <p class="section-description">
+                    Ask questions, debug code, explore robotics
+                    concepts or analyze an image.
+                </p>
 
             </div>
 
 
-            <div
-                class="typing"
-                id="typing"
-            >
+            <div class="chat-shell">
 
-                MECORA is thinking
+                <!-- CONTEXT PANEL -->
 
-                <span>•</span>
-                <span>•</span>
-                <span>•</span>
+                <aside class="context-panel">
 
-            </div>
+                    <div class="panel-label">
+                        AI specialization
+                    </div>
 
-
-            <!-- IMAGE PREVIEW -->
-
-            <div
-                class="image-preview"
-                id="imagePreview"
-            >
-
-                <img
-                    id="previewImage"
-                    alt="Selected image"
-                >
-
-                <button
-                    class="remove-image"
-                    id="removeImage"
-                    type="button"
-                >
-                    ×
-                </button>
-
-            </div>
-
-
-            <!-- COMPOSER -->
-
-            <div class="composer">
-
-                <div class="input-box">
-
-                    <textarea
-                        id="messageInput"
-                        placeholder="Type your message..."
-                        rows="1"
-                    ></textarea>
-
-                    <div class="input-actions">
-
-                        <input
-                            type="file"
-                            id="imageInput"
-                            accept="image/png,image/jpeg,image/webp,image/gif"
-                        >
+                    <div class="context-buttons">
 
                         <button
-                            class="attach-btn"
-                            id="attachBtn"
-                            type="button"
+                            class="context-btn active"
+                            data-context="robotics"
                         >
-                            🖼️ Attach
+                            <span class="context-symbol">
+                                🤖
+                            </span>
+                            Robotics
                         </button>
 
                         <button
-                            class="send-btn"
-                            id="sendBtn"
-                            type="button"
-                            title="Send"
+                            class="context-btn"
+                            data-context="programming"
                         >
-                            ➤
+                            <span class="context-symbol">
+                                &lt;/&gt;
+                            </span>
+                            Programming
                         </button>
+
+                        <button
+                            class="context-btn"
+                            data-context="embedded"
+                        >
+                            <span class="context-symbol">
+                                ⚡
+                            </span>
+                            Embedded
+                        </button>
+
+                        <button
+                            class="context-btn"
+                            data-context="vision"
+                        >
+                            <span class="context-symbol">
+                                ◉
+                            </span>
+                            AI & Vision
+                        </button>
+
+                    </div>
+
+
+                    <div class="memory-status">
+
+                        <div class="memory-status-title">
+                            <span class="memory-status-dot"></span>
+                            Conversation memory
+                        </div>
+
+                        <p>
+                            MECORA remembers recent messages
+                            during your conversation.
+                        </p>
+
+                    </div>
+
+                </aside>
+
+
+                <!-- CHAT -->
+
+                <div class="chat-main">
+
+                    <div class="chat-header">
+
+                        <div class="chat-title">
+
+                            <div class="chat-avatar">
+                                ✦
+                            </div>
+
+                            <div>
+                                <strong>
+                                    MECORA 1.0
+                                </strong>
+
+                                <span>
+                                    Robotics & Engineering AI
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <span class="online">
+                            Online
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="messages"
+                        id="messages"
+                    >
+
+                        <div
+                            class="welcome"
+                            id="welcome"
+                        >
+
+                            <div class="welcome-inner">
+
+                                <div class="welcome-icon">
+                                    ✦
+                                </div>
+
+                                <h2>
+                                    How can I help?
+                                </h2>
+
+                                <p>
+                                    Ask MECORA about robotics,
+                                    programming, embedded systems,
+                                    AI or computer vision.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- IMAGE PREVIEW -->
+
+                    <div
+                        class="image-preview"
+                        id="imagePreview"
+                    >
+
+                        <div class="preview-inner">
+
+                            <img
+                                id="previewImage"
+                                alt="Selected image"
+                            >
+
+                            <button
+                                class="remove-image"
+                                id="removeImage"
+                                type="button"
+                            >
+                                ×
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- INPUT -->
+
+                    <div class="input-area">
+
+                        <div class="input-box">
+
+                            <label
+                                class="attach-btn"
+                                title="Upload image"
+                            >
+                                ＋
+                                <input
+                                    type="file"
+                                    id="imageInput"
+                                    accept="image/*"
+                                >
+                            </label>
+
+                            <textarea
+                                id="messageInput"
+                                rows="1"
+                                placeholder="Ask MECORA anything..."
+                                autocomplete="off"
+                            ></textarea>
+
+                            <button
+                                class="send-btn"
+                                id="sendButton"
+                                type="button"
+                                title="Send"
+                            >
+                                ↑
+                            </button>
+
+                        </div>
+
+                        <div class="input-hint">
+                            Enter to send • Shift + Enter for a new line
+                        </div>
 
                     </div>
 
@@ -1588,290 +2415,451 @@
         </section>
 
 
-        <!-- =================================================
-             RIGHT
-        ================================================== -->
+        <!-- =========================
+             FOUNDER
+        ========================== -->
 
-        <aside class="panel help-panel">
+        <section
+            class="section founder-section"
+            id="founder"
+        >
 
-            <h2 class="panel-title">
-                MECORA SPECIALIZATIONS
-            </h2>
+            <div class="founder-card">
 
-            <div class="help-card robotics">
+                <div class="founder-info">
 
-                <h3>
-                    🤖 ROBOTICS
-                </h3>
+                    <div class="founder-label">
+                        Created by
+                    </div>
 
-                <p>
-                    Kinematics & dynamics<br>
-                    Path planning & navigation<br>
-                    ROS / ROS 2<br>
-                    Sensors & actuators
-                </p>
+                    <div class="founder-name">
+                        Ahmed Bendag
+                    </div>
 
-            </div>
+                    <div class="founder-role">
+                        Mechatronics Engineering Student
+                    </div>
 
-
-            <div class="help-card programming">
-
-                <h3>
-                    💻 PROGRAMMING
-                </h3>
-
-                <p>
-                    Python, C, C++<br>
-                    Algorithms & data structures<br>
-                    Arduino / ESP32 / STM32<br>
-                    Git & Linux
-                </p>
-
-            </div>
+                </div>
 
 
-            <div class="help-card embedded">
+                <div class="founder-social">
 
-                <h3>
-                    🔌 EMBEDDED
-                </h3>
+                    <a
+                        href="https://www.facebook.com/share/1ETnfPGPrF/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="facebook-btn"
+                    >
+                        <span class="facebook-icon">
+                            f
+                        </span>
 
-                <p>
-                    GPIO / PWM / ADC<br>
-                    UART / SPI / I2C<br>
-                    Motor control<br>
-                    Embedded C / MicroPython
-                </p>
+                        <span>
+                            Facebook
+                        </span>
+                    </a>
+
+                </div>
 
             </div>
 
-
-            <div class="help-card vision">
-
-                <h3>
-                    👁️ AI & VISION
-                </h3>
-
-                <p>
-                    Computer vision<br>
-                    OpenCV<br>
-                    Machine learning<br>
-                    Object detection
-                </p>
-
-            </div>
-
-
-            <div class="mission">
-
-                ⚡ Your goals.
-                <strong>My mission.</strong>
-
-                <br>
-
-                Build.
-                Program.
-                Learn.
-                Create.
-
-                <br><br>
-
-                — MECORA 1.0
-
-            </div>
-
-        </aside>
+        </section>
 
     </main>
 
 
-    <!-- =====================================================
+    <!-- =========================
          FOOTER
-    ====================================================== -->
+    ========================== -->
 
     <footer>
 
-        <span>
-            MECORA 1.0
-        </span>
+        <div class="footer-brand">
+            © 2026 MECORA 1.0 — Robotics & Engineering AI
+        </div>
 
-        |
+        <div class="footer-social">
 
-        <span>
-            Robotics & Programming AI
-        </span>
+            <span>
+                Created by Ahmed Bendag
+            </span>
 
-        |
+            <a
+                href="https://www.facebook.com/share/1ETnfPGPrF/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="footer-facebook"
+            >
+                <span class="facebook-icon">
+                    f
+                </span>
 
-        <span>
-            Created by
-            <strong class="founder-name">
-                Ahmed Bendag
-            </strong>
-        </span>
+                Facebook
+            </a>
 
-        <span class="online">
-            Online
-        </span>
+        </div>
 
     </footer>
 
 
-    <!-- =====================================================
+    <!-- =========================
          JAVASCRIPT
-    ====================================================== -->
+    ========================== -->
 
     <script>
 
-        /* =====================================================
-           VARIABLES
-        ===================================================== */
+        /* =========================
+           ELEMENTS
+        ========================== */
 
-        let selectedContext = "robotics";
+        const messages =
+            document.getElementById("messages");
+
+        const welcome =
+            document.getElementById("welcome");
+
+        const messageInput =
+            document.getElementById("messageInput");
+
+        const sendButton =
+            document.getElementById("sendButton");
+
+        const contextButtons =
+            document.querySelectorAll(".context-btn");
+
+        const imageInput =
+            document.getElementById("imageInput");
+
+        const imagePreview =
+            document.getElementById("imagePreview");
+
+        const previewImage =
+            document.getElementById("previewImage");
+
+        const removeImage =
+            document.getElementById("removeImage");
+
+
+        /* =========================
+           STATE
+        ========================== */
+
+        let selectedContext =
+            localStorage.getItem(
+                "mecora_context"
+            ) || "robotics";
+
+        let conversationHistory = [];
 
         let selectedImage = null;
 
-        const contextNames = {
-
-            robotics: "Robotics",
-
-            programming: "Programming",
-
-            embedded: "Embedded",
-
-            vision: "AI & Vision"
-
-        };
+        let isSending = false;
 
 
-        const contextButtons =
-            document.querySelectorAll(
-                ".context-btn"
-            );
+        /* =========================
+           LOAD MEMORY
+        ========================== */
 
-        const contextLabel =
-            document.getElementById(
-                "contextLabel"
-            );
+        try {
 
-        const activeContext =
-            document.getElementById(
-                "activeContext"
-            );
+            conversationHistory =
+                JSON.parse(
+                    localStorage.getItem(
+                        "mecora_history"
+                    ) || "[]"
+                );
 
-        const messages =
-            document.getElementById(
-                "messages"
-            );
+            if (
+                !Array.isArray(
+                    conversationHistory
+                )
+            ) {
+                conversationHistory = [];
+            }
 
-        const welcome =
-            document.getElementById(
-                "welcome"
-            );
+        } catch {
 
-        const messageInput =
-            document.getElementById(
-                "messageInput"
-            );
+            conversationHistory = [];
 
-        const sendBtn =
-            document.getElementById(
-                "sendBtn"
-            );
-
-        const attachBtn =
-            document.getElementById(
-                "attachBtn"
-            );
-
-        const imageInput =
-            document.getElementById(
-                "imageInput"
-            );
-
-        const imagePreview =
-            document.getElementById(
-                "imagePreview"
-            );
-
-        const previewImage =
-            document.getElementById(
-                "previewImage"
-            );
-
-        const removeImage =
-            document.getElementById(
-                "removeImage"
-            );
-
-        const typing =
-            document.getElementById(
-                "typing"
-            );
+        }
 
 
-        /* =====================================================
-           CONTEXT BUTTONS
+        conversationHistory =
+            conversationHistory
+                .filter(
+                    message =>
+                        message &&
+                        (
+                            message.role === "user" ||
+                            message.role === "assistant"
+                        ) &&
+                        typeof message.content === "string"
+                )
+                .slice(-12);
 
-           IMPORTANT:
-           Clicking these buttons does NOT call the AI.
 
-           Therefore:
-           0 API requests
-           0 LLM tokens
-        ===================================================== */
+        /* =========================
+           CONTEXT
+        ========================== */
 
-        contextButtons.forEach(button => {
+        function updateContextUI() {
 
-            button.addEventListener(
-                "click",
-                () => {
+            contextButtons.forEach(
+                button => {
 
-                    selectedContext =
-                        button.dataset.context;
-
-                    contextButtons.forEach(
-                        btn => {
-                            btn.classList.remove(
-                                "active"
-                            );
-                        }
+                    button.classList.toggle(
+                        "active",
+                        button.dataset.context ===
+                        selectedContext
                     );
-
-                    button.classList.add(
-                        "active"
-                    );
-
-                    const name =
-                        contextNames[
-                            selectedContext
-                        ];
-
-                    contextLabel.textContent =
-                        name;
-
-                    activeContext.textContent =
-                        name;
 
                 }
             );
 
-        });
+        }
+
+        updateContextUI();
 
 
-        /* =====================================================
-           IMAGE UPLOAD
-        ===================================================== */
+        contextButtons.forEach(
+            button => {
 
-        attachBtn.addEventListener(
-            "click",
-            () => {
+                button.addEventListener(
+                    "click",
+                    () => {
 
-                imageInput.click();
+                        selectedContext =
+                            button.dataset.context;
+
+                        localStorage.setItem(
+                            "mecora_context",
+                            selectedContext
+                        );
+
+                        updateContextUI();
+
+                    }
+                );
 
             }
         );
 
+
+        /* =========================
+           MEMORY
+        ========================== */
+
+        function saveConversation() {
+
+            conversationHistory =
+                conversationHistory.slice(-12);
+
+            localStorage.setItem(
+                "mecora_history",
+                JSON.stringify(
+                    conversationHistory
+                )
+            );
+
+        }
+
+
+        function restoreConversation() {
+
+            if (
+                !conversationHistory.length
+            ) {
+                return;
+            }
+
+            if (welcome) {
+                welcome.style.display =
+                    "none";
+            }
+
+            conversationHistory.forEach(
+                message => {
+
+                    if (
+                        message &&
+                        (
+                            message.role === "user" ||
+                            message.role === "assistant"
+                        ) &&
+                        typeof message.content === "string"
+                    ) {
+
+                        addMessage(
+                            message.role,
+                            message.content
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /* =========================
+           ADD MESSAGE
+        ========================== */
+
+        function addMessage(
+            role,
+            content,
+            image = null
+        ) {
+
+            if (welcome) {
+                welcome.style.display =
+                    "none";
+            }
+
+            const wrapper =
+                document.createElement("div");
+
+            wrapper.className =
+                `message ${role}`;
+
+            const avatar =
+                document.createElement("div");
+
+            avatar.className =
+                "message-avatar";
+
+            avatar.textContent =
+                role === "user"
+                    ? "You"
+                    : "✦";
+
+
+            const contentBox =
+                document.createElement("div");
+
+            contentBox.className =
+                "message-content";
+
+            /*
+             * textContent is intentionally used
+             * instead of innerHTML.
+             *
+             * This prevents user/AI responses
+             * from injecting HTML or scripts.
+             */
+
+            contentBox.textContent =
+                content;
+
+
+            if (image) {
+
+                const img =
+                    document.createElement("img");
+
+                img.className =
+                    "message-image";
+
+                img.src = image;
+
+                img.alt =
+                    "Uploaded image";
+
+                contentBox.appendChild(img);
+
+            }
+
+
+            wrapper.appendChild(avatar);
+            wrapper.appendChild(contentBox);
+
+            messages.appendChild(wrapper);
+
+            messages.scrollTop =
+                messages.scrollHeight;
+
+        }
+
+
+        /* =========================
+           TYPING INDICATOR
+        ========================== */
+
+        function showTyping() {
+
+            const wrapper =
+                document.createElement("div");
+
+            wrapper.className =
+                "message assistant";
+
+            wrapper.id =
+                "typingMessage";
+
+
+            const avatar =
+                document.createElement("div");
+
+            avatar.className =
+                "message-avatar";
+
+            avatar.textContent =
+                "✦";
+
+
+            const contentBox =
+                document.createElement("div");
+
+            contentBox.className =
+                "message-content";
+
+
+            const typing =
+                document.createElement("div");
+
+            typing.className =
+                "typing";
+
+            typing.innerHTML =
+                `
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                `;
+
+
+            contentBox.appendChild(typing);
+
+            wrapper.appendChild(avatar);
+            wrapper.appendChild(contentBox);
+
+            messages.appendChild(wrapper);
+
+            messages.scrollTop =
+                messages.scrollHeight;
+
+        }
+
+
+        function removeTyping() {
+
+            const typingMessage =
+                document.getElementById(
+                    "typingMessage"
+                );
+
+            if (typingMessage) {
+                typingMessage.remove();
+            }
+
+        }
+
+
+        /* =========================
+           IMAGE
+        ========================== */
 
         imageInput.addEventListener(
             "change",
@@ -1884,17 +2872,37 @@
                     return;
                 }
 
-                if (!file.type.startsWith("image/")) {
+                if (
+                    !file.type.startsWith(
+                        "image/"
+                    )
+                ) {
+                    return;
+                }
+
+                /*
+                 * Keep the browser-side
+                 * upload reasonably small.
+                 */
+
+                if (
+                    file.size >
+                    8 * 1024 * 1024
+                ) {
 
                     alert(
-                        "Please select an image."
+                        "Image is too large. Maximum size is 8 MB."
                     );
+
+                    imageInput.value = "";
 
                     return;
                 }
 
+
                 const reader =
                     new FileReader();
+
 
                 reader.onload = event => {
 
@@ -1909,6 +2917,7 @@
 
                 };
 
+
                 reader.readAsDataURL(file);
 
             }
@@ -1917,130 +2926,94 @@
 
         removeImage.addEventListener(
             "click",
-            () => {
-
-                selectedImage = null;
-
-                imageInput.value = "";
-
-                imagePreview.style.display =
-                    "none";
-
-                previewImage.src = "";
-
-            }
+            clearImage
         );
 
 
-        /* =====================================================
-           ADD MESSAGE
-        ===================================================== */
+        function clearImage() {
 
-        function addMessage(
-            text,
-            type,
-            image = null
-        ) {
+            selectedImage = null;
 
-            const message =
-                document.createElement(
-                    "div"
-                );
+            imageInput.value = "";
 
-            message.className =
-                `message ${type}`;
-
-            if (text) {
-
-                const textNode =
-                    document.createElement(
-                        "div"
-                    );
-
-                textNode.textContent =
-                    text;
-
-                message.appendChild(
-                    textNode
-                );
-
-            }
-
-            if (image) {
-
-                const img =
-                    document.createElement(
-                        "img"
-                    );
-
-                img.src = image;
-
-                img.alt =
-                    "Uploaded image";
-
-                message.appendChild(
-                    img
-                );
-
-            }
-
-            messages.appendChild(
-                message
+            previewImage.removeAttribute(
+                "src"
             );
 
-            messages.scrollTop =
-                messages.scrollHeight;
+            imagePreview.style.display =
+                "none";
+
         }
 
 
-        /* =====================================================
+        /* =========================
            SEND MESSAGE
-        ===================================================== */
+        ========================== */
 
         async function sendMessage() {
+
+            if (isSending) {
+                return;
+            }
+
 
             const text =
                 messageInput.value.trim();
 
-            if (!text && !selectedImage) {
+
+            if (
+                !text &&
+                !selectedImage
+            ) {
                 return;
             }
 
-            if (welcome) {
 
-                welcome.remove();
+            isSending = true;
 
-            }
+            sendButton.disabled = true;
 
-            const imageToSend =
+
+            const displayedText =
+                text ||
+                "Analyze this image.";
+
+
+            const imageForRequest =
                 selectedImage;
 
+
+            /*
+             * Add user message immediately.
+             */
+
             addMessage(
-                text,
                 "user",
-                imageToSend
+                displayedText,
+                imageForRequest
             );
+
+
+            conversationHistory.push({
+                role: "user",
+                content: displayedText
+            });
+
+
+            saveConversation();
+
 
             messageInput.value = "";
 
-            messageInput.style.height =
-                "auto";
+            autoResize();
 
-            typing.style.display =
-                "block";
 
-            messages.scrollTop =
-                messages.scrollHeight;
+            clearImage();
+
+            showTyping();
 
 
             try {
-
-                /*
-                 * The context is sent to Flask.
-                 *
-                 * Clicking the context button itself
-                 * NEVER reaches this function.
-                 */
 
                 const response =
                     await fetch(
@@ -2053,17 +3026,21 @@
                                     "application/json"
                             },
 
-                            body: JSON.stringify({
+                            body:
+                                JSON.stringify({
+                                    message:
+                                        text,
 
-                                message: text,
+                                    context:
+                                        selectedContext,
 
-                                context:
-                                    selectedContext,
+                                    image:
+                                        imageForRequest,
 
-                                image:
-                                    imageToSend
-
-                            })
+                                    history:
+                                        conversationHistory
+                                            .slice(-12)
+                                })
                         }
                     );
 
@@ -2072,76 +3049,82 @@
                     await response.json();
 
 
-                typing.style.display =
-                    "none";
+                removeTyping();
 
 
                 if (!response.ok) {
 
-                    addMessage(
+                    throw new Error(
                         data.answer ||
-                        "MECORA is temporarily unavailable.",
-                        "ai"
+                        "Request failed."
                     );
 
-                    return;
                 }
 
 
+                const answer =
+                    typeof data.answer === "string"
+                        ? data.answer
+                        : "MECORA could not generate a response.";
+
+
                 addMessage(
-                    data.answer ||
-                    "No response received.",
-                    "ai"
+                    "assistant",
+                    answer
                 );
+
+
+                conversationHistory.push({
+                    role: "assistant",
+                    content: answer
+                });
+
+
+                saveConversation();
 
 
             } catch (error) {
 
-                typing.style.display =
-                    "none";
+                removeTyping();
+
+
+                const errorMessage =
+                    "MECORA is temporarily unavailable. Please try again later.";
+
 
                 addMessage(
-                    "Connection error. Please try again.",
-                    "ai"
+                    "assistant",
+                    errorMessage
                 );
 
-                console.error(
-                    "MECORA:",
-                    error
-                );
+
+            } finally {
+
+                isSending = false;
+
+                sendButton.disabled =
+                    false;
+
+                messageInput.focus();
 
             }
-
-
-            /*
-             * Clear image AFTER request.
-             */
-
-            selectedImage = null;
-
-            imageInput.value = "";
-
-            imagePreview.style.display =
-                "none";
-
-            previewImage.src = "";
 
         }
 
 
-        /* =====================================================
-           SEND BUTTON
-        ===================================================== */
+        /* =========================
+           BUTTON
+        ========================== */
 
-        sendBtn.addEventListener(
+        sendButton.addEventListener(
             "click",
             sendMessage
         );
 
 
-        /* =====================================================
-           ENTER TO SEND
-        ===================================================== */
+        /* =========================
+           KEYBOARD
+        ========================== */
 
         messageInput.addEventListener(
             "keydown",
@@ -2162,68 +3145,71 @@
         );
 
 
-        /* =====================================================
-           AUTO RESIZE TEXTAREA
-        ===================================================== */
+        /* =========================
+           AUTO RESIZE
+        ========================== */
+
+        function autoResize() {
+
+            messageInput.style.height =
+                "auto";
+
+            messageInput.style.height =
+                Math.min(
+                    messageInput.scrollHeight,
+                    150
+                ) + "px";
+
+        }
+
 
         messageInput.addEventListener(
             "input",
-            () => {
-
-                messageInput.style.height =
-                    "auto";
-
-                messageInput.style.height =
-                    Math.min(
-                        messageInput.scrollHeight,
-                        140
-                    ) + "px";
-
-            }
+            autoResize
         );
 
 
-        /* =====================================================
-           DRAG & DROP IMAGE
-        ===================================================== */
+        /* =========================
+           DRAG & DROP
+        ========================== */
 
-        const composer =
+        const inputBox =
             document.querySelector(
-                ".composer"
+                ".input-box"
             );
 
 
-        composer.addEventListener(
+        inputBox.addEventListener(
             "dragover",
             event => {
 
                 event.preventDefault();
 
-                composer.style.borderColor =
-                    "#00d9ff";
+                inputBox.style.borderColor =
+                    "rgba(0,229,255,0.38)";
 
             }
         );
 
 
-        composer.addEventListener(
+        inputBox.addEventListener(
             "dragleave",
             () => {
 
-                composer.style.borderColor =
+                inputBox.style.borderColor =
                     "";
 
             }
         );
 
 
-        composer.addEventListener(
+        inputBox.addEventListener(
             "drop",
             event => {
 
                 event.preventDefault();
 
-                composer.style.borderColor =
+                inputBox.style.borderColor =
                     "";
 
                 const file =
@@ -2235,36 +3221,55 @@
                         "image/"
                     )
                 ) {
+                    return;
+                }
+
+
+                if (
+                    file.size >
+                    8 * 1024 * 1024
+                ) {
+
+                    alert(
+                        "Image is too large. Maximum size is 8 MB."
+                    );
 
                     return;
-
                 }
+
 
                 const reader =
                     new FileReader();
 
-                reader.onload =
-                    event => {
 
-                        selectedImage =
-                            event.target.result;
+                reader.onload = event => {
 
-                        previewImage.src =
-                            selectedImage;
+                    selectedImage =
+                        event.target.result;
 
-                        imagePreview.style.display =
-                            "block";
+                    previewImage.src =
+                        selectedImage;
 
-                    };
+                    imagePreview.style.display =
+                        "block";
 
-                reader.readAsDataURL(
-                    file
-                );
+                };
+
+
+                reader.readAsDataURL(file);
 
             }
         );
+
+
+        /* =========================
+           RESTORE
+        ========================== */
+
+        restoreConversation();
 
     </script>
 
 </body>
 </html>
+```
